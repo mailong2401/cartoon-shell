@@ -6,12 +6,29 @@ import Quickshell.Widgets
 
 // Import các thành phần phụ trong cùng thư mục
 import "../../settings" as Settings
+import "../../../components/" as Components
 import "./" as LauncherComponents
 
 PanelWindow {
     id: launcherPanel
-    implicitWidth: launcherPanel.settingsPanelVisible ? 1000 : 600
-    implicitHeight: launcherPanel.settingsPanelVisible ? 700 : 640
+    implicitWidth: {
+        if (panelManager.fullsetting && panelManager.setting) {
+            return 1500
+        } else if (panelManager.setting) {
+            return 1000
+        } else {
+            return 600
+        }
+    }
+    implicitHeight: {
+        if (panelManager.fullsetting && panelManager.setting) {
+            return 900
+        } else if (panelManager.setting) {
+            return 700
+        } else {
+            return 640
+        }
+    }
     color: "transparent"
     focusable: true
 
@@ -27,23 +44,6 @@ PanelWindow {
     property var lang : currentLanguage
     property bool launcherPanelVisible: true
 
-    function openSettings() {
-        launcherPanel.settingsPanelVisible = true
-        launcherPanel.launcherPanelVisible = false
-    }
-
-    function openLauncher() {
-        launcherPanel.settingsPanelVisible = false
-        launcherPanel.launcherPanelVisible = true
-        // Focus vào search field khi mở launcher
-        Qt.callLater(function() {
-            if (searchBox && searchBox.searchField) {
-                searchBox.searchField.forceActiveFocus()
-                searchBox.searchField.selectAll()
-            }
-        })
-    }
-
     // Sửa hàm closePanel
 function closePanel() {
     visible = false
@@ -58,50 +58,83 @@ function closePanel() {
     }
 
     anchors {
-        bottom: currentConfig.mainPanelPos === "bottom"
-        top: currentConfig.mainPanelPos === "top"
-        left: true
+        bottom: {
+            if (panelManager.fullsetting && panelManager.setting) {
+                return false // Không cố định ở bottom khi full screen
+            }
+            return currentConfig.mainPanelPos === "bottom"
+        }
+        top: {
+            if (panelManager.fullsetting && panelManager.setting) {
+                return false // Không cố định ở top khi full screen
+            }
+            return currentConfig.mainPanelPos === "top"
+        }
+        left: {
+            if (panelManager.fullsetting && panelManager.setting) {
+                return false // Không cố định ở left khi full screen
+            }
+            return true
+        }
+
     }
 
     margins {
-        top: currentConfig.mainPanelPos === "top" ? 10 : 0
-        bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
-        left: 10
+        top: {
+            if (panelManager.fullsetting && settingsPanelVisible) {
+                return 0 // Không margin khi full screen
+            }
+            return currentConfig.mainPanelPos === "top" ? 10 : 0
+        }
+        bottom: {
+            if (panelManager.fullsetting && settingsPanelVisible) {
+                return 0 // Không margin khi full screen
+            }
+            return currentConfig.mainPanelPos === "bottom" ? 10 : 0
+        }
+        left: {
+            if (panelManager.fullsetting && settingsPanelVisible) {
+                return 0 // Không margin khi full screen
+            }
+            return 10
+          }
     }
 
     // Focus scope để quản lý focus
-    FocusScope {
-        anchors.fill: parent
-        focus: true
-
-        // Click outside để đóng
-        MouseArea {
-            anchors.fill: parent
-            propagateComposedEvents: true
-            onPressed: (mouse) => {
-                if (mouseY < 0 || mouseY > height || mouseX < 0 || mouseX > width) {
-                    launcherPanel.closePanel()
-                }
-                mouse.accepted = false
-            }
-        }
-
         Rectangle {
             anchors.fill: parent
-            radius: 20
+            radius: {
+                if (panelManager.fullsetting && panelManager.setting) {
+                    return 10 // Radius nhỏ hơn khi full screen
+                }
+                return 20
+            }
             color: theme.primary.background
             border.color: theme.button.border
             border.width: 3
-
-            RowLayout {
+            ColumnLayout{
                 anchors.fill: parent
-                anchors.margins: 16
+                Components.BarFullSettings{
+                  visible: panelManager.fullsetting
+                  implicitHeight: 20
+                  Layout.fillWidth: true
+                }
+                Item {
+                  Layout.fillWidth: true
+                  Layout.fillHeight: true
+                    RowLayout {
+                      anchors.fill: parent
+                      anchors.margins: {
+                        if (panelManager.fullsetting && settingsPanelVisible) {
+                          return 20 // Margin lớn hơn khi full screen
+                        }
+                        return 16
+                      }
                 spacing: 12
 
                 LauncherComponents.Sidebar {
                     id: sidebar
-                    onAppLaunched: launcherPanel.openLauncher()
-                    onAppSettings: launcherPanel.openSettings()
+                    visible: !(panelManager.fullsetting && panelManager.setting)
                     onConfirmRequested: (action, actionLabel) => {
                         launcherPanel.confirmRequested(action, actionLabel)
                     }
@@ -114,7 +147,7 @@ function closePanel() {
                     id: settingsPanel
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    visible: launcherPanel.settingsPanelVisible
+                    visible: panelManager.setting
                     launcherPanel: launcherPanel
                     Behavior on Layout.preferredWidth {
                         NumberAnimation { duration: 250; easing.type: Easing.InOutQuad }
@@ -122,7 +155,7 @@ function closePanel() {
                 }
 
                 ColumnLayout {
-                    visible: launcherPanel.launcherPanelVisible
+                    visible: !panelManager.setting
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     spacing: 10
@@ -149,8 +182,9 @@ function closePanel() {
                         onAppLaunched: closePanel()
                     }
                 }
+            }}
             }
-        }
+            
     }
 
     // Khi panel trở nên visible, focus vào search field

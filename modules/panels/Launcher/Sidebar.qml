@@ -15,8 +15,6 @@ Rectangle {
     property var theme : currentTheme
     property var lang : currentLanguage
 
-    signal appLaunched()
-    signal appSettings()
     signal lockRequested()
 
     signal confirmRequested(string action, string actionLabel)
@@ -101,7 +99,7 @@ Rectangle {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    root.appLaunched()
+                    panelManager.togglePanel("listLauncher")
                 }
             }
         }
@@ -176,7 +174,7 @@ Rectangle {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    root.appSettings()
+                    panelManager.togglePanel("setting")
                 }
             }
         }

@@ -13,7 +13,7 @@ Rectangle {
     Layout.fillHeight: true
     color: theme.primary.dim_background
     radius: 12
-    border.color: theme.normal.black
+    border.color: theme.button.border
     border.width: 2
 
     ColumnLayout {

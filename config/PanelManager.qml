@@ -6,6 +6,9 @@ QtObject {
 
     // Properties cho từng panel
     property bool launcher: false
+    property bool setting: false
+    property bool fullsetting: false
+    property bool listLauncher: false
 
     property bool cpu: false
 
@@ -69,10 +72,14 @@ function togglePanel(panelName) {
             ram = false
             weather = false
             launcher = true
+            listLauncher = true
             music = false
             dashboard = false
           } else {
             launcher = false
+            setting = false
+            listLauncher = false
+            fullsetting = false
           }
           break
         }
@@ -230,7 +237,18 @@ function togglePanel(panelName) {
           }
           break
         }
-        case "clock": clock = !clock; break
+        case "setting": {
+          calendar = false
+            setting = true
+          break
+        }
+        case "fullsetting": {
+          fullsetting = !fullsetting
+          break
+        }
+        case "listLauncher" : {
+          setting = false
+        }
     }
 
     panelChanged(panelName, getPanelVisible(panelName))
@@ -251,6 +269,8 @@ function togglePanel(panelName) {
         mixer = false
         battery = false
         dashboard = false
+        setting = false
+        fullsetting = false
         // Không đóng clock panel vì nó được điều khiển bởi config
     }
 

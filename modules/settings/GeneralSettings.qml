@@ -28,16 +28,54 @@ Item {
         ColumnLayout {
             width: parent.width
             spacing: 15
-            
-            Text {
-                text: lang.general?.title || "Cài đặt chung"
-                color: theme.primary.foreground
-                font {
-                    family: "ComicShannsMono Nerd Font"
-                    pixelSize: 24
-                    bold: true
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 10
+                
+                // Button Nâng cao ở góc trái
+                
+                
+                
+                
+                // Tiêu đề (được đẩy sang bên phải)
+                Text {
+                    text: lang.general?.title
+                    color: theme.primary.foreground
+                    font.pixelSize: 24
+                    font.bold: true
+                    font.family: "ComicShannsMono Nerd Font"
+                  }
+                  Item {
+                    Layout.fillWidth: true
                 }
-                Layout.topMargin: 10
+                  Button {
+
+                    id: advancedButton
+                    visible: !panelManager.fullsetting
+                    text: "Nâng cao"
+                    font.family: "ComicShannsMono Nerd Font"
+                    font.pixelSize: 14
+                    
+                    background: Rectangle {
+                        color: advancedButton.hovered ? theme.button.hover : theme.button.background
+                        border.color: theme.button.border
+                        border.width: 1
+                        radius: 8
+                    }
+                    
+                    contentItem: Text {
+                        text: advancedButton.text
+                        font: advancedButton.font
+                        color: theme.button.foreground
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+                    
+                    onClicked: {
+                        panelManager.togglePanel("fullsetting")
+                        // Thêm xử lý khi click vào đây
+                    }
+                }
             }
             
             Rectangle {
@@ -62,9 +100,9 @@ Item {
 
                 Grid {
                     Layout.fillWidth: true
-                    columns: 5
-                    columnSpacing: 8
-                    rowSpacing: 8
+                    columns: !panelManager.fullsetting ? 5 : 10
+                    columnSpacing: !panelManager.fullsetting ? 8 : 10
+                    rowSpacing: !panelManager.fullsetting ? 8 : 10
 
                     Repeater {
                         model: [
@@ -101,8 +139,8 @@ Item {
                         ]
 
                         delegate: Rectangle {
-                            width: 85
-                            height: 70
+                            width: !panelManager.fullsetting ? 85 : 110
+                            height: !panelManager.fullsetting ? 70 : 91
                             radius: 10
                             color: currentConfig.lang === modelData.code ? theme.normal.blue : (langMouseArea.containsMouse ? theme.button.background_select : theme.button.background)
                             border.color: currentConfig.lang === modelData.code ? theme.normal.blue : (langMouseArea.containsPress ? theme.button.border_select : theme.button.border)

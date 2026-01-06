@@ -47,7 +47,7 @@ Rectangle {
             color: theme.primary.dim_background
             radius: 8
             border {
-                color: theme.normal.black
+                color: theme.button.border
                 width: 2
             }
             

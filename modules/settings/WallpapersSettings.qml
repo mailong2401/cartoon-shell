@@ -93,7 +93,6 @@ Item {
         clip: true
 
         ColumnLayout {
-            width: parent.width - 40
             spacing: 20
 
             // Header
@@ -118,7 +117,7 @@ Item {
                 spacing: 20
 
                 Rectangle {
-                    Layout.preferredWidth: 160
+                    Layout.preferredWidth: !panelManager.fullsetting ? 450 : 1160
                     Layout.preferredHeight: 40
                     radius: 8
                     color: theme.button.background
@@ -143,29 +142,36 @@ Item {
                             font.pixelSize: 18
                             font.bold: true
                         }
-                    }
-                }
-
-                Text {
-                    text: homePath ? (lang?.wallpapers?.path || "Đường dẫn:") + " " + homePath + "/Pictures/Wallpapers/" : (lang?.wallpapers?.loading || "Đang tải...")
+                        Text {
+                    text: homePath ? (lang?.wallpapers?.path || "Đường dẫn:") + " ~/Pictures/Wallpapers/" : (lang?.wallpapers?.loading || "Đang tải...")
                     font.family: "ComicShannsMono Nerd Font"
                     color: theme.primary.dim_foreground
                     font.pixelSize: 16
                     Layout.fillWidth: true
                     elide: Text.ElideMiddle
                 }
+                    }
+                }
+
+                
             }
 
             // Wallpapers Grid
             GridView {
                 id: wallpapersGrid
                 Layout.fillWidth: true
+                // Định nghĩa số cột mong muốn
+                property int columns: !panelManager.fullsetting ? 3 : 6
+                
+                // Tính cellWidth dựa trên số cột
+                cellWidth: Math.floor(parent.width / columns)
+                cellHeight: !panelManager.fullsetting ? 200 : 300
+                
+                // Tính chiều cao dựa trên số cột
                 Layout.preferredHeight: Math.max(
                     400,
-                    Math.ceil(folderModel.count / Math.floor((parent.width - 40) / 190)) * 200
+                    Math.ceil(folderModel.count / columns) * cellHeight
                 )
-                cellWidth: 190
-                cellHeight: 200
                 clip: true
 
                 model: FolderListModel {
