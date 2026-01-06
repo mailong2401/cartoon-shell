@@ -263,8 +263,8 @@ Rectangle {
         spacing: 5
         Rectangle {
             id: bluetoothContainer
-            Layout.preferredWidth: bluetoothCContent.width + currentSizes.statusAreaLayout?.containerPadding
-            Layout.preferredHeight: bluetoothCContent.height + currentSizes.statusAreaLayout?.containerVerticalPadding
+            Layout.preferredWidth:  20
+            Layout.preferredHeight: 10
             color: "transparent"
             radius: 6
             transformOrigin: Item.Center
@@ -277,9 +277,9 @@ Rectangle {
                 Image {
                     id: bluetoothImage
                     source: root.bluetooth_icon
-                    width: currentSizes.iconSize?.medium || 35
-                    height: currentSizes.iconSize?.medium || 35
-                    sourceSize: Qt.size(currentSizes.iconSize?.medium || 35, currentSizes.iconSize?.medium || 35)
+                    width: 35
+                    height: 35
+                    sourceSize: Qt.size(35, 35)
                 }
             }
 
@@ -309,8 +309,8 @@ Rectangle {
         // Network Status
         Rectangle {
             id: networkContainer
-            Layout.preferredWidth: networkContent.width + currentSizes.statusAreaLayout?.containerPadding
-            Layout.preferredHeight: networkContent.height + currentSizes.statusAreaLayout?.containerVerticalPadding
+            Layout.preferredWidth: 100
+            Layout.preferredHeight: 35
             color: "transparent"
             radius: 6
             transformOrigin: Item.Center
@@ -365,8 +365,8 @@ Rectangle {
         // Volume
         Rectangle {
             id: volumeContainer
-            Layout.preferredWidth: volumeContent.width + currentSizes.statusAreaLayout?.containerPadding
-            Layout.preferredHeight: volumeContent.height + currentSizes.statusAreaLayout?.containerVerticalPadding
+            Layout.preferredWidth: 50
+            Layout.preferredHeight: 35
             color: "transparent"
             radius: 6
             transformOrigin: Item.Center
@@ -432,8 +432,8 @@ Rectangle {
         // Battery
         Rectangle {
             id: batteryContainer
-            Layout.preferredWidth: batteryContent.width + currentSizes.statusAreaLayout?.containerPadding
-            Layout.preferredHeight: batteryContent.height + currentSizes.statusAreaLayout?.containerVerticalPadding
+            Layout.preferredWidth: 50
+            Layout.preferredHeight: 35
             color: "transparent"
             radius: 6
             transformOrigin: Item.Center
@@ -446,15 +446,15 @@ Rectangle {
                 Image {
                     id: batteryIcon
                     source: '../../assets/battery/full.png'
-                    width: currentSizes.iconSize?.normal || 30
-                    height: currentSizes.iconSize?.normal || 30
-                    sourceSize: Qt.size(currentSizes.iconSize?.normal || 30, currentSizes.iconSize?.normal || 30)
+                    width: 30
+                    height: 30
+                    sourceSize: Qt.size(30, 30)
                 }
                 Text {
                     text: root.capacity_battery + "%"
                     color: theme.primary.foreground
                     font { 
-                        pixelSize: currentSizes.fontSize?.medium
+                        pixelSize: 16
                         bold: true 
                     }
                     verticalAlignment: Text.AlignVCenter
@@ -481,8 +481,8 @@ Rectangle {
         // Power Off
         Rectangle {
             id: powerContainer
-            Layout.preferredWidth: currentSizes.statusAreaLayout?.powerContainerSize || 40
-            Layout.preferredHeight: currentSizes.statusAreaLayout?.powerContainerSize || 40
+            Layout.preferredWidth: 40
+            Layout.preferredHeight: 40
             color: "transparent"
             radius: 6
             transformOrigin: Item.Center
@@ -490,9 +490,9 @@ Rectangle {
             Image {
                 id: powerIcon
                 source: '../../assets/system/poweroff.png'
-                width: currentSizes.iconSize?.normal || 30
-                height: currentSizes.iconSize?.normal || 30
-                sourceSize: Qt.size(currentSizes.iconSize?.normal || 30, currentSizes.iconSize?.normal || 30)
+                width: 30
+                height: 30
+                sourceSize: Qt.size(30, 30)
                 anchors.centerIn: parent
             }
 

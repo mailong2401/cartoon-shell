@@ -10,12 +10,8 @@ import "./" as LauncherComponents
 
 PanelWindow {
     id: launcherPanel
-    implicitWidth: launcherPanel.settingsPanelVisible ? 
-    (currentSizes.launcherPanel?.settingsWidth || 1000) : 
-    (currentSizes.launcherPanel?.width || 600)
-implicitHeight: launcherPanel.settingsPanelVisible ? 
-    (currentSizes.launcherPanel?.settingsHeight || 700) : 
-    (currentSizes.launcherPanel?.height || 640)
+    implicitWidth: launcherPanel.settingsPanelVisible ? 1000 : 600
+    implicitHeight: launcherPanel.settingsPanelVisible ? 700 : 640
     color: "transparent"
     focusable: true
 
@@ -92,15 +88,15 @@ function closePanel() {
 
         Rectangle {
             anchors.fill: parent
-            radius: currentSizes.launcherPanel?.radius || 20
+            radius: 20
             color: theme.primary.background
             border.color: theme.button.border
             border.width: 3
 
             RowLayout {
                 anchors.fill: parent
-                anchors.margins: currentSizes.launcherPanel?.margins || 16
-                spacing: currentSizes.spacing?.medium || 12
+                anchors.margins: 16
+                spacing: 12
 
                 LauncherComponents.Sidebar {
                     id: sidebar
@@ -129,12 +125,12 @@ function closePanel() {
                     visible: launcherPanel.launcherPanelVisible
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    spacing: currentSizes.launcherPanel?.spacing || 10
+                    spacing: 10
 
                     Text {
                         text: lang.system.application
                         color: theme.primary.foreground
-                        font.pixelSize: currentSizes.launcherPanel?.titleFontSize ||  40
+                        font.pixelSize: 40
                         font.bold: true
                         font.family: "ComicShannsMono Nerd Font"
                         Layout.alignment: Qt.AlignHCenter
@@ -171,7 +167,7 @@ function closePanel() {
 
     Shortcut {
         sequence: "Escape"
-        onActivated: closePanel()
+        onActivated: panelManager.togglePanel("launcher")
     }
 
     Component.onCompleted: {

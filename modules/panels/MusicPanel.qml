@@ -11,7 +11,6 @@ import "../../services" as Services
 PanelWindow {
     id: musicPanel
 
-    property var sizes: currentSizes.musicPanel || {}
     property var theme: currentTheme
     property var lang: currentLanguage
 
@@ -37,7 +36,7 @@ PanelWindow {
     margins {
         top: currentConfig.mainPanelPos === "top" ? 10 : 0
         bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
-        left: sizes.marginLeft || 400
+        left: 400
     }
 
     exclusiveZone: 0

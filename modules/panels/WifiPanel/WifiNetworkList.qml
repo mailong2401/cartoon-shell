@@ -5,7 +5,6 @@ import "." as Com
 
 ColumnLayout {
     id: networkList
-    property var sizes
     property var theme
     property var lang
     property var wifiManager
@@ -18,11 +17,11 @@ ColumnLayout {
         Text {
             anchors {
                 fill: parent
-                leftMargin: sizes.sectionLabelMargin || 10
+                leftMargin: 10
             }
             text: (lang?.wifi?.available_networks || "Mạng có sẵn") + 
                   " (" + wifiManager.wifiList.length + ")"
-            font.pixelSize: sizes.sectionLabelFontSize || 17
+            font.pixelSize: 17
             color: theme.primary.dim_foreground
             font.family: "ComicShannsMono Nerd Font"
         }
@@ -52,7 +51,6 @@ ColumnLayout {
             delegate: Com.WifiNetworkItem {
                 width: wifiListView.width
                 networkData: modelData
-                sizes: networkList.sizes
                 theme: networkList.theme
                 lang: networkList.lang
                 wifiManager: networkList.wifiManager

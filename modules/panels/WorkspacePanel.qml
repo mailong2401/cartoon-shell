@@ -5,7 +5,7 @@ import Quickshell.Io
 
 Rectangle {
     id: root
-    radius: currentSizes.radius?.normal || 10
+    radius: 10
     border.color: theme.button.border
     border.width: 3
 
@@ -92,21 +92,21 @@ Rectangle {
     RowLayout {
         id: workspaceRow
         anchors.centerIn: parent
-        spacing: currentSizes.spacing?.small || 4
+        spacing: 4
 
         Repeater {
             model: root.workspaces
             Rectangle {
                 property string wsId: modelData.id
-                Layout.preferredWidth: currentSizes.iconSize?.medium || 32
-                Layout.preferredHeight: currentSizes.iconSize?.medium || 32
-                radius: currentSizes.radius?.small || 6
+                Layout.preferredWidth: 32
+                Layout.preferredHeight: 32
+                radius: 6
                 color: "transparent"
 
                 Image {
                     anchors.centerIn: parent
-                    width: currentSizes.iconSize?.medium || 32
-                    height: currentSizes.iconSize?.medium || 32
+                    width: 32
+                    height: 32
                     fillMode: Image.PreserveAspectFit
                     source: modelData.id === root.activeWorkspace
                         ? "../../assets/workspace/pacman.png"

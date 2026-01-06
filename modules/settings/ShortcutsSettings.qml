@@ -9,14 +9,14 @@ Item {
 
     ScrollView {
         anchors.fill: parent
-        anchors.margins: currentSizes.generalSettings?.margin || 20
+        anchors.margins: 20
         clip: true
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         ScrollBar.vertical.policy: ScrollBar.AsNeeded
 
         ColumnLayout {
-            width: parent.parent.width - (currentSizes.generalSettings?.margin || 20) * 2
-            spacing: currentSizes.generalSettings?.spacing || 20
+            width: parent.parent.width - 40
+            spacing: 20
 
             // Header
             Text {
@@ -24,10 +24,10 @@ Item {
                 color: theme.primary.foreground
                 font {
                     family: "ComicShannsMono Nerd Font"
-                    pixelSize: currentSizes.generalSettings?.titleFontSize || 24
+                    pixelSize: 24
                     bold: true
                 }
-                Layout.topMargin: currentSizes.spacing?.normal || 10
+                Layout.topMargin: 10
             }
 
             Rectangle {
@@ -35,7 +35,6 @@ Item {
                 height: 1
                 color: theme.primary.foreground
             }
-
 
             // Basic Window Management
             ShortcutCategory {
@@ -175,7 +174,7 @@ Item {
 
                         // Key Badge (Left side)
                         Rectangle {
-                            Layout.preferredWidth: Math.max(keyText.implicitWidth + 24, 220)
+                            Layout.preferredWidth: 220
                             Layout.minimumWidth: 220
                             Layout.maximumWidth: 280
                             Layout.preferredHeight: 35

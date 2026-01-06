@@ -8,7 +8,6 @@ Rectangle {
     id: root
     
     property var theme: currentTheme
-    property var sizes: currentSizes
     property var config: currentConfig
     property string userName: config.dashboard.name
     property string userHandle: config.dashboard.username
@@ -39,7 +38,7 @@ Rectangle {
                             radius: width / 2
                             color: theme.primary.dim_background
                             border.color: theme.button.border
-                            border.width: sizes.borderWidth || 3
+                            border.width: 3
 
             Image {
                 anchors.fill: parent
@@ -56,7 +55,7 @@ Rectangle {
             Layout.alignment: Qt.AlignHCenter
             text: root.userName
             color: theme.primary.foreground
-            font.pixelSize: sizes.fontSize?.title
+            font.pixelSize: 40
             font.bold: true
             font.family: "ComicShannsMono Nerd Font"
         }
@@ -66,7 +65,7 @@ Rectangle {
             Layout.alignment: Qt.AlignHCenter
             text: root.userHandle
             color: theme.primary.foreground
-            font.pixelSize: sizes.fontSize?.large
+            font.pixelSize: 24
             font.family: "ComicShannsMono Nerd Font"
         }
     }

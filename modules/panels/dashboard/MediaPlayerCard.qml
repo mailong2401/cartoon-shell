@@ -17,14 +17,13 @@ Rectangle {
     property string albumArt: ""
     property int position: 0
     property int duration: 0
-    property var sizes: currentSizes?.musicCard || {}
 
     Layout.fillWidth: true
     Layout.preferredHeight: 220
     Layout.preferredWidth: 350
-    radius: sizes.radius || 28
+    radius: 28
     color: theme.primary.background
-    border.width: sizes.borderWidth || 3
+    border.width: 3
     border.color: theme.button.border
 
     function formatTime(ms) {
@@ -41,13 +40,13 @@ Rectangle {
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: sizes.margins || 20
-        spacing: sizes.spacing || 25
+        anchors.margins: 20
+        spacing: 25
 
         // Album Art (Circular with rotation) - Left Side
         Item {
-                    Layout.preferredWidth: sizes.albumArtSize || 160
-                    Layout.preferredHeight: sizes.albumArtSize || 160
+                    Layout.preferredWidth: 160
+                    Layout.preferredHeight: 160
 
                     // Rotating container
                     Item {
@@ -68,7 +67,7 @@ Rectangle {
                             radius: width / 2
                             color: theme.primary.dim_background
                             border.color: theme.normal.black
-                            border.width: sizes.borderWidth || 3
+                            border.width: 3
 
                             Image {
                                 id: albumImage
@@ -86,7 +85,7 @@ Rectangle {
                                 anchors.centerIn: parent
                                 text: "No Art"
                                 font.family: "ComicShannsMono Nerd Font"
-                                font.pixelSize: sizes.placeholderFontSize || 14
+                                font.pixelSize: 14
                                 color: theme.primary.dim_foreground
                                 visible: albumImage.status !== Image.Ready
                             }
@@ -98,7 +97,7 @@ Rectangle {
         ColumnLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            spacing: sizes.infoSpacing || 8
+            spacing: 8
 
             // Song title with marquee
             Item {
@@ -110,7 +109,7 @@ Rectangle {
                     id: songText
                     text: root.mprisPlayer ? (root.mprisPlayer.trackTitle || "No song playing") : "No song playing"
                     font.family: "ComicShannsMono Nerd Font"
-                    font.pixelSize: sizes.songFontSize || 20
+                    font.pixelSize: 20
                     font.bold: true
                     color: theme.primary.foreground
 
@@ -142,7 +141,7 @@ Rectangle {
                 Layout.fillWidth: true
                 text: root.mprisPlayer ? (root.mprisPlayer.trackArtist || "Unknown Artist") : "Unknown Artist"
                 font.family: "ComicShannsMono Nerd Font"
-                font.pixelSize: sizes.artistFontSize || 14
+                font.pixelSize: 14
                 color: theme.primary.dim_foreground
                 elide: Text.ElideRight
             }
@@ -152,23 +151,23 @@ Rectangle {
             // Controls Row
             RowLayout {
                 Layout.fillWidth: true
-                Layout.preferredHeight: sizes.controlsHeight || 48
-                spacing: sizes.controlsSpacing || 12
+                Layout.preferredHeight: 48
+                spacing: 12
 
                 Item { Layout.fillWidth: true }
 
                 // Previous button
                 Rectangle {
-                    Layout.preferredWidth: sizes.controlButtonSize || 32
-                    Layout.preferredHeight: sizes.controlButtonSize || 32
-                    radius: sizes.controlButtonRadius || 16
+                    Layout.preferredWidth: 32
+                    Layout.preferredHeight: 32
+                    radius: 16
                     color: prevArea.containsMouse ? theme.button.background_select : theme.button.background
 
                     Image {
                         anchors.centerIn: parent
                         source: theme.type === "dark" ? "../../../assets/music/pre_dark.png" : "../../../assets/music/pre.png"
-                        width: sizes.controlIconSize || 28
-                        height: sizes.controlIconSize || 28
+                        width: 28
+                        height: 28
                         fillMode: Image.PreserveAspectFit
                     }
 
@@ -185,9 +184,9 @@ Rectangle {
 
                 // Play/Pause button
                 Rectangle {
-                    Layout.preferredWidth: sizes.playButtonSize || 40
-                    Layout.preferredHeight: sizes.playButtonSize || 40
-                    radius: sizes.playButtonRadius || 20
+                    Layout.preferredWidth: 40
+                    Layout.preferredHeight: 40
+                    radius: 20
                     color: playArea.containsMouse ? theme.normal.blue : theme.button.background
                     Image {
                         anchors.centerIn: parent
@@ -198,8 +197,8 @@ Rectangle {
     var suffix = theme.type === "dark" ? "_dark" : ""
     return root.mprisPlayer.isPlaying ? "../../../assets/music/pause" + suffix + ".png" : "../../../assets/music/play" + suffix + ".png"
 }
-                        width: sizes.playIconSize || 32
-                        height: sizes.playIconSize || 32
+                        width: 32
+                        height: 32
                         fillMode: Image.PreserveAspectFit
                     }
 
@@ -216,15 +215,15 @@ Rectangle {
 
                 // Next button
                 Rectangle {
-                    Layout.preferredWidth: sizes.controlButtonSize || 32
-                    Layout.preferredHeight: sizes.controlButtonSize || 32
-                    radius: sizes.controlButtonRadius || 16
+                    Layout.preferredWidth: 32
+                    Layout.preferredHeight: 32
+                    radius: 16
                     color: nextArea.containsMouse ? theme.button.background_select : theme.button.background
                     Image {
                         anchors.centerIn: parent
                         source: theme.type === "dark" ? "../../../assets/music/next_dark.png" : "../../../assets/music/next.png"
-                        width: sizes.controlIconSize || 28
-                        height: sizes.controlIconSize || 28
+                        width: 28
+                        height: 28
                         fillMode: Image.PreserveAspectFit
                     }
 
@@ -254,7 +253,7 @@ Rectangle {
                     Text {
                         text: formatTime(root.mprisPlayer ? root.mprisPlayer.position : 0)
                         font.family: "ComicShannsMono Nerd Font"
-                        font.pixelSize: sizes.timeFontSize || 11
+                        font.pixelSize: 11
                         color: theme.primary.dim_foreground
                     }
 
@@ -263,15 +262,15 @@ Rectangle {
                     Text {
                         text: formatTime(root.mprisPlayer ? root.mprisPlayer.length : 0)
                         font.family: "ComicShannsMono Nerd Font"
-                        font.pixelSize: sizes.timeFontSize || 11
+                        font.pixelSize: 11
                         color: theme.primary.dim_foreground
                     }
                 }
 
                 Rectangle {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: sizes.progressBarHeight || 6
-                    radius: sizes.progressBarRadius || 3
+                    Layout.preferredHeight:6
+                    radius: 3
                     color: theme.primary.dim_background
 
                     Rectangle {

@@ -8,14 +8,13 @@ Rectangle {
     required property int index
     required property var adapter
     required property var theme
-    required property var sizes
     required property var lang
 
     signal pairError(string message)
 
     width: ListView.view.width
-    height: sizes.deviceItemHeight || 70
-    radius: sizes.deviceItemRadius || 10
+    height: 70
+    radius: 10
     color: deviceMouseArea.containsMouse ? theme.primary.dim_background : theme.primary.background
     border.width: modelData?.connected ? 2 : 0
     border.color: modelData?.connected ? theme.normal.blue : "transparent"
@@ -47,15 +46,15 @@ Rectangle {
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: sizes.deviceItemMargins || 12
-        spacing: sizes.deviceItemSpacing || 12
+        anchors.margins: 12
+        spacing: 12
         opacity: modelData?.pairing ? 0.7 : 1.0
 
         // Device icon
         Rectangle {
-            width: sizes.deviceIconSize || 46
-            height: sizes.deviceIconSize || 46
-            radius: sizes.deviceIconRadius || 23
+            width: 46
+            height: 46
+            radius: 23
             color: modelData?.connected ? theme.normal.blue : theme.button.background
 
             Text {
@@ -73,7 +72,7 @@ Rectangle {
             Text {
                 text: modelData?.name || lang?.bluetooth?.no_devices || "Unknown Device"
                 color: theme.primary.foreground
-                font.pixelSize: sizes.deviceNameFontSize || 16
+                font.pixelSize: 16
                 font.family: "ComicShannsMono Nerd Font"
                 font.weight: Font.Medium
                 elide: Text.ElideRight
@@ -93,7 +92,7 @@ Rectangle {
                     if (modelData?.paired) return theme.normal.blue
                     return theme.primary.dim_foreground
                 }
-                font.pixelSize: sizes.deviceStatusFontSize || 12
+                font.pixelSize: 12
                 font.family: "ComicShannsMono Nerd Font"
             }
         }
@@ -104,9 +103,9 @@ Rectangle {
 
             // Connect/Disconnect button
             Rectangle {
-                width: sizes.deviceButtonSize || 32
-                height: sizes.deviceButtonSize || 32
-                radius: sizes.deviceButtonRadius || 8
+                width: 32
+                height: 32
+                radius: 8
                 color: modelData?.connected ? theme.normal.red :
                        modelData?.paired ? theme.normal.blue : theme.button.background
                 opacity: (modelData?.paired || modelData?.connecting) ? 1 : 0.5
@@ -151,9 +150,9 @@ Rectangle {
 
             // Pair/Forget button
             Rectangle {
-                width: sizes.deviceButtonSize || 32
-                height: sizes.deviceButtonSize || 32
-                radius: sizes.deviceButtonRadius || 8
+                width: 32
+                height: 32
+                radius: 8
                 color: modelData?.pairing ? theme.normal.yellow :
                        modelData?.paired ? theme.normal.red : theme.normal.blue
                 opacity: modelData?.pairing ? 0.8 : 1

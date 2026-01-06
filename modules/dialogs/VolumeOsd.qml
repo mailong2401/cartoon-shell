@@ -7,7 +7,6 @@ import Quickshell.Widgets
 Scope {
     id: root
 
-    property var sizes: currentSizes.volumeOsd || {}
     property var theme: currentTheme
     property var lang: currentLanguage
     property bool shouldShowOsd: false
@@ -29,7 +28,7 @@ Scope {
 
     Timer {
         id: hideTimer
-        interval: sizes.hideDelay || 1000
+        interval: 1000
         onTriggered: root.shouldShowOsd = false
     }
 
@@ -41,34 +40,34 @@ Scope {
                 bottom: true
             }
             margins {
-              bottom: sizes.marginBottom || 120
+              bottom: 120
             }
             exclusiveZone: 0
-            implicitWidth: sizes.width || 280
-            implicitHeight: sizes.height || 100
+            implicitWidth: 280
+            implicitHeight: 100
             color: "transparent"
             mask: Region {}
 
             Rectangle {
                 anchors.fill: parent
-                radius: sizes.radius || 15
+                radius: 15
                 color: theme.primary.background
                 border.color: theme.normal.black
-                border.width: sizes.borderWidth || 3
+                border.width: 3
 
                 ColumnLayout {
                     anchors {
                         fill: parent
-                        leftMargin: sizes.margins || 15
-                        rightMargin: sizes.margins || 15
-                        bottomMargin: sizes.margins || 15
+                        leftMargin: 15
+                        rightMargin: 15
+                        bottomMargin: 15
                     }
-                    spacing: sizes.spacing || 12
+                    spacing: 12
 
                     RowLayout {
                         Image {
-                          Layout.preferredWidth: sizes.iconSize || 40
-                          Layout.preferredHeight: sizes.iconSize || 40
+                          Layout.preferredWidth: 40
+                          Layout.preferredHeight: 40
                           source: root.getVolumeIcon()
                           fillMode: Image.PreserveAspectFit
                           smooth: true
@@ -77,7 +76,7 @@ Scope {
                           text: isMuted ? (lang?.volume?.muted || "Muted") : Math.round(currentVolume * 100) + "%"
                           color: theme.primary.foreground
                           font.family: "ComicShannsMono Nerd Font"
-                          font.pixelSize: sizes.percentFontSize || 30
+                          font.pixelSize: 30
                           font.bold: true
                         }
                         Rectangle {
@@ -92,7 +91,7 @@ Scope {
                             anchors.right: parent.right
                           color: theme.primary.foreground
                           font.family: "ComicShannsMono Nerd Font"
-                          font.pixelSize: sizes.titleFontSize || 20
+                          font.pixelSize: 20
                           font.bold: true
                       }
                         }
@@ -108,8 +107,8 @@ Scope {
 
                         Rectangle {
                             Layout.fillWidth: true
-                            Layout.preferredHeight: sizes.progressBarHeight || 20
-                            radius: sizes.progressBarRadius || 20
+                            Layout.preferredHeight: 20
+                            radius: 20
                             color: "#333333"
 
                             Rectangle {

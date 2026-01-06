@@ -3,31 +3,30 @@ import QtQuick.Layouts
 
 RowLayout {
     id: header
-    property var sizes
     property var theme
     property var lang
     property var wifiManager
     
-    spacing: sizes.headerSpacing || 20
+    spacing: 20
     
     Rectangle {
-        width: sizes.headerIconContainerSize || 70
-        height: sizes.headerIconContainerSize || 70
-        radius: sizes.headerIconContainerRadius || 12
+        width: 70
+        height: 70
+        radius: 12
         color: "transparent"
         Image {
             source: "../../../assets/system/wifi.png"
             fillMode: Image.PreserveAspectFit
             smooth: true
-            width: sizes.headerIconSize || 50
-            height: sizes.headerIconSize || 50
+            width: 50
+            height: 50
             anchors.centerIn: parent
         }
     }
     
     Text {
         text: "WiFi"
-        font.pixelSize: sizes.headerTitleFontSize || 50
+        font.pixelSize: 50
         font.family: "ComicShannsMono Nerd Font"
         font.bold: true
         color: theme.primary.foreground
@@ -38,9 +37,9 @@ RowLayout {
     // Nút refresh với icon search và hiệu ứng giống hệt Bluetooth
     Rectangle {
         id: scanButton
-        Layout.preferredWidth: sizes.scanButtonSize || 55
-        Layout.preferredHeight: sizes.scanButtonSize || 55
-        radius: sizes.scanButtonRadius || 28
+        Layout.preferredWidth: 55
+        Layout.preferredHeight:55
+        radius: 28
         visible: wifiManager.wifiEnabled || false
         color: {
             if (wifiManager.isScanning) return theme.normal.red
@@ -64,16 +63,16 @@ RowLayout {
         // Sử dụng icon search giống Bluetooth
         Image {
             source: "../../../assets/launcher/search.png"
-            width: sizes.scanIconSize || 40
-            height: sizes.scanIconSize || 40
-            sourceSize: Qt.size(sizes.scanIconSize || 40, sizes.scanIconSize || 40)
+            width: 40
+            height: 40
+            sourceSize: Qt.size(40, 40)
             anchors.centerIn: parent
         }
 
         // Animation khi đang quét mạng - giống hệt Bluetooth
         Rectangle {
             anchors.fill: parent
-            radius: sizes.scanButtonRadius || 28
+            radius: 28
             color: "transparent"
             border.width: 2
             border.color: theme.normal.green

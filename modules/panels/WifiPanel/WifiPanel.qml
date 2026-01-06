@@ -6,10 +6,9 @@ import "." as Com
 
 PanelWindow {
     id: wifiPanel
-    property var sizes: currentSizes.wifiPanel || {}
 
-    implicitWidth: sizes.width || 430
-    implicitHeight: sizes.height || 800
+    implicitWidth: 450
+    implicitHeight: 800
 
     anchors {
         top: currentConfig.mainPanelPos === "top"
@@ -33,19 +32,18 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        radius: sizes.radius || 10
+        radius: 10
         color: theme.primary.background
-        border.width: sizes.borderWidth || 2
+        border.width: 2
         border.color: theme.button.border
 
         ColumnLayout {
             anchors.fill: parent
-            anchors.margins: sizes.margins || 16
-            spacing: sizes.spacing || 12
+            anchors.margins: 16
+            spacing: 12
 
             Com.WifiHeader {
                 Layout.fillWidth: true
-                sizes: wifiPanel.sizes
                 theme: wifiPanel.theme
                 lang: wifiPanel.lang
                 wifiManager: wifiManager
@@ -53,7 +51,6 @@ PanelWindow {
 
             Com.WifiStatus {
                 Layout.fillWidth: true
-                sizes: wifiPanel.sizes
                 theme: wifiPanel.theme
                 lang: wifiPanel.lang
                 wifiManager: wifiManager
@@ -62,7 +59,6 @@ PanelWindow {
             Com.WifiNetworkList {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                sizes: wifiPanel.sizes
                 theme: wifiPanel.theme
                 lang: wifiPanel.lang
                 wifiManager: wifiManager
@@ -72,7 +68,6 @@ PanelWindow {
             Com.WifiEmptyState {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                sizes: wifiPanel.sizes
                 theme: wifiPanel.theme
                 lang: wifiPanel.lang
                 visible: !wifiManager.wifiEnabled

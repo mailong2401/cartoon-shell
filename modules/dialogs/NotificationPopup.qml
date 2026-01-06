@@ -18,13 +18,13 @@ PanelWindow {
     visible: notificationModel.count > 0
     color: "transparent"
 
-    // Tính toán chiều cao dựa trên số lượng thông báo
+    // Cấu hình kích thước cố định
     property int maxNotifications: 4
     property int notificationHeight: 100
     property int notificationSpacing: 10
     property int containerMargin: 10
 
-    // Tính toán: margin container (10*2) + notifications
+    // Tính toán chiều cao dựa trên số lượng thông báo
     implicitHeight: containerMargin * 2 + notificationList.contentHeight
 
     Behavior on implicitHeight {
@@ -45,7 +45,7 @@ PanelWindow {
             id: notificationList
             anchors.fill: parent
             anchors.margins: 10
-            spacing: notificationSpacing
+            spacing: 10
             clip: true
             model: ListModel { id: notificationModel }
             interactive: false
@@ -226,8 +226,6 @@ PanelWindow {
                         }
                     }
 
-
-
                     // Actions (nếu có)
                     Flow {
                         width: parent.width
@@ -318,5 +316,4 @@ PanelWindow {
             notification.tracked = true
         }
     }
-    
 }

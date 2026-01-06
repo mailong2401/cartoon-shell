@@ -89,41 +89,41 @@ Item {
 
     ScrollView {
         anchors.fill: parent
-        anchors.margins: currentSizes.wallpaperSettings?.margin || 20
+        anchors.margins: 20
         clip: true
 
         ColumnLayout {
-            width: parent.width - (2 * (currentSizes.wallpaperSettings?.margin || 20))
-            spacing: currentSizes.wallpaperSettings?.columnSpacing || 20
+            width: parent.width - 40
+            spacing: 20
 
             // Header
             Text {
                 text: lang?.wallpapers?.title || "Quản lý hình ảnh"
                 color: theme.primary.foreground
-                font.pixelSize: currentSizes.wallpaperSettings?.titleFontSize || currentSizes.fontSize?.xlarge || 24
+                font.pixelSize: 24
                 font.family: "ComicShannsMono Nerd Font"
                 font.bold: true
-                Layout.topMargin: currentSizes.wallpaperSettings?.buttonFontSize || 10
+                Layout.topMargin: 10
             }
 
             Rectangle {
                 Layout.fillWidth: true
-                height: currentSizes.wallpaperSettings?.dividerHeight || 1
+                height: 1
                 color: theme.primary.foreground
             }
 
             // Statistics
             RowLayout {
                 Layout.fillWidth: true
-                spacing: currentSizes.wallpaperSettings?.columnSpacing || 20
+                spacing: 20
 
                 Rectangle {
-                    Layout.preferredWidth: currentSizes.wallpaperSettings?.statsWidth || 160
-                    Layout.preferredHeight: currentSizes.wallpaperSettings?.statsHeight || 40
-                    radius: currentSizes.wallpaperSettings?.statsRadius || 8
+                    Layout.preferredWidth: 160
+                    Layout.preferredHeight: 40
+                    radius: 8
                     color: theme.button.background
                     border.color: theme.button.border
-                    border.width: currentSizes.wallpaperSettings?.statsBorderWidth || 2
+                    border.width: 2
 
                     Row {
                         anchors.centerIn: parent
@@ -133,14 +133,14 @@ Item {
                             text: lang?.wallpapers?.total_images || "Tổng số ảnh:"
                             font.family: "ComicShannsMono Nerd Font"
                             color: theme.primary.dim_foreground
-                            font.pixelSize: currentSizes.wallpaperSettings?.statsLabelFontSize || 15
+                            font.pixelSize: 15
                         }
 
                         Text {
                             text: folderModel.count
                             color: theme.normal.blue
                             font.family: "ComicShannsMono Nerd Font"
-                            font.pixelSize: currentSizes.wallpaperSettings?.statsValueFontSize || 18
+                            font.pixelSize: 18
                             font.bold: true
                         }
                     }
@@ -150,7 +150,7 @@ Item {
                     text: homePath ? (lang?.wallpapers?.path || "Đường dẫn:") + " " + homePath + "/Pictures/Wallpapers/" : (lang?.wallpapers?.loading || "Đang tải...")
                     font.family: "ComicShannsMono Nerd Font"
                     color: theme.primary.dim_foreground
-                    font.pixelSize: currentSizes.wallpaperSettings?.pathFontSize || 16
+                    font.pixelSize: 16
                     Layout.fillWidth: true
                     elide: Text.ElideMiddle
                 }
@@ -161,12 +161,11 @@ Item {
                 id: wallpapersGrid
                 Layout.fillWidth: true
                 Layout.preferredHeight: Math.max(
-                    currentSizes.wallpaperSettings?.gridMinHeight || 400,
-                    Math.ceil(folderModel.count / Math.floor((parent.width - (2 * (currentSizes.wallpaperSettings?.margin || 20))) / (currentSizes.wallpaperSettings?.gridCellWidth || 190))) *
-                    (currentSizes.wallpaperSettings?.gridCellHeight || 200)
+                    400,
+                    Math.ceil(folderModel.count / Math.floor((parent.width - 40) / 190)) * 200
                 )
-                cellWidth: currentSizes.wallpaperSettings?.gridCellWidth || 190
-                cellHeight: currentSizes.wallpaperSettings?.gridCellHeight || 200
+                cellWidth: 190
+                cellHeight: 200
                 clip: true
 
                 model: FolderListModel {
@@ -178,23 +177,23 @@ Item {
                 }
 
                 delegate: Rectangle {
-                    width: wallpapersGrid.cellWidth - (currentSizes.wallpaperSettings?.gridCellSpacing || 10)
-                    height: wallpapersGrid.cellHeight - (currentSizes.wallpaperSettings?.gridCellSpacing || 10)
-                    radius: currentSizes.wallpaperSettings?.itemRadius || 12
+                    width: wallpapersGrid.cellWidth - 10
+                    height: wallpapersGrid.cellHeight - 10
+                    radius: 12
                     color: theme.button.background
                     border.color: theme.button.border
-                    border.width: currentSizes.wallpaperSettings?.itemBorderWidth || 1
+                    border.width: 1
 
                     Column {
                         anchors.fill: parent
-                        anchors.margins: currentSizes.wallpaperSettings?.itemPadding || 8
-                        spacing: currentSizes.wallpaperSettings?.itemContentSpacing || 8
+                        anchors.margins: 8
+                        spacing: 8
 
                         // Thumbnail
                         Rectangle {
                             width: parent.width
-                            height: parent.height - (currentSizes.wallpaperSettings?.thumbnailHeightOffset || 70)
-                            radius: currentSizes.radius?.small || 8
+                            height: parent.height - 70
+                            radius: 8
                             clip: true
                             color: "transparent"
 
@@ -228,16 +227,16 @@ Item {
                                 visible: isVideoFile(fileName)
                                 anchors.bottom: parent.bottom
                                 anchors.left: parent.left
-                                anchors.margins: currentSizes.wallpaperSettings?.currentIndicatorMargin || 5
-                                width: currentSizes.wallpaperSettings?.currentIndicatorSize || 24
-                                height: currentSizes.wallpaperSettings?.currentIndicatorSize || 24
-                                radius: currentSizes.wallpaperSettings?.currentIndicatorRadius || 12
+                                anchors.margins: 5
+                                width: 24
+                                height: 24
+                                radius: 12
                                 color: theme.normal.magenta
 
                                 Text {
                                     text: "▶"
                                     color: theme.primary.background
-                                    font.pixelSize: currentSizes.wallpaperSettings?.currentIndicatorFontSize || 12
+                                    font.pixelSize: 12
                                     font.bold: true
                                     anchors.centerIn: parent
                                 }
@@ -248,16 +247,16 @@ Item {
                                 visible: isCurrentWallpaper(filePath)
                                 anchors.top: parent.top
                                 anchors.right: parent.right
-                                anchors.margins: currentSizes.wallpaperSettings?.currentIndicatorMargin || 5
-                                width: currentSizes.wallpaperSettings?.currentIndicatorSize || 24
-                                height: currentSizes.wallpaperSettings?.currentIndicatorSize || 24
-                                radius: currentSizes.wallpaperSettings?.currentIndicatorRadius || 12
+                                anchors.margins: 5
+                                width: 24
+                                height: 24
+                                radius: 12
                                 color: theme.normal.green
 
                                 Text {
                                     text: "✓"
                                     color: theme.primary.background
-                                    font.pixelSize: currentSizes.wallpaperSettings?.currentIndicatorFontSize || 12
+                                    font.pixelSize: 12
                                     font.bold: true
                                     anchors.centerIn: parent
                                 }
@@ -267,47 +266,47 @@ Item {
                         // File Info & Actions
                         Column {
                             width: parent.width
-                            spacing: currentSizes.wallpaperSettings?.fileInfoSpacing || 6
+                            spacing: 6
 
                             Text {
                                 text: fileName
                                 color: theme.primary.foreground
-                                font.pixelSize: currentSizes.wallpaperSettings?.fileNameFontSize || 11
+                                font.pixelSize: 11
                                 elide: Text.ElideMiddle
                                 width: parent.width
                             }
 
                             Row {
                                 width: parent.width
-                                spacing: currentSizes.spacing?.normal || 8
+                                spacing: 8
                                 Text {
                                     text: Math.round(fileSize / 1024) + " KB"
                                     color: theme.primary.dim_foreground
-                                    font.pixelSize: currentSizes.wallpaperSettings?.fileSizeFontSize || 9
+                                    font.pixelSize: 9
                                 }
                                 Text {
                                     text: new Date(fileModified).toLocaleDateString(Qt.locale(), "dd/MM/yyyy")
                                     color: theme.primary.dim_foreground
-                                    font.pixelSize: currentSizes.wallpaperSettings?.fileDateFontSize || 9
+                                    font.pixelSize: 9
                                 }
                             }
 
                             Row {
                                 width: parent.width
-                                spacing: currentSizes.wallpaperSettings?.actionsSpacing || 6
+                                spacing: 6
 
                                 // Set Wallpaper
                                 Rectangle {
-                                    width: (parent.width - currentSizes.wallpaperSettings?.actionsSpacing || 6) / 2
-                                    height: currentSizes.wallpaperSettings?.buttonHeight || 28
-                                    radius: currentSizes.wallpaperSettings?.buttonRadius || 6
+                                    width: (parent.width - 6) / 2
+                                    height: 28
+                                    radius: 6
                                     color: isCurrentWallpaper(filePath) ? theme.normal.green : theme.normal.blue
 
                                     Text {
                                         anchors.centerIn: parent
                                         text: isCurrentWallpaper(filePath) ? (lang?.wallpapers?.already_set || "Đã đặt") : (lang?.wallpapers?.set_wallpaper || "Đặt nền")
                                         color: theme.primary.background
-                                        font.pixelSize: currentSizes.wallpaperSettings?.buttonFontSize || 10
+                                        font.pixelSize: 10
                                         font.bold: true
                                     }
 
@@ -320,16 +319,16 @@ Item {
 
                                 // Delete Button
                                 Rectangle {
-                                    width: (parent.width - currentSizes.wallpaperSettings?.actionsSpacing || 6) / 2
-                                    height: currentSizes.wallpaperSettings?.buttonHeight || 28
-                                    radius: currentSizes.wallpaperSettings?.buttonRadius || 6
+                                    width: (parent.width - 6) / 2
+                                    height: 28
+                                    radius: 6
                                     color: theme.normal.red
 
                                     Text {
                                         anchors.centerIn: parent
                                         text: lang?.wallpapers?.delete || "Xóa"
                                         color: theme.primary.background
-                                        font.pixelSize: currentSizes.wallpaperSettings?.buttonFontSize || 10
+                                        font.pixelSize: 10
                                         font.bold: true
                                     }
 
@@ -350,7 +349,7 @@ Item {
                 visible: folderModel.count === 0 && homePath
                 text: lang?.wallpapers?.no_images || "Không tìm thấy ảnh nào trong thư mục ~/Pictures/Wallpapers"
                 color: theme.primary.dim_foreground
-                font.pixelSize: currentSizes.fontSize?.normal || 14
+                font.pixelSize: 14
                 Layout.alignment: Qt.AlignCenter
             }
 
@@ -359,7 +358,7 @@ Item {
                 visible: !homePath
                 text: lang?.wallpapers?.loading_info || "Đang tải thông tin..."
                 color: theme.primary.dim_foreground
-                font.pixelSize: currentSizes.fontSize?.normal || 14
+                font.pixelSize: 14
                 Layout.alignment: Qt.AlignCenter
             }
         }
@@ -370,12 +369,12 @@ Item {
         id: deleteDialog
         visible: false
         anchors.centerIn: parent
-        width: currentSizes.wallpaperSettings?.dialogWidth || 300
-        height: currentSizes.wallpaperSettings?.dialogHeight || 160
-        radius: currentSizes.wallpaperSettings?.dialogRadius || 12
+        width: 300
+        height: 160
+        radius: 12
         color: theme.primary.background
         border.color: theme.normal.red
-        border.width: currentSizes.wallpaperSettings?.dialogBorderWidth || 2
+        border.width: 2
         z: 1000
 
         property string fileNameToDelete: ""
@@ -383,26 +382,26 @@ Item {
 
         Column {
             anchors.fill: parent
-            anchors.margins: currentSizes.wallpaperSettings?.dialogPadding || 20
-            spacing: currentSizes.wallpaperSettings?.dialogSpacing || 15
+            anchors.margins: 20
+            spacing: 15
 
             Text {
                 text: (lang?.wallpapers?.delete_confirm || "Xác nhận xóa") + "\n" + deleteDialog.fileNameToDelete
                 color: theme.normal.red
-                font.pixelSize: currentSizes.wallpaperSettings?.dialogTitleFontSize || 16
+                font.pixelSize: 16
                 font.bold: true
                 horizontalAlignment: Text.AlignHCenter
             }
 
             Row {
-                spacing: currentSizes.wallpaperSettings?.dialogSpacing || 15
+                spacing: 15
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 // Cancel
                 Rectangle {
-                    width: currentSizes.wallpaperSettings?.dialogButtonWidth || 100
-                    height: currentSizes.wallpaperSettings?.dialogButtonHeight || 35
-                    radius: currentSizes.wallpaperSettings?.dialogButtonRadius || 6
+                    width: 100
+                    height: 35
+                    radius: 6
                     color: theme.button.background
                     border.color: theme.button.border
 
@@ -410,7 +409,7 @@ Item {
                         anchors.centerIn: parent;
                         text: lang?.wallpapers?.cancel || "Hủy";
                         color: theme.primary.foreground
-                        font.pixelSize: currentSizes.wallpaperSettings?.dialogButtonFontSize || 14
+                        font.pixelSize: 14
                     }
 
                     MouseArea {
@@ -421,16 +420,16 @@ Item {
 
                 // Confirm delete
                 Rectangle {
-                    width: currentSizes.wallpaperSettings?.dialogButtonWidth || 100
-                    height: currentSizes.wallpaperSettings?.dialogButtonHeight || 35
-                    radius: currentSizes.wallpaperSettings?.dialogButtonRadius || 6
+                    width: 100
+                    height: 35
+                    radius: 6
                     color: theme.normal.red
 
                     Text {
                         anchors.centerIn: parent;
                         text: lang?.wallpapers?.delete || "Xóa";
                         color: theme.primary.background
-                        font.pixelSize: currentSizes.wallpaperSettings?.dialogButtonFontSize || 14
+                        font.pixelSize: 14
                     }
 
                     MouseArea {
@@ -451,28 +450,28 @@ Item {
         visible: false
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: currentSizes.wallpaperSettings?.notificationTopMargin || 20
-        width: currentSizes.wallpaperSettings?.notificationWidth || 250
-        height: currentSizes.wallpaperSettings?.notificationHeight || 50
-        radius: currentSizes.wallpaperSettings?.notificationRadius || 8
+        anchors.topMargin: 20
+        width: 250
+        height: 50
+        radius: 8
         color: theme.normal.green
         z: 1001
 
         Row {
             anchors.centerIn: parent;
-            spacing: currentSizes.wallpaperSettings?.notificationSpacing || 10
+            spacing: 10
             Text {
                 text: "✓";
                 color: theme.primary.background;
                 font.bold: true;
-                font.pixelSize: currentSizes.wallpaperSettings?.notificationFontSize || 16
+                font.pixelSize: 16
             }
             Text {
                 id: notificationText;
                 color: theme.primary.background;
                 text: "";
                 font.bold: true;
-                font.pixelSize: currentSizes.wallpaperSettings?.notificationFontSize || 16
+                font.pixelSize: 16
             }
         }
 

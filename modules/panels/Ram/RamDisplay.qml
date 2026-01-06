@@ -74,15 +74,15 @@ Item {
     Rectangle {
         anchors.fill: parent
         color: theme.primary.background
-        radius: currentSizes.ramManagement?.ramDisplay?.radius || 12
+        radius: 12
         border.color: borderColor
-        border.width: currentSizes.ramManagement?.ramDisplay?.borderWidth || 2
+        border.width: 2
         
         Rectangle {
             anchors.fill: parent
             color: "transparent"
             opacity: 0.1
-            radius: currentSizes.ramManagement?.ramDisplay?.radius || 12
+            radius: 12
             
             Canvas {
                 anchors.fill: parent
@@ -110,8 +110,8 @@ Item {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: currentSizes.ramManagement?.ramDisplay?.margins || 16
-        spacing: currentSizes.ramManagement?.ramDisplay?.spacing || 16
+        anchors.margins: 16
+        spacing: 16
 
         RowLayout {
             Layout.fillWidth: true
@@ -121,7 +121,7 @@ Item {
                 font.family: "ComicShannsMono Nerd Font"
                 color: textColor
                 font.bold: true
-                font.pixelSize: currentSizes.fontSize?.title || 30
+                font.pixelSize: 30
             }
             
             Item { Layout.fillWidth: true }
@@ -137,7 +137,7 @@ Item {
 
         ColumnLayout {
             Layout.fillWidth: true
-            spacing: currentSizes.ramManagement?.ramDisplay?.gridSpacing || 6
+            spacing: 6
 
             ColumnLayout {
                 Layout.fillWidth: true
@@ -151,7 +151,7 @@ Item {
                         color: textColor
                         font.bold: true
                         font.family: "ComicShannsMono Nerd Font"
-                        font.pixelSize: currentSizes.fontSize?.xlarge || 24
+                        font.pixelSize: 24
                     }
                     
                     Item { Layout.fillWidth: true }
@@ -161,13 +161,13 @@ Item {
                         color: getUsageColor(ramPercent)
                         font.bold: true
                         font.family: "ComicShannsMono Nerd Font"
-                        font.pixelSize: currentSizes.fontSize?.xlarge || 24
+                        font.pixelSize: 24
                     }
                 }
 
                 Rectangle {
                     Layout.fillWidth: true
-                    height: currentSizes.ramManagement?.ramDisplay?.progressBarHeight || 20
+                    height: 20
                     radius: 10
                     color: freeRamColor
 
@@ -192,7 +192,7 @@ Item {
                         text: ramUsed + " / " + ramTotal + " MB"
                         color: theme.primary.background
                         font.bold: true
-                        font.pixelSize: currentSizes.fontSize?.large || 20
+                        font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
                     }
                 }
@@ -201,7 +201,7 @@ Item {
             GridLayout {
                 Layout.fillWidth: true
                 columns: 3
-                rowSpacing: currentSizes.ramManagement?.ramDisplay?.gridSpacing || 4
+                rowSpacing: 4
                 columnSpacing: 8
 
                 Column {
@@ -209,13 +209,13 @@ Item {
                     Text {
                         text: lang?.ram?.used || "Used"
                         color: dimTextColor
-                        font.pixelSize: currentSizes.fontSize?.large || 20
+                        font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
                     }
                     Text {
                         text: ramUsed + " MB"
                         color: theme.normal.red
-                        font.pixelSize: currentSizes.fontSize?.large || 20
+                        font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
                         font.bold: true
                     }
@@ -226,13 +226,13 @@ Item {
                     Text {
                         text: lang?.ram?.free || "Free"
                         color: dimTextColor
-                        font.pixelSize: currentSizes.fontSize?.large || 20
+                        font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
                     }
                     Text {
                         text: ramFree + " MB"
                         color: theme.normal.green
-                        font.pixelSize: currentSizes.fontSize?.large || 20
+                        font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
                         font.bold: true
                     }
@@ -243,13 +243,13 @@ Item {
                     Text {
                         text: lang?.ram?.available || "Available"
                         color: dimTextColor
-                        font.pixelSize: currentSizes.fontSize?.large || 20
+                        font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
                     }
                     Text {
                         text: ramAvailable + " MB"
                         color: theme.normal.cyan
-                        font.pixelSize: currentSizes.fontSize?.large || 20
+                        font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
                         font.bold: true
                     }
@@ -259,7 +259,7 @@ Item {
 
         Rectangle {
             Layout.fillWidth: true
-            height: currentSizes.ramManagement?.ramDisplay?.separatorHeight || 1
+            height: 1
             color: "transparent"
             
             Rectangle {
@@ -277,7 +277,7 @@ Item {
 
         ColumnLayout {
             Layout.fillWidth: true
-            spacing: currentSizes.ramManagement?.ramDisplay?.gridSpacing || 6
+            spacing: 6
 
             ColumnLayout {
                 Layout.fillWidth: true
@@ -291,7 +291,7 @@ Item {
                         color: textColor
                         font.bold: true
                         font.family: "ComicShannsMono Nerd Font"
-                        font.pixelSize: currentSizes.fontSize?.xlarge || 24
+                        font.pixelSize: 24
                     }
                     
                     Item { Layout.fillWidth: true }
@@ -301,14 +301,14 @@ Item {
                         color: getUsageColor(swapPercent)
                         font.bold: true
                         font.family: "ComicShannsMono Nerd Font"
-                        font.pixelSize: currentSizes.fontSize?.xlarge || 24
+                        font.pixelSize: 24
                         opacity: swapTotal > 0 ? 1 : 0.3
                     }
                 }
 
                 Rectangle {
                     Layout.fillWidth: true
-                    height: currentSizes.ramManagement?.ramDisplay?.swapProgressBarHeight || 14
+                    height: 14
                     radius: 7
                     color: freeSwapColor
                     opacity: swapTotal > 0 ? 1 : 0.3
@@ -334,7 +334,7 @@ Item {
                         text: swapTotal > 0 ? (swapUsed + " / " + swapTotal + " MB") : (lang?.ram?.no_swap || "No SWAP")
                         color: theme.primary.background
                         font.bold: true
-                        font.pixelSize: currentSizes.fontSize?.large || 20
+                        font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
                     }
                 }
@@ -351,13 +351,13 @@ Item {
                     Text {
                         text: (lang?.ram?.used || "Used") + ":"
                         color: dimTextColor
-                        font.pixelSize: currentSizes.fontSize?.large || 20
+                        font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
                     }
                     Text {
                         text: swapUsed + " MB"
                         color: theme.normal.blue
-                        font.pixelSize: currentSizes.fontSize?.large || 20
+                        font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
                         font.bold: true
                     }
@@ -368,13 +368,13 @@ Item {
                     Text {
                         text: (lang?.ram?.free || "Free") + ":"
                         color: dimTextColor
-                        font.pixelSize: currentSizes.fontSize?.large || 20
+                        font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
                     }
                     Text {
                         text: swapFree + " MB"
                         color: theme.normal.green
-                        font.pixelSize: currentSizes.fontSize?.large || 20
+                        font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
                         font.bold: true
                     }
@@ -386,7 +386,7 @@ Item {
     Rectangle {
         anchors.fill: parent
         color: theme.primary.background
-        radius: currentSizes.ramManagement?.ramDisplay?.radius || 12
+        radius: 12
         opacity: dataLoaded ? 0 : 1
         visible: opacity > 0
         
@@ -406,7 +406,7 @@ Item {
             Text {
                 text: lang?.ram?.loading_memory || "Loading memory data..."
                 color: dimTextColor
-                font.pixelSize: currentSizes.ramManagement?.ramDisplay?.smallFontSize || 10
+                font.pixelSize: 10
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }

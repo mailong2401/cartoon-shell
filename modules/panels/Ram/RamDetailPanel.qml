@@ -8,8 +8,8 @@ import "./" as Components
 PanelWindow {
     id: root
 
-    implicitWidth: currentSizes.ramManagement?.panelWidth || 930
-    implicitHeight: currentSizes.ramManagement?.panelHeight || 960
+    implicitWidth: 930
+    implicitHeight: 960
 
     anchors {
         top: currentConfig.mainPanelPos === "top"
@@ -20,7 +20,7 @@ PanelWindow {
     margins {
         top: currentConfig.mainPanelPos === "top" ? 10 : 0
         bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
-        left: Math.round((Quickshell.screens.primary?.width ?? currentSizes.name) / 2 - implicitWidth / 2)
+        left: Math.round((Quickshell.screens.primary?.width ?? 1920) / 2 - implicitWidth / 2)
     }
 
     exclusiveZone: 0
@@ -32,28 +32,28 @@ PanelWindow {
     Rectangle {
         anchors.fill: parent
         color: theme.primary.background
-        radius: currentSizes.ramManagement?.panelRadius || 8
+        radius: 8
         border.color: theme.button.border
-        border.width: currentSizes.ramManagement?.panelBorderWidth || 3
+        border.width: 3
 
         ColumnLayout {
             anchors.fill: parent
-            anchors.margins: currentSizes.ramManagement?.panelMargins || 16
-            spacing: currentSizes.ramManagement?.spacing || 30
+            anchors.margins: 16
+            spacing: 30
 
             Components.RamDetailHeader {
                 Layout.fillWidth: true
-                Layout.preferredHeight: currentSizes.ramManagement?.header?.height || 40
+                Layout.preferredHeight: 40
             }
 
             Components.RamDisplay {
                 Layout.fillWidth: true
-                Layout.preferredHeight: currentSizes.ramManagement?.ramDisplay?.height || 300
+                Layout.preferredHeight: 300
             }
 
             Components.RamTaskManager {
                 Layout.fillWidth: true
-                Layout.preferredHeight: currentSizes.ramManagement?.ramTaskManager?.height || 500
+                Layout.preferredHeight: 500
             }
 
         }

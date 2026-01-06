@@ -6,34 +6,33 @@ Rectangle {
     id: header
     required property var adapter
     required property var theme
-    required property var sizes
     required property var lang
     required property bool isDiscovering
 
     signal scanClicked()
 
     Layout.fillWidth: true
-    height: sizes.headerHeight || 100
-    radius: sizes.headerRadius || 12
+    height: 100
+    radius: 12
     color: theme.primary.background
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: sizes.headerMargins || 12
-        spacing: sizes.headerSpacing || 12
+        anchors.margins: 12
+        spacing: 12
 
         // Bluetooth icon
         Rectangle {
-            width: sizes.headerIconSize || 64
-            height: sizes.headerIconSize || 64
+            width: 64
+            height: 64
             radius: 20
             color: theme.primary.background
 
             Image {
                 source: "../../../assets/settings/bluetooth.png"
-                width: sizes.headerIconSize || 64
-                height: sizes.headerIconSize || 64
-                sourceSize: Qt.size(sizes.headerIconSize || 64, sizes.headerIconSize || 64)
+                width: 64
+                height: 64
+                sourceSize: Qt.size(64, 64)
                 anchors.centerIn: parent
             }
         }
@@ -46,7 +45,7 @@ Rectangle {
             Text {
                 text: "Bluetooth"
                 color: theme.primary.foreground
-                font.pixelSize: sizes.headerTitleFontSize || 40
+                font.pixelSize: 40
                 font.family: "ComicShannsMono Nerd Font"
                 font.weight: Font.Bold
             }
@@ -57,9 +56,9 @@ Rectangle {
         // Scan button
         Rectangle {
             id: scanButton
-            Layout.preferredWidth: sizes.scanButtonSize || 55
-            Layout.preferredHeight: sizes.scanButtonSize || 55
-            radius: sizes.scanButtonRadius || 28
+            Layout.preferredWidth: 55
+            Layout.preferredHeight:55
+            radius: 28
             visible: adapter?.enabled || false
             color: {
                 if (isDiscovering) return theme.normal.red
@@ -73,16 +72,16 @@ Rectangle {
 
             Image {
                 source: "../../../assets/launcher/search.png"
-                width: sizes.scanIconSize || 40
-                height: sizes.scanIconSize || 40
-                sourceSize: Qt.size(sizes.scanIconSize || 40, sizes.scanIconSize || 40)
+                width: 40
+                height: 40
+                sourceSize: Qt.size(40, 40)
                 anchors.centerIn: parent
             }
 
             // Scanning animation
             Rectangle {
                 anchors.fill: parent
-                radius: sizes.scanButtonRadius || 28
+                radius: 28
                 color: "transparent"
                 border.width: 2
                 border.color: theme.normal.green

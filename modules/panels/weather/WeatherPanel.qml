@@ -10,7 +10,6 @@ import "." as Com
 PanelWindow {
     id: weatherPanel
 
-    property var sizes: currentSizes.weatherPanel || {}
     property var theme: currentTheme
     property var lang: currentLanguage
 
@@ -27,8 +26,8 @@ PanelWindow {
         }
     }
 
-    implicitWidth: sizes.width || 1000
-    implicitHeight: sizes.height || 550
+    implicitWidth: 1000
+    implicitHeight: 550
     focusable: true
 
     property string apiKey: ""
@@ -89,9 +88,9 @@ PanelWindow {
     }
 
     margins {
-        top: currentConfig.mainPanelPos === "top" ? (sizes.marginTop || 10) : 0
-        bottom: currentConfig.mainPanelPos === "bottom" ? (sizes.marginBottom || 10) : 0
-        left: sizes.marginLeft || 400
+        top: currentConfig.mainPanelPos === "top" ? 10 : 0
+        bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
+        left: 400
     }
 
     exclusiveZone: 0
@@ -257,16 +256,16 @@ PanelWindow {
     // Main UI
     Rectangle {
         anchors.fill: parent
-        radius: sizes.radius || 20
+        radius: 20
         border.color: theme.button.border
-        border.width: sizes.borderWidth || 3
+        border.width: 3
 
         color: theme.primary.background
 
         ColumnLayout {
             anchors.fill: parent
-            anchors.margins: sizes.margins || 20
-            spacing: sizes.spacing || 20
+            anchors.margins: 20
+            spacing: 20
 
             // Header
             Com.WeatherHeader {}
@@ -275,7 +274,7 @@ PanelWindow {
             RowLayout {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                spacing: sizes.contentSpacing || 20
+                spacing: 20
 
                 // Left: Config
                 Com.WeatherConfigSection {
@@ -325,7 +324,7 @@ PanelWindow {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     Layout.preferredWidth: parent.width * 0.6
-                    radius: sizes.sectionRadius || 16
+                    radius: 16
                     color: theme.primary.background
 
                     ColumnLayout {

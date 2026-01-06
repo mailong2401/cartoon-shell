@@ -9,7 +9,6 @@ Rectangle {
     id: deviceListRoot
     required property var adapter
     required property var theme
-    required property var sizes
     required property var lang
     required property int connectedCount
 
@@ -46,7 +45,6 @@ Rectangle {
                 delegate: Components.BluetoothDeviceItem {
                     adapter: deviceListRoot.adapter
                     theme: deviceListRoot.theme
-                    sizes: deviceListRoot.sizes
                     lang: deviceListRoot.lang
                     onPairError: function(message) {
                         deviceListRoot.pairError(message)

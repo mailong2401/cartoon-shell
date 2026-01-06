@@ -7,7 +7,6 @@ RowLayout {
     property string srcImage: ""
     property color iconColor: "white"
     property var theme: currentTheme
-    property var sizes: currentSizes
     property real value: 0.5
 
     Layout.fillWidth: true
@@ -25,8 +24,8 @@ RowLayout {
 
         Image {
             source:  srcImage
-            width: sizes.iconSize?.medium || 30
-            height: sizes.iconSize?.medium || 30
+            width: 30
+            height: 30
             fillMode: Image.PreserveAspectFit
             anchors.centerIn: parent
             smooth: true

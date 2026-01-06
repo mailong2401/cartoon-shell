@@ -6,7 +6,7 @@ import Quickshell.Io
 
 Rectangle {
     id: container
-    radius: currentSizes.launcherPanel?.radius || currentSizes.radius?.normal || 12
+    radius: 12
     color: theme.primary.dim_background
     border.color: theme.button.border
     border.width: 2
@@ -23,8 +23,8 @@ Rectangle {
     ColumnLayout {
         id: rootLayout
         anchors.fill: parent
-        anchors.margins: currentSizes.launcherPanel?.listLayoutMargins || 8
-        spacing: currentSizes.launcherPanel?.spacing || 6
+        anchors.margins: 8
+        spacing: 6
 
         Process {
             id: listApps
@@ -58,7 +58,7 @@ Rectangle {
     Layout.fillWidth: true
     Layout.fillHeight: true
     clip: true
-    spacing: currentSizes.launcherPanel?.listSpacing || 4
+    spacing: 4
     model: container.filteredApps
     currentIndex: container.currentIndex
     focus: true
@@ -66,8 +66,8 @@ Rectangle {
 
     delegate: Rectangle {
         width: ListView.view.width
-        height: currentSizes.launcherPanel?.listItemHeight || 56
-        radius: currentSizes.launcherPanel?.listItemRadius || 8
+        height: 56
+        radius: 8
         color: (ListView.isCurrentItem || mouseArea.containsMouse)
                ? theme.button.background_select
                : "transparent"
@@ -78,12 +78,12 @@ Rectangle {
 
         RowLayout {
             anchors.fill: parent
-            anchors.margins: currentSizes.launcherPanel?.listItemMargins || 8
-            spacing: currentSizes.launcherPanel?.listItemSpacing || 10
+            anchors.margins: 8
+            spacing: 10
 
             Image {
-                Layout.preferredWidth: currentSizes.launcherPanel?.listItemIconSize || 36
-                        Layout.preferredHeight: currentSizes.launcherPanel?.listItemIconSize || 36
+                Layout.preferredWidth: 36
+                        Layout.preferredHeight: 36
                 fillMode: Image.PreserveAspectFit
                 source: modelData.iconPath || ""
                 asynchronous: true
@@ -97,7 +97,7 @@ Rectangle {
                     text: modelData.name || "Unknown"
                     color: theme.primary.foreground
                     font.family: "ComicShannsMono Nerd Font"
-                    font.pixelSize: currentSizes.launcherPanel?.listItemTitleFontSize || 20
+                    font.pixelSize: 20
                     elide: Text.ElideRight
                 }
 
@@ -105,7 +105,7 @@ Rectangle {
                     text: modelData.comment || ""
                     color: theme.primary.bright_foreground
                     font.family: "ComicShannsMono Nerd Font"
-                    font.pixelSize: currentSizes.launcherPanel?.listItemCommentFontSize || 13
+                    font.pixelSize: 13
                     elide: Text.ElideRight
                 }
             }
@@ -138,7 +138,7 @@ Rectangle {
             visible: container.apps.length === 0
             text: "Không có kết quả"
             color: "#777"
-            font.pixelSize: currentSizes.fontSize?.normal || 14
+            font.pixelSize: 14
             font.family: "ComicShannsMono Nerd Font"
             horizontalAlignment: Text.AlignHCenter
             Layout.alignment: Qt.AlignHCenter

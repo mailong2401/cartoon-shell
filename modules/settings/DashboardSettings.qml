@@ -400,12 +400,12 @@ Item {
 
     ScrollView {
         anchors.fill: parent
-        anchors.margins: currentSizes.appearanceSettings?.margin || 20
+        anchors.margins: 20
         clip: true
 
         ColumnLayout {
             width: parent.width
-            spacing: currentSizes.appearanceSettings?.sectionSpacing || 20
+            spacing: 20
 
             // Title
             Text {
@@ -413,10 +413,10 @@ Item {
                 color: theme.primary.foreground
                 font {
                     family: "ComicShannsMono Nerd Font"
-                    pixelSize: currentSizes.appearanceSettings?.titleFontSize || currentSizes.fontSize?.xlarge || 24
+                    pixelSize: 24
                     bold: true
                 }
-                Layout.topMargin: currentSizes.spacing?.normal || 10
+                Layout.topMargin: 10
             }
 
             Rectangle {
@@ -431,7 +431,7 @@ Item {
                 color: theme.primary.foreground
                 font {
                     family: "ComicShannsMono Nerd Font"
-                    pixelSize: currentSizes.fontSize?.large || 20
+                    pixelSize: 20
                     bold: true
                 }
                 Layout.topMargin: 10
@@ -447,7 +447,7 @@ Item {
                     color: theme.primary.foreground
                     font {
                         family: "ComicShannsMono Nerd Font"
-                        pixelSize: currentSizes.fontSize?.medium || 16
+                        pixelSize: 16
                     }
                     Layout.preferredWidth: 150
                 }
@@ -509,7 +509,7 @@ Item {
                     color: theme.primary.foreground
                     font {
                         family: "ComicShannsMono Nerd Font"
-                        pixelSize: currentSizes.fontSize?.medium || 16
+                        pixelSize: 16
                     }
                     Layout.preferredWidth: 150
                 }
@@ -545,7 +545,7 @@ Item {
                     color: theme.primary.foreground
                     font {
                         family: "ComicShannsMono Nerd Font"
-                        pixelSize: currentSizes.fontSize?.medium || 16
+                        pixelSize: 16
                     }
                     Layout.preferredWidth: 150
                 }
@@ -577,7 +577,7 @@ Item {
                 color: theme.primary.foreground
                 font {
                     family: "ComicShannsMono Nerd Font"
-                    pixelSize: currentSizes.fontSize?.large || 20
+                    pixelSize: 20
                     bold: true
                 }
                 Layout.topMargin: 20
@@ -593,7 +593,7 @@ Item {
                     color: theme.primary.foreground
                     font {
                         family: "ComicShannsMono Nerd Font"
-                        pixelSize: currentSizes.fontSize?.medium || 16
+                        pixelSize: 16
                     }
                     Layout.preferredWidth: 150
                 }
@@ -650,7 +650,7 @@ Item {
                 color: theme.primary.foreground
                 font {
                     family: "ComicShannsMono Nerd Font"
-                    pixelSize: currentSizes.fontSize?.large || 20
+                    pixelSize: 20
                     bold: true
                 }
                 Layout.topMargin: 20
@@ -699,7 +699,7 @@ Item {
                 color: theme.primary.foreground
                 font {
                     family: "ComicShannsMono Nerd Font"
-                    pixelSize: currentSizes.fontSize?.large || 20
+                    pixelSize: 20
                     bold: true
                 }
                 Layout.topMargin: 20

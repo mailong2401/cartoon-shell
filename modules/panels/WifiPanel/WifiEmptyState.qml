@@ -3,7 +3,6 @@ import QtQuick.Layouts
 
 Rectangle {
     id: emptyState
-    property var sizes
     property var theme
     property var lang
     
@@ -14,9 +13,9 @@ Rectangle {
         spacing: 16
         
         Rectangle {
-            width: sizes.emptyStateIconSize || 80
-            height: sizes.emptyStateIconSize || 80
-            radius: sizes.emptyStateIconRadius || 16
+            width: 80
+            height: 80
+            radius: 16
             color: theme.normal.red
             anchors.horizontalCenter: parent.horizontalCenter
             Text {
@@ -28,14 +27,14 @@ Rectangle {
         
         Text {
             text: lang?.wifi?.disabled || "WiFi đang tắt"
-            font.pixelSize: sizes.emptyStateTitleFontSize || 18
+            font.pixelSize: 18
             color: theme.primary.foreground
             font.family: "ComicShannsMono Nerd Font"
         }
         
         Text {
             text: lang?.wifi?.turn_on || "Bật WiFi để xem mạng khả dụng"
-            font.pixelSize: sizes.emptyStateSubtitleFontSize || 14
+            font.pixelSize: 14
             color: theme.primary.dim_foreground
             font.family: "ComicShannsMono Nerd Font"
         }

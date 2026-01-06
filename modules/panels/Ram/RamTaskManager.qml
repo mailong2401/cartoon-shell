@@ -67,24 +67,24 @@ Item {
     Rectangle {
         anchors.fill: parent
         color: theme.primary.background
-        radius: currentSizes.ramManagement?.ramTaskManager?.radius || 12
+        radius: 12
         border.color: borderColor
-        border.width: currentSizes.ramManagement?.ramTaskManager?.borderWidth || 2
+        border.width: 2
 
         ColumnLayout {
             anchors.fill: parent
-            anchors.margins: currentSizes.ramManagement?.ramTaskManager?.margins || 16
-            spacing: currentSizes.ramManagement?.ramTaskManager?.spacing || 12
+            anchors.margins:16
+            spacing: 12
 
             Rectangle {
                 Layout.fillWidth: true
                 color: theme.primary.background
-                height: currentSizes.ramManagement?.ramTaskManager?.headerHeight || 50
-                radius: currentSizes.ramManagement?.ramTaskManager?.headerRadius || 8
+                height: 50
+                radius: 8
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.margins: currentSizes.ramManagement?.ramTaskManager?.headerSpacing || 12
+                    anchors.margins: 12
 
                     Row {
                         spacing: 8
@@ -94,7 +94,7 @@ Item {
                             font.family: "ComicShannsMono Nerd Font"
                             color: textColor
                 font.bold: true
-                font.pixelSize: currentSizes.fontSize?.title || 30
+                font.pixelSize: 30
                         }
                     }
 
@@ -106,13 +106,13 @@ Item {
                             text: lang.ram.header_bar.last_update
                             color: theme.primary.foreground
                             font.family: "ComicShannsMono Nerd Font"
-                            font.pixelSize: currentSizes.fontSize?.medium || 16
+                            font.pixelSize: 16
                         }
                         Text {
                             text: lastUpdateTime
                             color: theme.primary.foreground
                             font.family: "ComicShannsMono Nerd Font"
-                            font.pixelSize: currentSizes.fontSize?.medium || 16
+                            font.pixelSize: 16
                             font.bold: true
                         }
                     }
@@ -121,9 +121,9 @@ Item {
 
             Rectangle {
                 Layout.fillWidth: true
-                height: currentSizes.ramManagement?.ramTaskManager?.columnHeaderHeight || 32
+                height: 32
                 color: theme.bright.black
-                radius: currentSizes.ramManagement?.ramTaskManager?.columnHeaderRadius || 6
+                radius: 6
 
                 RowLayout {
                     anchors.fill: parent
@@ -135,7 +135,7 @@ Item {
                         color: theme.primary.dim_foreground
                         font.family: "ComicShannsMono Nerd Font"
                         font.bold: true 
-                        font.pixelSize: currentSizes.fontSize?.medium || 14
+                        font.pixelSize: 14
                         Layout.preferredWidth: 70 
                     }
                     
@@ -144,7 +144,7 @@ Item {
                         font.family: "ComicShannsMono Nerd Font"
                         color: theme.primary.dim_foreground
                         font.bold: true 
-                        font.pixelSize: currentSizes.fontSize?.medium || 14
+                        font.pixelSize: 14
                         Layout.fillWidth: true 
                     }
                     
@@ -152,7 +152,7 @@ Item {
                         text: lang.ram.headers.ram_percent
                         color: theme.primary.dim_foreground
                         font.bold: true 
-                        font.pixelSize: currentSizes.fontSize?.medium || 14
+                        font.pixelSize: 14
                         Layout.preferredWidth: 80 
                         horizontalAlignment: Text.AlignRight
                     }
@@ -162,7 +162,7 @@ Item {
                         color: theme.primary.dim_foreground
                         font.family: "ComicShannsMono Nerd Font"
                         font.bold: true 
-                        font.pixelSize: currentSizes.fontSize?.medium || 14
+                        font.pixelSize: 14
                         Layout.preferredWidth: 100 
                         horizontalAlignment: Text.AlignRight
                     }
@@ -179,22 +179,22 @@ Item {
 
                 delegate: Rectangle {
                     width: processListView.width
-                    height: currentSizes.ramManagement?.ramTaskManager?.processItemHeight || 50
+                    height: 50
                     color: index % 2 === 0 ? rowEvenColor : rowOddColor
-                    radius: currentSizes.ramManagement?.ramTaskManager?.processItemRadius || 6
+                    radius: 6
                     border.color: Qt.lighter(color, 1.1)
                     border.width: 1
 
                     RowLayout {
                         anchors.fill: parent
                         anchors.margins: 10
-                        spacing: currentSizes.ramManagement?.ramTaskManager?.processItemSpacing || 10
+                        spacing: 10
 
                         Text { 
                             text: modelData.pid
                             color: theme.normal.blue
                             font.family: "ComicShannsMono Nerd Font"
-                            font.pixelSize: currentSizes.fontSize?.medium || 14
+                            font.pixelSize: 14
                             font.bold: true
                             Layout.preferredWidth: 70 
                         }
@@ -202,7 +202,7 @@ Item {
                         Text { 
                             text: modelData.name
                             color: textColor
-                            font.pixelSize: currentSizes.fontSize?.medium || 14
+                            font.pixelSize: 14
                             elide: Text.ElideRight
                             Layout.fillWidth: true
                         }
@@ -211,7 +211,7 @@ Item {
                             text: modelData.percent.toFixed(1) + "%"
                             color: getPercentageColor(modelData.percent)
                             font.family: "ComicShannsMono Nerd Font"
-                            font.pixelSize: currentSizes.fontSize?.medium || 14
+                            font.pixelSize: 14
                             font.bold: modelData.percent > 3
                             Layout.preferredWidth: 80
                             horizontalAlignment: Text.AlignRight
@@ -221,7 +221,7 @@ Item {
                             text: modelData.rss_mb.toFixed(1) + " MB"
                             color: textColor
                             font.family: "ComicShannsMono Nerd Font"
-                            font.pixelSize: currentSizes.fontSize?.medium || 14
+                            font.pixelSize: 14
                             Layout.preferredWidth: 100
                             horizontalAlignment: Text.AlignRight
                         }
@@ -234,7 +234,7 @@ Item {
                             bottom: parent.bottom
                             margins: 6
                         }
-                        height: currentSizes.ramManagement?.ramTaskManager?.progressBarHeight || 3
+                        height: 3
                         radius: 1.5
                         color: progressBgColor
 
@@ -260,14 +260,14 @@ Item {
                         spacing: 12
                         Text { 
                             text: "⏳"
-                            font.pixelSize: currentSizes.fontSize?.title || 30
+                            font.pixelSize: 30
                             color: dimTextColor
                         }
                         Text { 
                             text: lang.ram.loading.message
                             font.family: "ComicShannsMono Nerd Font"
                             color: dimTextColor
-                            font.pixelSize: currentSizes.fontSize?.medium || 14
+                            font.pixelSize: 14
                         }
                     }
                 }
@@ -275,15 +275,15 @@ Item {
 
             Rectangle {
                 Layout.fillWidth: true
-                height: currentSizes.ramManagement?.ramTaskManager?.footerHeight || 60
+                height: 60
                 color: theme.bright.black
-                radius: currentSizes.ramManagement?.ramTaskManager?.footerRadius || 8
+                radius: 8
                 border.color: borderColor
-                border.width: currentSizes.ramManagement?.ramTaskManager?.footerBorderWidth || 1
+                border.width: 1
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.margins: currentSizes.ramManagement?.ramTaskManager?.footerSpacing || 10
+                    anchors.margins: 10
 
                     Column {
                         spacing: 2
@@ -291,13 +291,13 @@ Item {
                             text: lang.ram.footer.process_count_label
                             font.family: "ComicShannsMono Nerd Font"
                             color: dimTextColor
-                            font.pixelSize: currentSizes.fontSize?.medium || 14
+                            font.pixelSize: 14
                         }
                         Text {
                             text: processListView.count
                             font.family: "ComicShannsMono Nerd Font"
                             color: theme.normal.cyan
-                            font.pixelSize: currentSizes.fontSize?.medium || 14
+                            font.pixelSize: 14
                             font.bold: true
                         }
                     }
@@ -310,13 +310,13 @@ Item {
                             text: lang.ram.footer.total_ram_label
                             font.family: "ComicShannsMono Nerd Font"
                             color: dimTextColor
-                            font.pixelSize: currentSizes.fontSize?.medium || 14
+                            font.pixelSize: 14
                         }
                         Text {
                             text: calculateTotalRAM().toFixed(1) + " MB"
                             font.family: "ComicShannsMono Nerd Font"
                             color: theme.normal.green
-                            font.pixelSize: currentSizes.fontSize?.medium || 14
+                            font.pixelSize: 14
                             font.bold: true
                         }
                     }
@@ -329,13 +329,13 @@ Item {
                             text: lang.ram.footer.memory_distribution_label
                             font.family: "ComicShannsMono Nerd Font"
                             color: dimTextColor
-                            font.pixelSize: currentSizes.fontSize?.medium || 14
+                            font.pixelSize: 14
                         }
                         Text {
                             text: getMemoryDistribution()
                             font.family: "ComicShannsMono Nerd Font"
                             color: theme.normal.magenta
-                            font.pixelSize: currentSizes.fontSize?.medium || 14
+                            font.pixelSize: 14
                             font.bold: true
                         }
                     }

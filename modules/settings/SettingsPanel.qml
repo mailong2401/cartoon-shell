@@ -11,7 +11,7 @@ Rectangle {
     property var launcherPanel: null  // Reference to LauncherPanel
     signal backRequested()
 
-    radius: currentSizes.settingsPanel?.panelRadius || currentSizes.radius?.normal || 12
+    radius: 12
     color: theme.primary.background
     // Shadow effect
     layer.enabled: true
@@ -27,7 +27,7 @@ Rectangle {
 
     RowLayout {
         anchors.fill: parent
-        spacing: currentSizes.settingsPanel?.contentSpacing || currentSizes.spacing?.large || 20
+        spacing: 20
 
         // Sidebar
         Com.SidebarSettings {
@@ -45,16 +45,16 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             color: theme.primary.dim_background
-            radius: currentSizes.settingsPanel?.contentAreaRadius || currentSizes.radius?.small || 8
+            radius: 8
             border {
                 color: theme.normal.black
-                width: currentSizes.settingsPanel?.contentAreaBorderWidth || 2
+                width: 2
             }
             
             StackLayout {
                 id: settingsStack
                 anchors.fill: parent
-                anchors.margins: currentSizes.settingsPanel?.contentMargins || currentSizes.spacing?.normal || 8
+                anchors.margins: 8
                 currentIndex: 0
                 
                 // General Settings

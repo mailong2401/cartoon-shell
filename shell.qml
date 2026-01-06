@@ -17,7 +17,6 @@ ShellRoot {
     Config.ThemeLoader { id: themeLoader }
     Config.LanguageLoader { id: languageLoader }
     Config.ConfigLoader { id: configLoader }
-    Config.SizesLoader { id: sizesLoader }
     Config.PanelManager { id: panelManager }
     Dialogs.VolumeOsd { }
     Dialogs.NotificationPopup{}
@@ -81,8 +80,6 @@ ShellRoot {
     property var currentLanguage: languageLoader.translations
     property var currentConfig: configLoader.config
     property string currentConfigProfile: configLoader.currentConfigProfile
-    property var currentSizes: sizesLoader.sizes
-    property string currentSizeProfile: sizesLoader.currentSizeProfile
 
 
         function openPanel(panelName) {
@@ -177,19 +174,10 @@ ShellRoot {
         target: configLoader
         function onConfigReloaded() {
             currentConfig = configLoader.config
-            // Update size profile when config changes or on first load
-            if (currentConfig.displaySize && sizesLoader.currentSizeProfile !== currentConfig.displaySize) {
-                sizesLoader.changeSizeProfile(currentConfig.displaySize)
-            }
         }
     }
 
-    Connections {
-        target: sizesLoader
-        function onSizesReloaded() {
-            currentSizes = sizesLoader.sizes
-        }
-      }
+
 
       PanelWindow{
         visible: panelManager.hasPanel
@@ -201,7 +189,7 @@ ShellRoot {
           bottom: currentConfig.mainPanelPos === "bottom"
         }
         width: Screen.width
-        height: Screen.height - currentSizes.panelHeight
+        height: Screen.height - 50
         MouseArea {
           anchors.fill: parent
           z: -1
@@ -212,7 +200,7 @@ ShellRoot {
 
     PanelWindow {
         id: panel
-        implicitHeight: currentSizes.panelHeight || 50
+        implicitHeight: 50
         color: "transparent"
 
         anchors {
@@ -235,33 +223,33 @@ ShellRoot {
 
             Panels.AppIcons {
                 id: appIcons
-                Layout.preferredWidth: currentSizes.panelWidth?.appIcons || 60
+                Layout.preferredWidth: 60
                 Layout.fillHeight: true
             }
 
             Panels.WorkspacePanel {
-                Layout.preferredWidth: currentSizes.panelWidth?.workspace || 380
+                Layout.preferredWidth: 380
                 Layout.fillHeight: true
                 hyprInstance: root.hyprInstance
             }
 
             Panels.MusicPlayer {
-                Layout.preferredWidth: currentSizes.panelWidth?.musicPlayer || 340
+                Layout.preferredWidth: 340
                 Layout.fillHeight: true
             }
 
             Panels.Timespace {
-                Layout.preferredWidth: currentSizes.panelWidth?.timespace || 400
+                Layout.preferredWidth: 400
                 Layout.fillHeight: true
             }
 
             Panels.CpuPanel {
-                Layout.preferredWidth: currentSizes.panelWidth?.cpuPanel || 200
+                Layout.preferredWidth: 200
                 Layout.fillHeight: true
             }
 
             Panels.StatusArea {
-                Layout.preferredWidth: currentSizes.panelWidth?.statusArea || 430
+                Layout.preferredWidth: 430
                 Layout.fillHeight: true
             }
         }

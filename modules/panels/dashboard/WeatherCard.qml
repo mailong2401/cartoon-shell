@@ -7,7 +7,6 @@ import "../../../services" as Services
 Rectangle {
     id: root
     property var theme: currentTheme
-    property var sizes: currentSizes
     property string apiKey: ""
     property string location: ""
     property string temperature: ""
@@ -196,7 +195,7 @@ Rectangle {
                             text: modelData.dayName
                             color: theme.primary.foreground
                             font {
-                                pixelSize: sizes.fontSize?.medium || 16
+                                pixelSize: 16
                                 bold: index === 0
                                 family: "ComicShannsMono Nerd Font"
                             }
@@ -220,7 +219,7 @@ Rectangle {
                                 text: `${modelData.minTemp}°`
                                 color: theme.normal.cyan
                                 font {
-                                    pixelSize: sizes.fontSize?.medium || 16
+                                    pixelSize: 16
                                     bold: true
                                     family: "ComicShannsMono Nerd Font"
                                 }
@@ -229,14 +228,14 @@ Rectangle {
                             Text {
                                 text: "/"
                                 color: theme.primary.dim_foreground
-                                font.pixelSize: sizes.fontSize?.medium || 16
+                                font.pixelSize: 16
                             }
 
                             Text {
                                 text: `${modelData.maxTemp}°`
                                 color: theme.normal.red
                                 font {
-                                    pixelSize: sizes.fontSize?.medium || 16
+                                    pixelSize: 16
                                     family: "ComicShannsMono Nerd Font"
                                 }
                             }

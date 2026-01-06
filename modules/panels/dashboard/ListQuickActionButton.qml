@@ -8,7 +8,6 @@ ColumnLayout {
     Layout.preferredWidth: 90
     spacing: 15
     property var theme: currentTheme
-    property var sizes: currentSizes
     RowLayout {
       spacing: 15
       Rectangle {
@@ -22,8 +21,8 @@ ColumnLayout {
         Image {
             source: "../../../assets/system/sys-exit.png"
             anchors.centerIn: parent
-            width: sizes.iconSize?.xlarge || 50
-            height: sizes.iconSize?.xlarge || 50
+            width: 50
+            height: 50
             fillMode: Image.PreserveAspectFit
             smooth: true
             rotation: mouseAreaLogout.containsMouse ? -5 : 0
@@ -53,8 +52,8 @@ ColumnLayout {
         Image {
             source: "../../../assets/system/sys-sleep.png"
             anchors.centerIn: parent
-            width: sizes.iconSize?.xlarge || 50
-            height: sizes.iconSize?.xlarge || 50
+            width: 50
+            height: 50
             fillMode: Image.PreserveAspectFit
             smooth: true
             rotation: mouseAreaSleep.containsMouse ? 5 : 0
@@ -85,8 +84,8 @@ ColumnLayout {
         Image {
             source: "../../../assets/system/sys-reboot.png"
             anchors.centerIn: parent
-            width: sizes.iconSize?.xlarge || 50
-            height: sizes.iconSize?.xlarge || 50
+            width: 50
+            height: 50
             fillMode: Image.PreserveAspectFit
             smooth: true
             rotation: mouseAreaRestart.containsMouse ? 180 : 0

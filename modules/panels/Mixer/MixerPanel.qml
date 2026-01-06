@@ -9,10 +9,9 @@ import "./" as Components
 PanelWindow {
     id: root
 
-    property var sizes: currentSizes.mixerPanel || {}
 
-    implicitWidth: sizes.width || 430
-    implicitHeight: sizes.height || 600
+    implicitWidth: 450
+    implicitHeight: 600
     property var lang : currentLanguage
 
     anchors {
@@ -32,30 +31,30 @@ PanelWindow {
     Rectangle {
         anchors.fill: parent
         color: theme.primary.background
-        radius: sizes.radius || 8
+        radius: 8
         border.color: theme.button.border
-        border.width: sizes.borderWidth || 3
+        border.width: 3
 
         ColumnLayout {
             anchors.fill: parent
-            anchors.margins: sizes.margins || 16
-            spacing: sizes.spacing || 20
+            anchors.margins: 16
+            spacing: 20
 
             // Header với icon và title
             RowLayout {
                 Layout.fillWidth: true
-                spacing: sizes.headerSpacing || 12
+                spacing: 12
 
                 Rectangle {
-                    width: sizes.headerIconSize || 50
-                    height: sizes.headerIconSize || 50
+                    width: 50
+                    height: 50
                     color: "transparent"
 
                     Image {
                         anchors.centerIn: parent
                         source: "../../../assets/system/mixer.png"
-                        width: sizes.headerIconSize || 50
-                        height: sizes.headerIconSize || 50
+                        width: 50
+                        height: 50
                         fillMode: Image.PreserveAspectFit
                     }
                 }
@@ -69,14 +68,14 @@ PanelWindow {
                         text: lang.mixer.title
                         font.family: "ComicShannsMono Nerd Font"
                         font.bold: true
-                        font.pixelSize: sizes.headerTitleFontSize || 17
+                        font.pixelSize: 17
                         color: theme.primary.foreground
                     }
 
                     Label {
                         text: lang.mixer.subtitle
                         font.family: "ComicShannsMono Nerd Font"
-                        font.pixelSize: sizes.headerSubtitleFontSize || 13
+                        font.pixelSize: 13
                         color: theme.primary.dim_foreground
                         opacity: 0.8
                     }
@@ -86,21 +85,21 @@ PanelWindow {
             // Default sink section
             Rectangle {
                 Layout.fillWidth: true
-                Layout.preferredHeight: sizes.outputSectionHeight || 120
+                Layout.preferredHeight: 120
                 color: theme.primary.dim_background
-                radius: sizes.sectionRadius || 6
+                radius: 6
                 border.color: theme.normal.blue
-                border.width: sizes.sectionBorderWidth || 2
+                border.width: 2
 
                 ColumnLayout {
                     anchors.fill: parent
-                    anchors.margins: sizes.sectionMargins || 12
-                    spacing: sizes.sectionSpacing || 8
+                    anchors.margins: 12
+                    spacing: 8
 
                     Label {
                         text: lang.mixer.output_device
                         font.bold: true
-                        font.pixelSize: sizes.sectionLabelFontSize || 16
+                        font.pixelSize: 16
                         font.family: "ComicShannsMono Nerd Font"
 
                         color: theme.normal.blue
@@ -122,14 +121,14 @@ PanelWindow {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 color: theme.primary.dim_background
-                radius: sizes.sectionRadius || 6
+                radius: 6
                 border.color: theme.normal.black
-                border.width: sizes.sectionBorderWidth || 2
+                border.width: 2
 
                 ColumnLayout {
                     anchors.fill: parent
-                    anchors.margins: sizes.sectionSpacing || 8
-                    spacing: sizes.sectionSpacing || 8
+                    anchors.margins: 8
+                    spacing: 8
 
                     // Section header
                     Label {
@@ -137,7 +136,7 @@ PanelWindow {
                         font.bold: true
 
                         font.family: "ComicShannsMono Nerd Font"
-                        font.pixelSize: sizes.sectionLabelFontSize || 16
+                        font.pixelSize: 16
                         color: theme.primary.foreground
                         Layout.fillWidth: true
                         Layout.leftMargin: 8
@@ -152,7 +151,7 @@ PanelWindow {
 
                         ColumnLayout {
                             width: parent.width
-                            spacing: sizes.sectionSpacing || 8
+                            spacing: 8
                             anchors.margins: 8
 
                             Repeater {
@@ -187,24 +186,24 @@ PanelWindow {
 
                 Rectangle {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: sizes.footerHeight || 20
+                    Layout.preferredHeight: 20
                     color: "transparent"
                     border.color: theme.normal.black
                     border.width: 1
-                    radius: sizes.footerRadius || 4
+                    radius: 4
 
                     Label {
                         anchors.centerIn: parent
                         text: `Active streams: ${linkTracker.linkGroups.count}`
-                        font.pixelSize: sizes.footerFontSize || 10
+                        font.pixelSize: 10
                         color: theme.primary.dim_foreground
                     }
                 }
 
                 Rectangle {
-                    width: sizes.statusIndicatorSize || 20
-                    height: sizes.statusIndicatorSize || 20
-                    radius: sizes.footerRadius || 4
+                    width: 20
+                    height: 20
+                    radius: 4
                     color: theme.normal.green
                     opacity: 0.7
 

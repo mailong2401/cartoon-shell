@@ -7,7 +7,6 @@ Rectangle {
     property string icon: ""
     property color iconColor: "white"
     property var theme: currentTheme
-    property var sizes: currentSizes
 
     radius: 28
     color: theme.primary.background
@@ -18,8 +17,8 @@ Rectangle {
         id: iconImage
         source: root.icon
         anchors.centerIn: parent
-        width: sizes.iconSize?.xlarge || 50
-        height: sizes.iconSize?.xlarge || 50
+        width: 50
+        height: 50
         fillMode: Image.PreserveAspectFit
         smooth: true
         visible: status === Image.Ready

@@ -2,11 +2,10 @@ import QtQuick
 import QtQuick.Layouts
 import "." as Com
 
- RowLayout {
+RowLayout {
     id: currentDisplay
 
     property var theme: currentTheme
-    property var sizes: currentSizes.weatherPanel || {}
     required property string temperature
     required property string condition
     required property string icon
@@ -23,20 +22,20 @@ import "." as Com
     // Main weather card - LEFT
     Rectangle {
         visible: currentDisplay.hasData
-        Layout.preferredWidth: sizes.forecastHeight || 200
+        Layout.preferredWidth: 200
         Layout.fillHeight: true
-        radius: sizes.weatherCardRadius || 16
+        radius: 16
 
         color: Qt.rgba(theme.normal.black.r, theme.normal.black.g, theme.normal.black.b, 0.05)
 
         ColumnLayout {
             anchors.fill: parent
-            anchors.margins: sizes.weatherCardMargins || 20
-            spacing: sizes.weatherInfoSpacing || 15
+            anchors.margins: 20
+            spacing: 15
 
             Text {
                 text: currentDisplay.icon
-                font.pixelSize: sizes.weatherIconSize || 40
+                font.pixelSize: 40
                 Layout.alignment: Qt.AlignHCenter
             }
 
@@ -44,7 +43,7 @@ import "." as Com
                 text: currentDisplay.temperature
                 color: theme.primary.foreground
                 font {
-                    pixelSize: sizes.temperatureFontSize || 48
+                    pixelSize: 48
                     bold: true
                     family: "ComicShannsMono Nerd Font"
                 }
@@ -55,7 +54,7 @@ import "." as Com
                 text: currentDisplay.condition
                 color: theme.primary.foreground
                 font {
-                    pixelSize: sizes.conditionFontSize || 18
+                    pixelSize: 18
                     family: "ComicShannsMono Nerd Font"
                 }
                 Layout.alignment: Qt.AlignHCenter
@@ -72,8 +71,8 @@ import "." as Com
         Layout.fillWidth: true
         Layout.fillHeight: true
         columns: 3
-        columnSpacing: sizes.detailGridColumnSpacing || 5
-        rowSpacing: sizes.detailGridRowSpacing || 5
+        columnSpacing: 5
+        rowSpacing: 5
 
         // Humidity
         Com.WeatherDetailCard {

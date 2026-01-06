@@ -8,24 +8,23 @@ import "." as Components
 
 PanelWindow {
     id: root
-    implicitWidth: currentSizes.bluetoothPanel?.width || 470
-    implicitHeight: currentSizes.bluetoothPanel?.height || 600
+    implicitWidth: 450
+    implicitHeight: 600
     anchors {
         top: currentConfig.mainPanelPos === "top"
         bottom: currentConfig.mainPanelPos === "bottom"
         right: true
     }
     margins {
-        top: currentConfig.mainPanelPos === "top" ? (sizes.anchorMargin || 10) : 0
-        right: sizes.anchorMargin || 10
-        bottom: currentConfig.mainPanelPos === "bottom" ? (sizes.anchorMargin || 10) : 0
+        top: currentConfig.mainPanelPos === "top" ? 10 : 0
+        right: 10
+        bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
     }
     color: "transparent"
     focusable: true
     aboveWindows: true
     objectName: "BluetoothPanel"
 
-    property var sizes: currentSizes.bluetoothPanel || {}
     property var theme: currentTheme
     property var lang: currentLanguage
     property var adapter: Bluetooth.defaultAdapter
@@ -67,20 +66,19 @@ PanelWindow {
         Rectangle {
             anchors.fill: parent
             color: theme.primary.background
-            radius: sizes.radius || 16
+            radius: 16
             border.color: theme.normal.black
-            border.width: sizes.borderWidth || 3
+            border.width: 3
 
             ColumnLayout {
                 anchors.fill: parent
-                anchors.margins: sizes.margins || 10
-                spacing: sizes.spacing || 6
+                anchors.margins: 10
+                spacing: 6
 
                 // Header with title and scan button
                 Components.BluetoothHeader {
                     adapter: root.adapter
                     theme: root.theme
-                    sizes: root.sizes
                     lang: root.lang
                     isDiscovering: adapter?.discovering || false
 
@@ -141,7 +139,6 @@ PanelWindow {
                 Components.BluetoothStatusCard {
                     adapter: root.adapter
                     theme: root.theme
-                    sizes: root.sizes
                     lang: root.lang
                     connectedCount: root.connectedCount
                 }
@@ -150,7 +147,6 @@ PanelWindow {
                 Components.BluetoothDeviceList {
                     adapter: root.adapter
                     theme: root.theme
-                    sizes: root.sizes
                     lang: root.lang
                     connectedCount: root.connectedCount
 

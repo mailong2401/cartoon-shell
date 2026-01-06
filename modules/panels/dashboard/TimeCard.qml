@@ -6,7 +6,6 @@ import Quickshell
 Rectangle {
     id: root
 
-    property var sizes: currentSizes
     property var theme: currentTheme
     property var lang: currentLanguage
     property string currentHour: ""

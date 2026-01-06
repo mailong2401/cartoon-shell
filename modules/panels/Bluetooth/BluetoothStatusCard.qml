@@ -6,21 +6,20 @@ Rectangle {
     id: statusCard
     required property var adapter
     required property var theme
-    required property var sizes
     required property var lang
     required property int connectedCount
 
     Layout.fillWidth: true
-    height: sizes.statusCardHeight || 82
-    radius: sizes.statusCardRadius || 12
+    height: 82
+    radius: 12
     color: theme.primary.dim_background
     border.width: 3
     border.color: theme.normal.black
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: sizes.statusCardMargins || 14
-        spacing: sizes.statusCardSpacing || 12
+        anchors.margins: 14
+        spacing: 12
 
         // Left column: status and device count
         ColumnLayout {
@@ -30,7 +29,7 @@ Rectangle {
             Text {
                 text: adapter?.enabled ? (lang?.bluetooth?.enabled || "Bluetooth đang bật") : (lang?.bluetooth?.disabled || "Bluetooth đang tắt")
                 color: adapter?.enabled ? theme.normal.blue : theme.primary.dim_foreground
-                font.pixelSize: sizes.statusTitleFontSize || 20
+                font.pixelSize: 20
                 font.family: "ComicShannsMono Nerd Font"
                 font.bold: true
 
@@ -40,7 +39,7 @@ Rectangle {
             Text {
                 text: `${connectedCount} ` + (lang?.bluetooth?.devices_connected || "thiết bị đã kết nối")
                 color: theme.primary.dim_foreground
-                font.pixelSize: sizes.statusSubtitleFontSize || 16
+                font.pixelSize: 16
                 font.family: "ComicShannsMono Nerd Font"
                 visible: adapter?.enabled || false
             }
@@ -50,9 +49,9 @@ Rectangle {
 
         // Toggle button
         Rectangle {
-            width: sizes.toggleWidth || 56
-            height: sizes.toggleHeight || 32
-            radius: sizes.toggleRadius || 16
+            width: 56
+            height: 32
+            radius: 16
             color: adapter?.enabled ? theme.normal.blue : theme.button.background
             opacity: adapter ? 1 : 0.5
 
@@ -63,9 +62,9 @@ Rectangle {
             Rectangle {
                 x: adapter?.enabled ? parent.width - width - 4 : 4
                 y: 4
-                width: sizes.toggleIndicatorSize || 24
-                height: sizes.toggleIndicatorSize || 24
-                radius: (sizes.toggleIndicatorSize || 24) / 2
+                width: 24
+                height: 24
+                radius: 12
                 color: theme.primary.dim_background
 
                 Behavior on x { NumberAnimation { duration: 200; easing.type: Easing.OutCubic } }

@@ -9,7 +9,6 @@ Rectangle {
     property string label: ""
     property color iconColor: "white"
     property var theme: currentTheme
-    property var sizes: currentSizes
 
     Layout.fillWidth: true
     Layout.preferredHeight: 35
@@ -29,8 +28,8 @@ Rectangle {
         Image {
             id: itemIcon
             source: theme.type === "dark" ? root.iconDark : root.iconLight
-            Layout.preferredWidth: sizes.iconSize?.large || 30
-            Layout.preferredHeight: sizes.iconSize?.large || 30
+            Layout.preferredWidth: 30
+            Layout.preferredHeight: 30
             fillMode: Image.PreserveAspectFit
             smooth: true
             scale: mouseArea.containsMouse ? 1.1 : 1.0
@@ -45,7 +44,7 @@ Rectangle {
             text: root.label
             color: iconColor
             font.family: "ComicShannsMono Nerd Font"
-            font.pixelSize: sizes.fontSize?.xlarge || 16
+            font.pixelSize: 16
             font.bold: mouseArea.containsMouse
 
             Behavior on font.bold {

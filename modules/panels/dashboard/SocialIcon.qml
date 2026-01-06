@@ -11,7 +11,6 @@ Rectangle {
     property color bgColor: "white"
     property real hoverScale: 1.2 // Tỷ lệ phóng to khi hover
     property var theme: currentTheme
-    property var sizes: currentSizes
 
     Layout.fillHeight: true
     Layout.preferredWidth: height
@@ -48,8 +47,8 @@ Rectangle {
         id: iconImage
         source: image
         anchors.centerIn: parent
-        width: sizes.iconSize?.xlarge || 30
-        height: sizes.iconSize?.xlarge || 30
+        width: 30
+        height: 30
         fillMode: Image.PreserveAspectFit
         smooth: true
         

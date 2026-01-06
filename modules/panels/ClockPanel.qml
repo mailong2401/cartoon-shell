@@ -8,7 +8,6 @@ PanelWindow {
     id: root
     WlrLayershell.exclusiveZone: 0   // không chiếm không gian ứng dụng
 
-    property var sizes: currentSizes.clockPanel || {}
     property string currentHour: ""
     property string currentMin: ""
     property string currentDay: ""

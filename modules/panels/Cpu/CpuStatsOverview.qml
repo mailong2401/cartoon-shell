@@ -6,36 +6,35 @@ Rectangle {
     property var getUsageColor: function(usageStr) { return "#3498db" }
     property var cpuHistory: []
     property var theme: currentTheme
-    property var sizes: currentSizes.cpuDetailPanel
     property var lang: currentLanguage
 
     color: theme.primary.dim_background
     border.color: theme.button.border
-    border.width: sizes.statsBorderWidth || 2
-    radius: sizes.statsRadius || 4
+    border.width: 2
+    radius: 4
 
     Row {
         anchors.centerIn: parent
-        spacing: sizes.statsRowSpacing || 40
+        spacing: 40
 
         Row {
             Image {
-                width: sizes.statsIconSize || 40
-                height: sizes.statsIconSize || 40
+                width: 40
+                height: 40
                 source: '../../../assets/cpu/pie-chart.png'
             }
             Column {
-                spacing: sizes.statsColumnSpacing || 2
+                spacing: 2
                 Text {
                     text: lang.cpuStats.totalUsage
                     color: "#4f4f5b"
-                    font.pixelSize: sizes.statsLabelFontSize || 16
+                    font.pixelSize: 16
                     font.family: "ComicShannsMono Nerd Font"
                 }
                 Text {
                     text: calculateTotalUsage() + "%"
                     color: getUsageColor(calculateTotalUsage())
-                    font.pixelSize: sizes.statsValueFontSize || 18
+                    font.pixelSize: 18
                     font.bold: true
                     font.family: "ComicShannsMono Nerd Font"
                 }
@@ -44,22 +43,22 @@ Rectangle {
 
         Row {
             Image {
-                width: sizes.statsIconSize || 40
-                height: sizes.statsIconSize || 40
+                width: 40
+                height: 40
                 source: '../../../assets/cpu/fire.png'
             }
             Column {
-                spacing: sizes.statsColumnSpacing || 2
+                spacing: 2
                 Text {
                     text: lang.cpuStats.maxCore
                     color: "#4f4f5b"
-                    font.pixelSize: sizes.statsLabelFontSize || 16
+                    font.pixelSize: 16
                     font.family: "ComicShannsMono Nerd Font"
                 }
                 Text {
                     text: getMaxUsage() + "%"
                     color: getUsageColor(getMaxUsage())
-                    font.pixelSize: sizes.statsValueFontSize || 18
+                    font.pixelSize: 18
                     font.bold: true
                     font.family: "ComicShannsMono Nerd Font"
                 }
@@ -67,17 +66,17 @@ Rectangle {
         }
 
         Column {
-            spacing: sizes.statsColumnSpacing || 2
+            spacing: 2
             Text {
                 text: lang.cpuStats.timeLabel
                 color: "#4f4f5b"
-                font.pixelSize: sizes.statsTimeLabelFontSize || 14
+                font.pixelSize: 14
                 font.family: "ComicShannsMono Nerd Font"
             }
             Text {
                 text: cpuHistory.length + " " + lang.cpuStats.dataPoints
                 color: "#4f4f5b"
-                font.pixelSize: sizes.statsValueFontSize || 18
+                font.pixelSize: 18
                 font.bold: true
                 font.family: "ComicShannsMono Nerd Font"
             }

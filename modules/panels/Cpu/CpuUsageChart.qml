@@ -3,7 +3,6 @@ import QtQuick
 Rectangle {
     property var theme: currentTheme
     property var cpuHistory: []
-    property var sizes: currentSizes.cpuDetailPanel
     property var getUsageColor: function(usage) {
         if (usage < 50) return theme.normal.green
         else if (usage < 80) return theme.normal.yellow
@@ -12,26 +11,26 @@ Rectangle {
 
     color: "transparent"
     border.color: theme.button.border
-    border.width: sizes.chartBorderWidth || 2
-    radius: sizes.chartRadius || 6
+    border.width: 2
+    radius: 6
 
     Column {
         anchors.fill: parent
-        anchors.margins: sizes.chartMargins || 8
-        spacing: sizes.chartSpacing || 4
+        anchors.margins: 8
+        spacing: 4
 
         Row {
-            spacing: sizes.chartHeaderSpacing || 8
+            spacing: 8
             Image {
-                width: sizes.chartHeaderIconSize || 24
-                height: sizes.chartHeaderIconSize || 24
+                width: 24
+                height:  24
                 source: '../../../assets/cpu/chart.png'
                 anchors.verticalCenter: parent.verticalCenter
             }
             Text {
                 text: "CPU Usage History"
                 color: theme.primary.foreground
-                font.pixelSize: sizes.chartTitleFontSize || 16
+                font.pixelSize: 16
                 font.bold: true
                 font.family: "ComicShannsMono Nerd Font"
                 anchors.verticalCenter: parent.verticalCenter
@@ -161,16 +160,16 @@ Rectangle {
 
         // Legend
         Row {
-            spacing: sizes.legendSpacing || 20
+            spacing: 20
             anchors.horizontalCenter: parent.horizontalCenter
 
             Row {
-                spacing: sizes.legendItemSpacing || 6
+                spacing:  6
                 anchors.verticalCenter: parent.verticalCenter
 
                 Rectangle {
-                    width: sizes.legendIndicatorWidth || 12
-                    height: sizes.legendIndicatorHeight || 3
+                    width: 12
+                    height: 3
                     color: theme.normal.green
                     anchors.verticalCenter: parent.verticalCenter
                     radius: 1
@@ -178,18 +177,18 @@ Rectangle {
                 Text {
                     text: "Low"
                     color: theme.primary.dim_foreground
-                    font.pixelSize: sizes.legendFontSize || 10
+                    font.pixelSize: 10
                     font.family: "ComicShannsMono Nerd Font"
                 }
             }
 
             Row {
-                spacing: sizes.legendItemSpacing || 6
+                spacing: 6
                 anchors.verticalCenter: parent.verticalCenter
 
                 Rectangle {
-                    width: sizes.legendIndicatorWidth || 12
-                    height: sizes.legendIndicatorHeight || 3
+                    width: 12
+                    height: 3
                     color: theme.normal.yellow
                     anchors.verticalCenter: parent.verticalCenter
                     radius: 1
@@ -197,18 +196,18 @@ Rectangle {
                 Text {
                     text: "Medium"
                     color: theme.primary.dim_foreground
-                    font.pixelSize: sizes.legendFontSize || 10
+                    font.pixelSize: 10
                     font.family: "ComicShannsMono Nerd Font"
                 }
             }
 
             Row {
-                spacing: sizes.legendItemSpacing || 6
+                spacing: 6
                 anchors.verticalCenter: parent.verticalCenter
 
                 Rectangle {
-                    width: sizes.legendIndicatorWidth || 12
-                    height: sizes.legendIndicatorHeight || 3
+                    width: 12
+                    height: 3
                     color: theme.normal.red
                     anchors.verticalCenter: parent.verticalCenter
                     radius: 1
@@ -216,7 +215,7 @@ Rectangle {
                 Text {
                     text: "High"
                     color: theme.primary.dim_foreground
-                    font.pixelSize: sizes.legendFontSize || 10
+                    font.pixelSize: 10
                     font.family: "ComicShannsMono Nerd Font"
                 }
             }

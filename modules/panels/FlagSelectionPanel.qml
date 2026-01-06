@@ -9,7 +9,6 @@ import "../../services" as Services
 PanelWindow {
     id: flagSelectionPanel
 
-    property var sizes: currentSizes.flagSelectionPanel || {}
     property var theme: currentTheme
     property string selectedFlag: currentConfig.selectedFlag
 
@@ -65,7 +64,7 @@ PanelWindow {
     margins {
         top: currentConfig.mainPanelPos === "top" ? 10 : 0
         bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
-        left: sizes.marginLeft || 800
+        left: 800
     }
 
     exclusiveZone: 0
@@ -137,7 +136,7 @@ PanelWindow {
                             height: 70
                             color: flagSelectionPanel.selectedFlag === modelData.name ? theme.primary.dim_background : theme.primary.background
                             border.color: flagSelectionPanel.selectedFlag === modelData.name ? theme.normal.green : theme.button.border
-                            border.width: flagSelectionPanel.selectedFlag === modelData.name ? (sizes.flagItemSelectedBorderWidth || 3) : (sizes.flagItemBorderWidth || 2)
+                            border.width: flagSelectionPanel.selectedFlag === modelData.name ? 3 : 2
                             radius: 10
 
                             Column {

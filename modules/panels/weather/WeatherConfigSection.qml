@@ -5,7 +5,6 @@ import QtQuick.Layouts
 Rectangle {
     id: configSection
 
-    property var sizes: currentSizes.weatherPanel || {}
     property var theme: currentTheme
     property var lang: currentLanguage
     required property string apiKey
@@ -26,14 +25,14 @@ Rectangle {
     Layout.fillHeight: true
     Layout.preferredWidth: parent.width * 0.4
     
-    radius: sizes.sectionRadius || 16
+    radius: 16
     color: Qt.rgba(theme.normal.black.r, theme.normal.black.g, theme.normal.black.b, 0.05)
     border.color: Qt.rgba(theme.normal.black.r, theme.normal.black.g, theme.normal.black.b, 0.1)
     border.width: 1
 
     ScrollView {
         anchors.fill: parent
-        anchors.margins: sizes.weatherCardMargins || 20
+        anchors.margins: 20
         clip: true
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
@@ -44,13 +43,13 @@ Rectangle {
             // API Key Section
             ColumnLayout {
                 Layout.fillWidth: true
-                spacing: sizes.sectionSpacing || 12
+                spacing: 12
 
                 Text {
                     text: lang?.weather?.apiKeyLabel || "API Key (weatherapi.com)"
                     color: theme.primary.foreground
                     font {
-                        pixelSize: sizes.labelFontSize || 16
+                        pixelSize: 16
                         family: "ComicShannsMono Nerd Font"
                         bold: true
                     }
@@ -58,8 +57,8 @@ Rectangle {
 
                 Rectangle {
                     Layout.fillWidth: true
-                    height: sizes.inputHeight || 44
-                    radius: sizes.inputRadius || 10
+                    height: 44
+                    radius: 10
                     color: theme.primary.dim_background
                     border.color: apiKeyInput.activeFocus ? theme.normal.blue : Qt.rgba(theme.normal.black.r, theme.normal.black.g, theme.normal.black.b, 0.2)
                     border.width: 1
@@ -71,7 +70,7 @@ Rectangle {
                         text: configSection.apiKey
                         palette.text: theme.primary.foreground
                         font {
-                            pixelSize: sizes.inputFontSize || 14
+                            pixelSize: 14
                             family: "ComicShannsMono Nerd Font"
                         }
                         background: Rectangle {
@@ -93,7 +92,7 @@ Rectangle {
                     text: lang?.weather?.apiKeyHint || "Nhận API key miễn phí tại: weatherapi.com\nAPI key sẽ tự động lưu và kiểm tra khi bạn nhập"
                     color: theme.primary.dim_foreground
                     font {
-                        pixelSize: sizes.hintFontSize || 11
+                        pixelSize: 11
                         family: "ComicShannsMono Nerd Font"
                         italic: true
                     }
@@ -105,13 +104,13 @@ Rectangle {
             // Location Section
             ColumnLayout {
                 Layout.fillWidth: true
-                spacing: sizes.sectionSpacing || 12
+                spacing: 12
 
                 Text {
                     text: lang?.weather?.locationLabel || "Địa điểm"
                     color: theme.primary.foreground
                     font {
-                        pixelSize: sizes.labelFontSize || 16
+                        pixelSize: 16
                         family: "ComicShannsMono Nerd Font"
                         bold: true
                     }
@@ -119,12 +118,12 @@ Rectangle {
 
                 RowLayout {
                     Layout.fillWidth: true
-                    spacing: sizes.inputSpacing || 10
+                    spacing: 10
 
                     Rectangle {
                         Layout.fillWidth: true
-                        height: sizes.inputHeight || 44
-                        radius: sizes.inputRadius || 10
+                        height: 44
+                        radius: 10
                         color: theme.primary.dim_background
                         border.color: locationInput.activeFocus ? theme.normal.blue : Qt.rgba(theme.normal.black.r, theme.normal.black.g, theme.normal.black.b, 0.2)
                         border.width: 1
@@ -136,7 +135,7 @@ Rectangle {
                             text: configSection.location
                             color: theme.primary.foreground
                             font {
-                                pixelSize: sizes.inputFontSize || 14
+                                pixelSize: 14
                                 family: "ComicShannsMono Nerd Font"
                             }
                             palette.text: theme.primary.foreground
@@ -160,9 +159,9 @@ Rectangle {
                     }
 
                     Rectangle {
-                        width: sizes.buttonWidth || 100
-                        height: sizes.inputHeight || 44
-                        radius: sizes.buttonRadius || 10
+                        width: 100
+                        height: 44
+                        radius: 10
 
                         gradient: Gradient {
                             GradientStop { position: 0.0; color: saveLocMouseArea.containsMouse ?
@@ -180,7 +179,7 @@ Rectangle {
                                   (lang?.weather?.searchButton || "🔍")
                             color: theme.primary.background
                             font {
-                                pixelSize: sizes.buttonFontSize || 14
+                                pixelSize: 14
                                 family: "ComicShannsMono Nerd Font"
                                 bold: true
                             }
@@ -203,16 +202,16 @@ Rectangle {
                     id: locationResultsList
                     visible: configSection.isUserSearching && configSection.locationSearchResults.length > 0
                     Layout.fillWidth: true
-                    Layout.preferredHeight: Math.min(count * (sizes.searchResultItemHeight || 52), (sizes.searchResultMaxHeight || 208))
+                    Layout.preferredHeight: Math.min(count * 52, 208)
                     clip: true
-                    spacing: sizes.searchResultSpacing || 4
+                    spacing: 4
                     model: configSection.locationSearchResults
                     currentIndex: configSection.currentLocationIndex
 
                     delegate: Rectangle {
                         width: ListView.view.width
-                        height: sizes.searchResultItemHeight || 50
-                        radius: sizes.searchResultRadius || 10
+                        height: 50
+                        radius: 10
 
                         gradient: Gradient {
                             GradientStop {
@@ -236,8 +235,8 @@ Rectangle {
 
                         RowLayout {
                             anchors.fill: parent
-                            anchors.margins: sizes.searchResultMargins || 12
-                            spacing: sizes.searchResultMargins || 12
+                            anchors.margins: 12
+                            spacing: 12
 
 
                             Column {
@@ -249,7 +248,7 @@ Rectangle {
                                     text: modelData.name
                                     color: theme.primary.foreground
                                     font {
-                                        pixelSize: sizes.searchResultNameFontSize || 14
+                                        pixelSize: 14
                                         family: "ComicShannsMono Nerd Font"
                                         bold: true
                                     }
@@ -261,7 +260,7 @@ Rectangle {
                                     text: `${modelData.region}, ${modelData.country}`
                                     color: theme.primary.dim_foreground
                                     font {
-                                        pixelSize: sizes.searchResultDetailFontSize || 12
+                                        pixelSize: 12
                                         family: "ComicShannsMono Nerd Font"
                                     }
                                     width: parent.width
@@ -292,8 +291,8 @@ Rectangle {
             Rectangle {
                 visible: configSection.errorMessage !== ""
                 Layout.fillWidth: true
-                Layout.preferredHeight: configSection.errorMessage !== "" ? (sizes.errorHeight || 60) : 0
-                radius: sizes.errorRadius || 12
+                Layout.preferredHeight: configSection.errorMessage !== "" ? 60 : 0
+                radius: 12
 
                 gradient: Gradient {
                     GradientStop { position: 0.0; color: Qt.rgba(theme.normal.red.r, theme.normal.red.g, theme.normal.red.b, 0.1) }
@@ -305,12 +304,12 @@ Rectangle {
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.margins: sizes.errorMargins || 12
-                    spacing: sizes.errorMargins || 12
+                    anchors.margins: 12
+                    spacing: 12
 
                     Text {
                         text: "⚠️"
-                        font.pixelSize: sizes.errorIconSize || 18
+                        font.pixelSize: 18
                         color: theme.normal.red
                         Layout.alignment: Qt.AlignVCenter
                     }
@@ -319,7 +318,7 @@ Rectangle {
                         text: configSection.errorMessage
                         color: theme.normal.red
                         font {
-                            pixelSize: sizes.errorFontSize || 13
+                            pixelSize: 13
                             family: "ComicShannsMono Nerd Font"
                         }
                         wrapMode: Text.WordWrap

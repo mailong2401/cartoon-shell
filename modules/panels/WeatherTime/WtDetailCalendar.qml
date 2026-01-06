@@ -7,17 +7,16 @@ Rectangle {
 
     property var theme: currentTheme
     property var lang: currentLanguage
-    property var sizes: ({})
 
     property date currentDate: new Date()
     property int currentMonth: currentDate.getMonth()
     property int currentYear: currentDate.getFullYear()
     property date selectedDate: new Date()
 
-    width: sizes.calendar?.width || 400
-    height: sizes.calendar?.height || 400
+    width: 400
+    height: 400
     color: "transparent"
-    radius: sizes.calendar?.radius || 10
+    radius: 10
 
     property var weekdayLabels: {
         const w = lang?.calendar?.weekdays
@@ -54,8 +53,8 @@ Rectangle {
     
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: sizes.calendar?.margins || 10
-        spacing: sizes.calendar?.spacing || 15
+        anchors.margins: 10
+        spacing: 15
 
         // Header
         RowLayout {
@@ -69,7 +68,7 @@ Rectangle {
                     text: parent.text
                     color: theme.primary.foreground
                     font.family: "ComicShannsMono Nerd Font"
-                    font.pixelSize: sizes.calendar?.navButtonFontSize || 20
+                    font.pixelSize: 20
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
@@ -81,7 +80,7 @@ Rectangle {
             Label {
                 text: monthLabels[currentMonth] + " " + currentYear
                 font.bold: true
-                font.pixelSize: sizes.calendar?.monthLabelFontSize || 24
+                font.pixelSize: 24
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
                 color: theme.primary.foreground
@@ -96,7 +95,7 @@ Rectangle {
                     text: parent.text
                     color: theme.primary.foreground
                     font.family: "ComicShannsMono Nerd Font"
-                    font.pixelSize: sizes.calendar?.navButtonFontSize || 20
+                    font.pixelSize: 20
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
@@ -119,8 +118,8 @@ Rectangle {
                 id: calendarGrid
                 width: flickable.width
                 columns: 7
-                rowSpacing: sizes.calendar?.gridRowSpacing || 8
-                columnSpacing: sizes.calendar?.gridColumnSpacing || 8
+                rowSpacing: 8
+                columnSpacing: 8
 
                 // Week day headers
                 Repeater {
@@ -131,8 +130,8 @@ Rectangle {
                         color: theme.primary.foreground
                         horizontalAlignment: Text.AlignHCenter
                         Layout.fillWidth: true
-                        Layout.preferredHeight: sizes.calendar?.weekdayHeight || 30
-                        font.pixelSize: sizes.calendar?.weekdayFontSize || 19
+                        Layout.preferredHeight: 30
+                        font.pixelSize: 19
                         font.family: "ComicShannsMono Nerd Font"
                     }
                 }
@@ -144,8 +143,8 @@ Rectangle {
 
                     Rectangle {
                         id: dayRect
-                        Layout.preferredWidth: sizes.calendar?.dayCellSize || 40
-                        Layout.preferredHeight: sizes.calendar?.dayCellSize || 40
+                        Layout.preferredWidth: 40
+                        Layout.preferredHeight: 40
                         color: {
                             if (modelData.isToday && modelData.isCurrentMonth)
                                 return theme.button.background
@@ -154,7 +153,7 @@ Rectangle {
                             else
                                 return "transparent"
                         }
-                        radius: sizes.calendar?.dayCellRadius || 20
+                        radius: 20
                         border.color: modelData.isCurrentMonth ? theme.button.border : "transparent"
 
                         Label {
@@ -170,7 +169,7 @@ Rectangle {
                             }
                             font {
                                 bold: modelData.isToday
-                                pixelSize: sizes.calendar?.dayFontSize || 19
+                                pixelSize: 19
                                 family: "ComicShannsMono Nerd Font"
                             }
                         }

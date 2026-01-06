@@ -4,7 +4,6 @@ import QtQuick.Controls
 
 Rectangle {
     id: passwordBox
-    property var sizes
     property var theme
     property var lang
     property var wifiManager
@@ -16,9 +15,9 @@ Rectangle {
     property bool hasSavedPassword: networkData.isConnected
     
     color: theme.primary.dim_background
-    radius: sizes.passwordBoxRadius || 12
+    radius: 12
     height: visible ? (hasError ? 150 : 100) : 0
-    border.width: sizes.borderWidth || 2
+    border.width: 2
     border.color: theme.normal.blue
     
     Behavior on height {
@@ -39,8 +38,8 @@ Rectangle {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: sizes.passwordBoxMargins || 12
-        spacing: sizes.passwordBoxSpacing || 8
+        anchors.margins: 12
+        spacing: 8
 
         Rectangle {
             Layout.fillWidth: true
@@ -66,7 +65,7 @@ Rectangle {
                 Layout.fillWidth: true
                 height: 40
                 color: theme.primary.background
-                radius: sizes.passwordInputRadius || 8
+                radius: 8
                 border.color: theme.normal.blue
                 border.width: 1
 
@@ -86,7 +85,7 @@ Rectangle {
                 background: Rectangle {
                     color: parent.down ? theme.button.background_select :
                            parent.hovered ? theme.button.background_select : theme.button.background
-                    radius: sizes.passwordButtonRadius || 8
+                    radius: 8
                 }
                 contentItem: Text {
                     text: passwordBox.showPassword ? "👁️" : "🙈"
@@ -105,7 +104,7 @@ Rectangle {
                 background: Rectangle {
                     color: parent.down ? theme.normal.red :
                            parent.hovered ? Qt.lighter(theme.normal.red, 1.2) : theme.normal.red
-                    radius: sizes.passwordButtonRadius || 8
+                    radius: 8
                 }
                 contentItem: Text {
                     text: parent.text
@@ -139,7 +138,7 @@ Rectangle {
                 color: theme.primary.foreground
                 background: Rectangle {
                     color: theme.primary.background
-                    radius: sizes.passwordInputRadius || 8
+                    radius: 8
                     border.color: theme.normal.blue
                     border.width: 1
                 }
@@ -157,7 +156,7 @@ Rectangle {
                 background: Rectangle {
                     color: parent.down ? theme.button.background_select :
                            parent.hovered ? theme.button.background_select : theme.button.background
-                    radius: sizes.passwordButtonRadius || 8
+                    radius: 8
                 }
                 contentItem: Text {
                     text: passwordBox.showPassword ? "👁️" : "🙈"
@@ -176,7 +175,7 @@ Rectangle {
                 background: Rectangle {
                     color: parent.down ? theme.normal.blue :
                            parent.hovered ? theme.bright.blue : theme.normal.blue
-                    radius: sizes.passwordButtonRadius || 8
+                    radius: 8
                 }
                 contentItem: Text {
                     text: parent.text
