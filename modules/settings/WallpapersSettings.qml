@@ -549,8 +549,7 @@ Item {
     }
 
     function isCurrentWallpaper(filePath) {
-        var actualPath = filePath.toString().replace("file://", "")
-        return currentWallpaper === actualPath
+        return currentConfig.pictureWallpaper === filePath
     }
 
     Component.onCompleted: {
