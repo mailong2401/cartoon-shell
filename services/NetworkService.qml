@@ -43,7 +43,6 @@ Item {
         onRunningChanged: {
             if (!running && stdout.text) {
                 var resultText = stdout.text.trim()
-                console.log("hello" + resultText + "hello")
                 if (resultText) {
                     var result = parseInt(resultText)
                     if (!isNaN(result)) {
