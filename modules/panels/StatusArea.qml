@@ -221,8 +221,8 @@ Rectangle {
                 
                 Text {
                   Layout.maximumWidth: 120 
-                    text: networkService.net_stat
-                    color: theme.primary.foreground
+                    text: networkService.connectedWifi
+                    color: networkService.connectedWifi === "Disconnected" ? theme.normal.red : theme.primary.foreground
                     font {
                         pixelSize: 15
                         bold: true

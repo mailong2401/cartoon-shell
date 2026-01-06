@@ -6,7 +6,7 @@ Item {
     id: networkService
     
     // Properties
-    property string net_stat: "Checking..."
+    property string connectedWifi: "Checking..."
     property string wifi_icon: "../../assets/wifi/wifi.png"
     property int signal_current: 0
     
@@ -15,16 +15,22 @@ Item {
     
     // Processes
     Process {
-        id: wifiProcess
-        command: [Qt.resolvedUrl("../scripts/check-network"), "--stat"]
-        running: false
-        stdout: StdioCollector { }
-        onRunningChanged: {
-            if (!running && stdout.text) {
-                var result = stdout.text.trim()
-                networkService.net_stat = result
-                networkService.updateWifiIcon()
-                networkService.wifiUpdated()
+        id: connectedWifiProcess
+        command: ["nmcli", "-t", "-f", "NAME", "connection", "show", "--active"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                if (this.text) {
+                    const lines = this.text.trim().split('\n')
+                    for (var i = 0; i < lines.length; i++) {
+                        var conn = lines[i]
+                        if (conn && conn !== "lo" && !conn.startsWith("Wired")) {
+                            networkService.connectedWifi = conn
+                            return
+                        }
+                    }
+                    networkService.connectedWifi = "Disconnected"
+                    wifi_icon = "../../assets/wifi/no-wifi.png"
+                }
             }
         }
     }
@@ -37,6 +43,7 @@ Item {
         onRunningChanged: {
             if (!running && stdout.text) {
                 var resultText = stdout.text.trim()
+                console.log("hello" + resultText + "hello")
                 if (resultText) {
                     var result = parseInt(resultText)
                     if (!isNaN(result)) {
@@ -55,8 +62,8 @@ Item {
     
     // Functions
     function updateWifi() {
-        if (!wifiProcess.running) {
-            wifiProcess.running = true
+        if (!connectedWifiProcess.running) {
+            connectedWifiProcess.running = true
         }
     }
     
@@ -67,11 +74,7 @@ Item {
     }
     
     function updateWifiIcon() {
-        if (networkService.net_stat === "Offline") {
-            networkService.wifi_icon = "../../assets/wifi/no-wifi.png"
-        } else if (networkService.net_stat === "Online") {
-            networkService.wifi_icon = "../../assets/wifi/wifi.png"
-        } else {
+
             var signal = networkService.signal_current || 0
             if (signal <= 40) {
                 networkService.wifi_icon = "../../assets/wifi/wifi_1.png"
@@ -80,19 +83,18 @@ Item {
             } else {
                 networkService.wifi_icon = "../../assets/wifi/wifi.png"
             }
-        }
     }
     
     // Timers
     Timer {
-        interval: 5000
+        interval: 1000
         running: true
         repeat: true
         onTriggered: networkService.updateWifi()
     }
     
     Timer {
-        interval: 5000
+        interval: 1000
         running: true
         repeat: true
         onTriggered: networkService.updateSignalWifi()

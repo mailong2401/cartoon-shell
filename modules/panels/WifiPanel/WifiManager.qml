@@ -5,7 +5,6 @@ import Quickshell.Io
 Item {
     id: wifiManager
     
-    property string hyprInstance: Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") || ""
     property var wifiList: []
     property bool wifiEnabled: true
     property string connectedWifi: "Not connected"
