@@ -141,24 +141,6 @@ PanelWindow {
                 Layout.preferredHeight: 120
             }
 
-            // Hiển thị hình ảnh lõi CPU
-            Components.CpuCoresDisplay {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 120
-                cpuCores: detailPanel.cpuCores
-                cpuUsageList: detailPanel.cpuUsageList
-                getUsageColor: detailPanel.getUsageColor
-            }
-
-            // Thông tin tổng quan
-            Components.CpuStatsOverview {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 60
-                calculateTotalUsage: detailPanel.calculateTotalUsage
-                getMaxUsage: detailPanel.getMaxUsage
-                getUsageColor: detailPanel.getUsageColor
-                cpuHistory: detailPanel.cpuHistory
-            }
 
             // BIỂU ĐỒ CPU USAGE
             Components.CpuUsageChart {
