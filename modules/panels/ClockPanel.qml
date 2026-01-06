@@ -28,8 +28,8 @@ PanelWindow {
         right: 20
     }
 
-    implicitWidth:  40
-    implicitHeight:  40
+    implicitWidth:  content.implicitWidth + 40
+    implicitHeight:  content.implicitWidth + 40
 
     WlrLayershell.layer: WlrLayer.Bottom
 
