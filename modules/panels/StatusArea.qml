@@ -3,8 +3,8 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Pipewire
-import "./WifiPanel/" as ComponentWifi
-import "./Bluetooth/" as ComponentBluetooth
+import "../../services/" as Service
+
 
 Rectangle {
     id: root
@@ -13,12 +13,10 @@ Rectangle {
     radius: 10
     color: theme.primary.background
 
-    property string net_stat: "Checking..."
-    property string wifi_icon: "../../assets/system/wifi.png"
+
     property string bluetooth_icon: "../../assets/settings/bluetooth.png"
     property string status_battery: "Unknown"
     property string capacity_battery: "..."
-    property int signal_current: 0
     property bool shouldShowOsd: false
     property bool visibleMixerPanel: false
     property bool visibleBatteryPanel: false
@@ -28,6 +26,11 @@ Rectangle {
     property real currentVolume: Pipewire.defaultAudioSink?.audio.volume ?? 0
     property bool isMuted: Pipewire.defaultAudioSink?.audio.mute ?? false
     property var theme : currentTheme
+
+
+    Service.NetworkService{
+      id: networkService
+    }
 
 
 
@@ -61,43 +64,7 @@ Rectangle {
     //   PROCESSES
     // =============================
     
-    Process {
-        id: wifiProcess
-        command: [Qt.resolvedUrl("../../scripts/check-network"), "--stat"]
-        running: false
-        stdout: StdioCollector { }
-        onRunningChanged: {
-            if (!running && stdout.text) {
-                var result = stdout.text.trim()
-                root.net_stat = result
-                updateWifiIcon()
-            }
-        }
-    }
 
-    Process {
-        id: wifiSignalProcess
-        command: ["bash", "-c", "nmcli -t -f ACTIVE,SIGNAL dev wifi | grep '^yes' | cut -d: -f2"]
-        stdout: StdioCollector { }
-        running: false
-        onRunningChanged: {
-            if (!running && stdout.text) {
-                var resultText = stdout.text.trim()
-                if (resultText) {
-                    var result = parseInt(resultText)
-                    if (!isNaN(result)) {
-                        root.signal_current = result
-                        updateWifiIcon()
-                    } else {
-                        root.signal_current = 0
-                    }
-                } else {
-                    root.signal_current = 0
-                    updateWifiIcon()
-                }
-            }
-        }
-    }
 
     Process {
         id: batteryCapacityProcess
@@ -151,36 +118,11 @@ Rectangle {
         }
     }
 
-    function updateSignalWifiProcess() {
-        if (!wifiSignalProcess.running) {
-            wifiSignalProcess.running = true
-        }
-    }
 
 
 
-    function updateWifi() {
-        if (!wifiProcess.running) {
-            wifiProcess.running = true
-        }
-    }
 
-    function updateWifiIcon() {
-        if (root.net_stat === "Offline") {
-            wifi_icon = "../../assets/system/no-wifi.png"
-        } else if (root.net_stat === "Online") {
-            wifi_icon = "../../assets/system/wifi.png"
-        } else {
-            var signal = root.signal_current || 0
-            if (signal <= 40) {
-                wifi_icon = "../../assets/system/wifi_1.png"
-            } else if (signal <= 70) {
-                wifi_icon = "../../assets/system/wifi_2.png"
-            } else {
-                wifi_icon = "../../assets/system/wifi.png"
-            }
-        }
-    }
+
 
     function updateBatteryIcon() {
         var capacity = parseInt(root.capacity_battery) || 0
@@ -271,7 +213,7 @@ Rectangle {
 
                 Image {
                     id: wifiImage
-                    source: root.wifi_icon
+                    source: networkService.wifi_icon
                     width: 35
                     height: 35
                     sourceSize: Qt.size(35, 35)
@@ -279,7 +221,7 @@ Rectangle {
                 
                 Text {
                   Layout.maximumWidth: 120 
-                    text: root.net_stat
+                    text: networkService.net_stat
                     color: theme.primary.foreground
                     font {
                         pixelSize: 15
@@ -473,29 +415,12 @@ Rectangle {
     // =============================
     
     Component.onCompleted: {
-        updateWifi()
-        updateSignalWifiProcess()
         updateBatteryCappacityProcess()
         
         // Chạy battery status ngay lập tức
         if (!batteryStatusProcess.running) {
             batteryStatusProcess.running = true
         }
-    }
-
-    // Timers
-    Timer {
-        interval: 5000
-        running: true
-        repeat: true
-        onTriggered: updateWifi()
-    }
-    
-    Timer {
-        interval: 5000
-        running: true
-        repeat: true
-        onTriggered: updateSignalWifiProcess()
     }
 
     Timer {
