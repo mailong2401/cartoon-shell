@@ -260,7 +260,7 @@ Rectangle {
     RowLayout {
         anchors.fill: parent
         anchors.margins: 0
-        spacing: currentSizes.spacing?.small || 5
+        spacing: 5
         Rectangle {
             id: bluetoothContainer
             Layout.preferredWidth: bluetoothCContent.width + currentSizes.statusAreaLayout?.containerPadding
@@ -323,16 +323,16 @@ Rectangle {
                 Image {
                     id: wifiImage
                     source: root.wifi_icon
-                    width: currentSizes.iconSize?.medium || 35
-                    height: currentSizes.iconSize?.medium || 35
-                    sourceSize: Qt.size(currentSizes.iconSize?.medium || 35, currentSizes.iconSize?.medium || 35)
+                    width: 35
+                    height: 35
+                    sourceSize: Qt.size(35, 35)
                 }
                 
                 Text {
                     text: root.net_stat
                     color: theme.primary.foreground
                     font {
-                        pixelSize: currentSizes.fontSize?.small
+                        pixelSize: 15
                         bold: true
                     }
                 }
@@ -378,16 +378,16 @@ Rectangle {
                 Image {
                     id: volumeIcon
                     source: isMuted || currentVolume === 0 ? "../../assets/volume/mute.png" : "../../assets/volume/volume.png"
-                    width: currentSizes.iconSize?.medium || 34
-                    height: currentSizes.iconSize?.medium || 34
-                    sourceSize: Qt.size(currentSizes.iconSize?.medium || 34, currentSizes.iconSize?.medium || 34)
+                    width: 35
+                    height: 35
+                    sourceSize: Qt.size(35, 35)
                 }
                 Text {
                     text: isMuted ? "Muted" : Math.round(currentVolume * 100) + "%"
 
                     color: theme.primary.foreground
                     font { 
-                        pixelSize: currentSizes.fontSize?.normal
+                        pixelSize: 16
                         bold: true 
                     }
                     verticalAlignment: Text.AlignVCenter

@@ -7,7 +7,7 @@ import "./WeatherTime/" as WeatherTime
 Rectangle {
     id: root
     color: theme.primary.background
-    radius: currentSizes.radius?.normal || 10
+    radius: 10
     border.color: theme.button.border
 
     border.width: 3
@@ -202,12 +202,12 @@ property var lang: currentLanguage
 
     RowLayout {
         anchors.centerIn: parent
-        spacing: currentSizes.spacing?.normal || 8
+        spacing: 8
 
         // Phần datetime
         Rectangle {
             id: timeContainer
-            Layout.preferredWidth: currentSizes.timespaceLayout?.timeContainer || 190
+            Layout.preferredWidth: 190
             Layout.fillHeight: true
             color: "transparent"
 
@@ -219,7 +219,7 @@ property var lang: currentLanguage
                     text: root.currentTime
                     color: root.theme.primary.foreground
                     font {
-                        pixelSize: currentSizes.fontSize?.medium || 16
+                        pixelSize: 16
                         bold: true
                         family: "ComicShannsMono Nerd Font"
                     }
@@ -228,7 +228,7 @@ property var lang: currentLanguage
                 Text {
                     text: root.currentDate
                     color: root.theme.primary.dim_foreground
-                    font.pixelSize: currentSizes.fontSize?.normal || 13
+                    font.pixelSize: 13
                     font.family: "ComicShannsMono Nerd Font"
                 }
             }
@@ -256,7 +256,7 @@ property var lang: currentLanguage
         // Phần weather - ĐÃ SỬA: Thêm icon và condition
         Rectangle {
             id: weatherContainer
-            Layout.preferredWidth: currentSizes.timespaceLayout?.weatherContainer || 120
+            Layout.preferredWidth: 120
             Layout.fillHeight: true
             color: "transparent"
 
@@ -269,20 +269,20 @@ property var lang: currentLanguage
                     spacing: 1
 
                     RowLayout {
-                        spacing: currentSizes.spacing?.normal || 8
+                        spacing: 8
                         Text {
                             text: root.temperature || "Đang tải..."
                             color: root.theme.primary.foreground
                             Layout.alignment: Qt.AlignVCenter
                             font {
-                                pixelSize: currentSizes.fontSize?.medium || 16
+                                pixelSize: 16
                                 bold: true
                                 family: "ComicShannsMono Nerd Font"
                             }
                         }
                         Text {
                             text: root.icon
-                            font.pixelSize: currentSizes.fontSize?.xlarge || 24
+                            font.pixelSize: 24
                             Layout.alignment: Qt.AlignVCenter
                         }
                     }
@@ -293,7 +293,7 @@ property var lang: currentLanguage
                         text: root.condition || "..."
                         color: root.theme.primary.dim_foreground
                         font {
-                            pixelSize: currentSizes.fontSize?.small || 11
+                            pixelSize: 11
                             family: "ComicShannsMono Nerd Font"
                         }
                         elide: Text.ElideRight
@@ -325,14 +325,14 @@ property var lang: currentLanguage
         // Flag Selector
         Rectangle {
             id: flagContainer
-            Layout.preferredWidth: currentSizes.timespaceLayout?.flagContainer || 60
-            Layout.preferredHeight: currentSizes.timespaceLayout?.flagContainer || 60
+            Layout.preferredWidth: 60
+            Layout.preferredHeight: 60
             color: "transparent"
 
             Image {
                 source: root.selectedFlag ? `../../assets/flags/${root.selectedFlag}.png` : ""
-                width: currentSizes.iconSize?.large || 50
-                height: currentSizes.iconSize?.large || 50
+                width: 50
+                height: 50
                 fillMode: Image.PreserveAspectFit
                 smooth: true
                 anchors.centerIn: parent

@@ -24,8 +24,8 @@ PanelWindow {
     property int position: 0
     property int duration: 0
 
-    implicitWidth: sizes.width || 500
-    implicitHeight: sizes.height || 400
+    implicitWidth: 500
+    implicitHeight: 500
     focusable: true
 
     anchors {
@@ -35,8 +35,8 @@ PanelWindow {
     }
 
     margins {
-        top: currentConfig.mainPanelPos === "top" ? (sizes.marginTop || 10) : 0
-        bottom: currentConfig.mainPanelPos === "bottom" ? (sizes.marginBottom || 10) : 0
+        top: currentConfig.mainPanelPos === "top" ? 10 : 0
+        bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
         left: sizes.marginLeft || 400
     }
 
@@ -70,30 +70,30 @@ PanelWindow {
     // Main content
     Rectangle {
         anchors.fill: parent
-        radius: sizes.radius || 16
+        radius: 16
         color: theme.primary.background
         border.color: theme.button.border
-        border.width: sizes.borderWidth || 3
+        border.width: 3
 
         ColumnLayout {
             anchors.fill: parent
-            anchors.margins: sizes.margins || 20
-            spacing: sizes.spacing || 16
+            anchors.margins: 20
+            spacing: 16
 
             // Header
             Item {
                 Layout.fillWidth: true
-                Layout.preferredHeight: sizes.headerHeight || 50
+                Layout.preferredHeight: 50
 
                 // Title centered
                 Row {
                     anchors.centerIn: parent
-                    spacing: sizes.headerSpacing || 12
+                    spacing: 12
 
                     Image {
                         source: "../../assets/music/music-icon.png"
-                        width: sizes.headerIconSize || 32
-                        height: sizes.headerIconSize || 32
+                        width: 32
+                        height: 32
                         fillMode: Image.PreserveAspectFit
                         visible: source != ""
                     }
@@ -101,7 +101,7 @@ PanelWindow {
                     Text {
                         text: lang.musicPanel?.title || "Music Player"
                         font.family: "ComicShannsMono Nerd Font"
-                        font.pixelSize: currentSizes.ramManagement?.header?.fontSize || 40
+                        font.pixelSize: 40
                         font.bold: true
                         color: theme.primary.foreground
                         anchors.verticalCenter: parent.verticalCenter
@@ -112,16 +112,16 @@ PanelWindow {
                 Rectangle {
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    width: sizes.closeButtonSize || 32
-                    height: sizes.closeButtonSize || 32
-                    radius: sizes.closeButtonRadius || 8
+                    width: 32
+                    height: 32
+                    radius: 8
                     color: closeArea.containsMouse ? theme.normal.red : theme.button.background
 
                     Text {
                         anchors.centerIn: parent
                         text: "x"
                         font.family: "ComicShannsMono Nerd Font"
-                        font.pixelSize: sizes.closeButtonFontSize || 18
+                        font.pixelSize: 18
                         font.bold: true
                         color: theme.primary.foreground
                     }
@@ -139,13 +139,13 @@ PanelWindow {
             // Album art and info section
             RowLayout {
                 Layout.fillWidth: true
-                Layout.preferredHeight: sizes.albumSectionHeight || 180
-                spacing: sizes.albumSpacing || 20
+                Layout.preferredHeight: 180
+                spacing: 20
 
                 // Album art (circular with rotation)
                 Item {
-                    Layout.preferredWidth: sizes.albumArtSize || 160
-                    Layout.preferredHeight: sizes.albumArtSize || 160
+                    Layout.preferredWidth: 160
+                    Layout.preferredHeight: 160
 
                     // Rotating container
                     Item {
@@ -163,10 +163,10 @@ PanelWindow {
                         ClippingRectangle {
                             id: albumArtContainer
                             anchors.fill: parent
-                            radius: width / 2
+                            radius: 80
                             color: theme.primary.dim_background
                             border.color: theme.normal.black
-                            border.width: sizes.borderWidth || 3
+                            border.width: 3
 
                             Image {
                                 id: albumImage
@@ -184,7 +184,7 @@ PanelWindow {
                                 anchors.centerIn: parent
                                 text: "No Art"
                                 font.family: "ComicShannsMono Nerd Font"
-                                font.pixelSize: sizes.placeholderFontSize || 14
+                                font.pixelSize: 14
                                 color: theme.primary.dim_foreground
                                 visible: albumImage.status !== Image.Ready
                             }
@@ -197,7 +197,7 @@ PanelWindow {
                 ColumnLayout {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    spacing: sizes.infoSpacing || 8
+                    spacing: 8
 
                     Item { Layout.fillHeight: true }
 
@@ -211,7 +211,7 @@ PanelWindow {
                             id: songText
                             text: currentSong
                             font.family: "ComicShannsMono Nerd Font"
-                            font.pixelSize: sizes.songFontSize || 22
+                            font.pixelSize: 22
                             font.bold: true
                             color: theme.primary.foreground
 
@@ -250,7 +250,7 @@ PanelWindow {
                     Text {
                         text: currentArtist
                         font.family: "ComicShannsMono Nerd Font"
-                        font.pixelSize: sizes.artistFontSize || 16
+                        font.pixelSize: 16
                         color: theme.primary.dim_foreground
                         elide: Text.ElideRight
                         Layout.fillWidth: true
@@ -264,8 +264,8 @@ PanelWindow {
 
                         Rectangle {
                             Layout.fillWidth: true
-                            Layout.preferredHeight: sizes.progressBarHeight || 6
-                            radius: sizes.progressBarRadius || 3
+                            Layout.preferredHeight: 6
+                            radius: 3
                             color: theme.primary.dim_background
 
                             Rectangle {
@@ -286,7 +286,7 @@ PanelWindow {
                             Text {
                                 text: formatTime(position)
                                 font.family: "ComicShannsMono Nerd Font"
-                                font.pixelSize: sizes.timeFontSize || 11
+                                font.pixelSize: 11
                                 color: theme.primary.dim_foreground
                             }
 
@@ -295,7 +295,7 @@ PanelWindow {
                             Text {
                                 text: formatTime(duration)
                                 font.family: "ComicShannsMono Nerd Font"
-                                font.pixelSize: sizes.timeFontSize || 11
+                                font.pixelSize: 11
                                 color: theme.primary.dim_foreground
                             }
                         }
@@ -308,23 +308,23 @@ PanelWindow {
             // Controls
             RowLayout {
                 Layout.fillWidth: true
-                Layout.preferredHeight: sizes.controlsHeight || 60
-                spacing: sizes.controlsSpacing || 24
+                Layout.preferredHeight: 60
+                spacing: 24
 
                 Item { Layout.fillWidth: true }
 
                 // Previous
                 Rectangle {
-                    Layout.preferredWidth: sizes.controlButtonSize || 48
-                    Layout.preferredHeight: sizes.controlButtonSize || 48
-                    radius: sizes.controlButtonRadius || 24
+                    Layout.preferredWidth: 48
+                    Layout.preferredHeight: 48
+                    radius: 24
                     color: prevArea.containsMouse ? theme.button.background_select : theme.button.background
 
                     Image {
                         anchors.centerIn: parent
                         source: theme.type === "dark" ? "../../assets/music/pre_dark.png" : "../../assets/music/pre.png"
-                        width: sizes.controlIconSize || 28
-                        height: sizes.controlIconSize || 28
+                        width: 28
+                        height: 28
                         fillMode: Image.PreserveAspectFit
                     }
 
@@ -341,9 +341,9 @@ PanelWindow {
 
                 // Play/Pause
                 Rectangle {
-                    Layout.preferredWidth: sizes.playButtonSize || 64
-                    Layout.preferredHeight: sizes.playButtonSize || 64
-                    radius: sizes.playButtonRadius || 32
+                    Layout.preferredWidth: 64
+                    Layout.preferredHeight: 64
+                    radius: 32
                     color: playArea.containsMouse ? theme.normal.blue : theme.button.background
 
                     Image {
@@ -352,8 +352,8 @@ PanelWindow {
                             var suffix = theme.type === "dark" ? "_dark" : ""
                             return isPlaying ? "../../assets/music/pause" + suffix + ".png" : "../../assets/music/play" + suffix + ".png"
                         }
-                        width: sizes.playIconSize || 32
-                        height: sizes.playIconSize || 32
+                        width: 32
+                        height: 32
                         fillMode: Image.PreserveAspectFit
                     }
 
@@ -370,16 +370,16 @@ PanelWindow {
 
                 // Next
                 Rectangle {
-                    Layout.preferredWidth: sizes.controlButtonSize || 48
-                    Layout.preferredHeight: sizes.controlButtonSize || 48
-                    radius: sizes.controlButtonRadius || 24
+                    Layout.preferredWidth: 48
+                    Layout.preferredHeight: 48
+                    radius: 24
                     color: nextArea.containsMouse ? theme.button.background_select : theme.button.background
 
                     Image {
                         anchors.centerIn: parent
                         source: theme.type === "dark" ? "../../assets/music/next_dark.png" : "../../assets/music/next.png"
-                        width: sizes.controlIconSize || 28
-                        height: sizes.controlIconSize || 28
+                        width: 28
+                        height: 28
                         fillMode: Image.PreserveAspectFit
                     }
 
@@ -401,25 +401,25 @@ PanelWindow {
             Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.minimumHeight: sizes.cavaHeight || 100
-                radius: sizes.cavaRadius || 12
+                Layout.minimumHeight: 100
+                radius: 12
                 color: theme.primary.dim_background
                 clip: true
 
                 Row {
                     id: cavaRow
                     anchors.fill: parent
-                    anchors.margins: sizes.cavaMargins || 8
-                    spacing: sizes.cavaBarSpacing || 2
+                    anchors.margins: 8
+                    spacing: 2
 
                     Repeater {
                         model: cavaService.values.length
 
                         Rectangle {
-                            width: (cavaRow.width - (cavaService.values.length - 1) * (sizes.cavaBarSpacing || 2)) / cavaService.values.length
+                            width: (cavaRow.width - (cavaService.values.length - 1) * 2) / cavaService.values.length
                             height: Math.max(4, (cavaService.values[index] / 100) * cavaRow.height)
                             anchors.bottom: parent.bottom
-                            radius: sizes.cavaBarRadius || 2
+                            radius:  2
                             color: {
                                 // Gradient based on height using theme colors
                                 var ratio = cavaService.values[index] / 100
@@ -452,7 +452,7 @@ PanelWindow {
                         anchors.centerIn: parent
                         text: !isPlaying ? (lang.musicPanel?.notPlaying || "Not playing") : (lang.musicPanel?.loading || "Loading...")
                         font.family: "ComicShannsMono Nerd Font"
-                        font.pixelSize: sizes.cavaPlaceholderFontSize || 14
+                        font.pixelSize: 14
                         color: theme.primary.dim_foreground
                     }
                 }

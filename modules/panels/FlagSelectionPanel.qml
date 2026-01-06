@@ -21,8 +21,8 @@ PanelWindow {
         }
     }
 
-    implicitWidth: sizes.width || 600
-    implicitHeight: sizes.height || 420
+    implicitWidth: 600
+    implicitHeight: 420
 
     property var flagList: [
         { name: "britain", displayName: "Britain" },
@@ -63,8 +63,8 @@ PanelWindow {
     }
 
     margins {
-        top: currentConfig.mainPanelPos === "top" ? (sizes.marginTop || 10) : 0
-        bottom: currentConfig.mainPanelPos === "bottom" ? (sizes.marginBottom || 10) : 0
+        top: currentConfig.mainPanelPos === "top" ? 10 : 0
+        bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
         left: sizes.marginLeft || 800
     }
 
@@ -79,24 +79,24 @@ PanelWindow {
     Rectangle {
         anchors.fill: parent
         color: theme.primary.background
-        radius: sizes.radius || 10
+        radius: 10
         border.color: theme.button.border
-        border.width: sizes.borderWidth || 3
+        border.width: 3
 
         ColumnLayout {
             anchors.fill: parent
-            anchors.margins: sizes.margins || 20
-            spacing: sizes.spacing || 15
+            anchors.margins: 20
+            spacing: 15
 
             // Header
             RowLayout {
                 Layout.fillWidth: true
-                spacing: sizes.headerSpacing || 10
+                spacing: 10
 
                 Image {
                     source: "../../assets/panel/earth.png"
-                    width: sizes.headerIconSize || 32
-                    height: sizes.headerIconSize || 32
+                    width: 32
+                    height: 32
                     fillMode: Image.PreserveAspectFit
                     smooth: true
                 }
@@ -105,7 +105,7 @@ PanelWindow {
                     text: "Select Your Country Flag"
                     color: theme.primary.foreground
                     font {
-                        pixelSize: sizes.headerFontSize || 32
+                        pixelSize: 32
                         bold: true
                         family: "ComicShannsMono Nerd Font"
                     }
@@ -125,29 +125,29 @@ PanelWindow {
                 ScrollBar.horizontal.policy: ScrollBar.AlwaysOn
 
                 Flow {
-                    height: 3 * (sizes.flagItemHeight || 70) + 2 * (sizes.gridColumnSpacing || 12)
-                    spacing: sizes.gridColumnSpacing || 12
+                    height: 234
+                    spacing: 12
                     flow: Flow.TopToBottom
 
                     Repeater {
                         model: flagSelectionPanel.flagList
 
                         Rectangle {
-                            width: sizes.flagItemWidth || 105
-                            height: sizes.flagItemHeight || 70
+                            width: 105
+                            height: 70
                             color: flagSelectionPanel.selectedFlag === modelData.name ? theme.primary.dim_background : theme.primary.background
                             border.color: flagSelectionPanel.selectedFlag === modelData.name ? theme.normal.green : theme.button.border
                             border.width: flagSelectionPanel.selectedFlag === modelData.name ? (sizes.flagItemSelectedBorderWidth || 3) : (sizes.flagItemBorderWidth || 2)
-                            radius: sizes.flagItemRadius || 10
+                            radius: 10
 
                             Column {
                                 anchors.centerIn: parent
-                                spacing: sizes.flagItemSpacing || 4
+                                spacing: 4
 
                                 Image {
                                     source: `../../assets/flags/${modelData.name}.png`
-                                    width: sizes.flagImageWidth || 64
-                                    height: sizes.flagImageHeight || 45
+                                    width: 64
+                                    height: 45
                                     fillMode: Image.PreserveAspectFit
                                     smooth: true
                                     anchors.horizontalCenter: parent.horizontalCenter
@@ -157,7 +157,7 @@ PanelWindow {
                                     text: modelData.displayName
                                     color: theme.primary.foreground
                                     font {
-                                        pixelSize: sizes.flagNameFontSize || 12
+                                        pixelSize: 12
                                         family: "ComicShannsMono Nerd Font"
                                         bold: flagSelectionPanel.selectedFlag === modelData.name
                                     }
@@ -202,7 +202,7 @@ PanelWindow {
                 text: `Selected: ${flagSelectionPanel.selectedFlag}`
                 color: theme.primary.dim_foreground
                 font {
-                    pixelSize: sizes.footerFontSize || 16
+                    pixelSize: 16
                     family: "ComicShannsMono Nerd Font"
                     italic: true
                 }

@@ -64,8 +64,8 @@ Rectangle {
 
             Image {
                 source: modelData
-                Layout.preferredWidth: currentSizes.iconSize?.large || 40
-                Layout.preferredHeight: currentSizes.iconSize?.large || 40
+                Layout.preferredWidth:  40
+                Layout.preferredHeight:  40
                 fillMode: Image.PreserveAspectFit
                 smooth: true
 

@@ -10,7 +10,7 @@ Rectangle {
     color: theme.primary.background
     border.color: theme.button.border
     border.width: 3
-    radius: currentSizes.radius?.normal || 10
+    radius: 10
     clip: true
 
     property string cpuUsage: "0%"
@@ -84,8 +84,8 @@ Rectangle {
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: currentSizes.cpuPanelLayout?.containerMargin || 4
-        spacing: currentSizes.cpuPanelLayout?.containerSpacing || 4
+        anchors.margins: 4
+        spacing: 4
 
         // CPU Container - Click để mở panel chi tiết
         Rectangle {
@@ -93,12 +93,12 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             color: "transparent"
-            radius: currentSizes.cpuPanelLayout?.containerRadius || 6
+            radius: 6
 
             RowLayout {
                 id: cpuContent
                 anchors.centerIn: parent
-                spacing: currentSizes.cpuPanelLayout?.itemSpacing || 2
+                spacing: 2
 
                 ColumnLayout {
                     Layout.alignment: Qt.AlignVCenter
@@ -109,7 +109,7 @@ Rectangle {
                         color: theme.primary.foreground
                         font {
                             family: "ComicShannsMono Nerd Font"
-                            pixelSize: currentSizes.cpuPanelLayout?.usageTextSize || 15
+                            pixelSize: 15
                             bold: true
                         }
                         Layout.alignment: Qt.AlignHCenter
@@ -120,7 +120,7 @@ Rectangle {
                         color: theme.primary.dim_foreground
                         font {
                             family: "ComicShannsMono Nerd Font"
-                            pixelSize: currentSizes.cpuPanelLayout?.labelTextSize || 10
+                            pixelSize: 10
                         }
                         Layout.alignment: Qt.AlignHCenter
                     }
@@ -128,8 +128,8 @@ Rectangle {
                 Image {
                     id: cpuIcon
                     source: "../../assets/cpu/cpu.png"
-                    Layout.preferredWidth: currentSizes.cpuPanelLayout?.cpuIconSize || 36
-                    Layout.preferredHeight: currentSizes.cpuPanelLayout?.cpuIconSize || 36
+                    Layout.preferredWidth: 36
+                    Layout.preferredHeight: 36
                     fillMode: Image.PreserveAspectFit
                     smooth: true
                     Layout.alignment: Qt.AlignVCenter
@@ -164,12 +164,12 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             color: "transparent"
-            radius: currentSizes.cpuPanelLayout?.containerRadius || 6
+            radius: 6
 
             RowLayout {
                 id: memoryContent
                 anchors.centerIn: parent
-                spacing: currentSizes.cpuPanelLayout?.itemSpacing || 2
+                spacing: 2
 
                 ColumnLayout {
                     Layout.alignment: Qt.AlignVCenter
@@ -180,7 +180,7 @@ Rectangle {
                         color: theme.primary.foreground
                         font {
                             family: "ComicShannsMono Nerd Font"
-                            pixelSize: currentSizes.cpuPanelLayout?.usageTextSize || 15
+                            pixelSize: 15
                             bold: true
                         }
                         Layout.alignment: Qt.AlignHCenter
@@ -191,7 +191,7 @@ Rectangle {
                         color: theme.primary.dim_foreground
                         font {
                             family: "ComicShannsMono Nerd Font"
-                            pixelSize: currentSizes.cpuPanelLayout?.labelTextSize || 10
+                            pixelSize: 10
                         }
                         Layout.alignment: Qt.AlignHCenter
                     }
@@ -200,8 +200,8 @@ Rectangle {
                 Image {
                     id: memoryIcon
                     source: "../../assets/panel/memory.png"
-                    Layout.preferredWidth: currentSizes.cpuPanelLayout?.ramIconSize || 30
-                    Layout.preferredHeight: currentSizes.cpuPanelLayout?.ramIconSize || 30
+                    Layout.preferredWidth: 30
+                    Layout.preferredHeight: 30
                     fillMode: Image.PreserveAspectFit
                     smooth: true
                     Layout.alignment: Qt.AlignVCenter

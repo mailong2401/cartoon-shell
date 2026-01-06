@@ -23,14 +23,14 @@ PanelWindow {
     }
 
     margins {
-        top: sizes.anchorMargin || 20
-        bottom: sizes.anchorMargin || 20
-        left: sizes.anchorMargin || 20
-        right: sizes.anchorMargin || 20
+        top:  20
+        bottom:  20
+        left:  20
+        right: 20
     }
 
-    implicitWidth: content.implicitWidth + (sizes.contentPadding || 40)
-    implicitHeight: content.implicitHeight + (sizes.contentPadding || 40)
+    implicitWidth:  40
+    implicitHeight:  40
 
     WlrLayershell.layer: WlrLayer.Bottom
 
@@ -82,23 +82,23 @@ PanelWindow {
     Rectangle {
         id: clockContainer
         anchors.fill: parent
-        radius: sizes.containerRadius || 10
+        radius: 10
         color: "transparent"
 
         RowLayout {
             id: content
             anchors.centerIn: parent
-            spacing: sizes.contentSpacing || 33
+            spacing: 33
 
             // Phần hiển thị thời gian (giờ và phút)
             ColumnLayout {
-                spacing: sizes.columnSpacing || 5
+                spacing: 5
                 Text {
                     id: timeHour
                     text: root.currentHour
                     color: "#ffffff"
                     font {
-                        pixelSize: sizes.timeFontSize || 124
+                        pixelSize: 124
                         bold: true
                         family: "ComicShannsMono Nerd Font"
                     }
@@ -109,7 +109,7 @@ PanelWindow {
                     text: root.currentMin
                     color: "#ffffff"
                     font {
-                        pixelSize: sizes.timeFontSize || 124
+                        pixelSize: 124
                         bold: true
                         family: "ComicShannsMono Nerd Font"
                     }
@@ -117,21 +117,21 @@ PanelWindow {
             }
 
             Rectangle {
-                Layout.preferredWidth: sizes.dividerWidth || 10
+                Layout.preferredWidth: 10
                 Layout.preferredHeight: Math.max(timeHour.implicitHeight, timeMin.implicitHeight) * 2
                 color: "#ffffff"
-                radius: sizes.dividerRadius || 10
+                radius: 10
             }
 
             // Phần hiển thị ngày tháng
             ColumnLayout {
-                spacing: sizes.columnSpacing || 5
+                spacing: 5
                 Text {
                     id: dayText
                     text: root.currentDay
                     color: "#ffffff"
                     font {
-                        pixelSize: sizes.dayFontSize || 124
+                        pixelSize: 124
                         bold: true
                         family: "ComicShannsMono Nerd Font"
                     }
@@ -141,7 +141,7 @@ PanelWindow {
                     text: root.currentDate
                     color: "#ffffff"
                     font {
-                        pixelSize: sizes.dateFontSize || 64
+                        pixelSize: 64
                         bold: true
                         family: "ComicShannsMono Nerd Font"
                     }

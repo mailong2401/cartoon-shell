@@ -11,7 +11,7 @@ Rectangle {
     color: theme.primary.background
     border.color: theme.button.border
     border.width: 3
-    radius: currentSizes.radius?.normal || 10
+    radius: 10
 
     property string currentSong: musicPlayer.mprisPlayer ? (musicPlayer.mprisPlayer.trackTitle || "No song playing") : "No song playing"
     property string currentArtist: musicPlayer.mprisPlayer ? (musicPlayer.mprisPlayer.trackArtist || "Unknown Artist") : "Unknown Artist"
@@ -23,20 +23,20 @@ Rectangle {
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: currentSizes.spacing?.normal || 8
-        spacing: currentSizes.spacing?.medium || 12
+        anchors.margins: 1
+        spacing: 12
 
         // Song info with marquee effect
         ColumnLayout {
             id: songInfoColumn
             Layout.fillWidth: true
-            spacing: currentSizes.spacing?.small || 2
+            spacing: 2
 
             // Container for song title with marquee effect (like MusicPanel)
             Item {
                 id: songContainer
                 Layout.fillWidth: true
-                Layout.preferredHeight: currentSizes.musicPlayerLayout?.songContainerHeight || 20
+                Layout.preferredHeight: 25
                 clip: true
 
                 MouseArea {
@@ -55,7 +55,7 @@ Rectangle {
                     text: currentSong
                     color: theme.primary.foreground
                     font.family: "ComicShannsMono Nerd Font"
-                    font.pixelSize: currentSizes.fontSize?.medium || 16
+                    font.pixelSize: 16
 
                     property bool needsMarquee: width > songContainer.width
 
@@ -98,7 +98,7 @@ Rectangle {
                 text: currentArtist
                 color: theme.primary.dim_foreground
                 font.family: "ComicShannsMono Nerd Font"
-                font.pixelSize: currentSizes.fontSize?.small || 10
+                font.pixelSize: 10
                 elide: Text.ElideRight
                 Layout.fillWidth: true
             }
@@ -107,7 +107,7 @@ Rectangle {
         // Controls
         RowLayout {
             id: controlsRow
-            spacing: currentSizes.spacing?.medium || 12
+            spacing: 12
             Layout.fillHeight: true
             Layout.preferredWidth: childrenRect.width
             Layout.minimumWidth: childrenRect.width
@@ -117,8 +117,8 @@ Rectangle {
             Image {
                 id: preBtn
                 source: theme.type === "dark" ? "../../assets/music/pre_dark.png" : "../../assets/music/pre.png"
-                Layout.preferredWidth: currentSizes.iconSize?.normal || 30
-                Layout.preferredHeight: currentSizes.iconSize?.normal || 30
+                Layout.preferredWidth: 30
+                Layout.preferredHeight: 30
                 fillMode: Image.PreserveAspectFit
                 smooth: true
 
@@ -141,8 +141,8 @@ Rectangle {
                     var suffix = theme.type === "dark" ? "_dark" : ""
                     return isPlaying ? "../../assets/music/pause" + suffix + ".png" : "../../assets/music/play" + suffix + ".png"
                 }
-                Layout.preferredWidth: currentSizes.iconSize?.normal || 30
-                Layout.preferredHeight: currentSizes.iconSize?.normal || 30
+                Layout.preferredWidth: 30
+                Layout.preferredHeight: 30
                 fillMode: Image.PreserveAspectFit
                 smooth: true
 
@@ -161,8 +161,8 @@ Rectangle {
             Image {
                 id: nextBtn
                 source: theme.type === "dark" ? "../../assets/music/next_dark.png" : "../../assets/music/next.png"
-                Layout.preferredWidth: currentSizes.iconSize?.normal || 30
-                Layout.preferredHeight: currentSizes.iconSize?.normal || 30
+                Layout.preferredWidth: 30
+                Layout.preferredHeight: 30
                 fillMode: Image.PreserveAspectFit
                 smooth: true
 
