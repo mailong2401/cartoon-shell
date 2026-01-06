@@ -10,6 +10,7 @@ import "./config" as Config
 import "./modules/dialogs" as Dialogs
 import "./modules/panels" as Panels
 import "./modules/lockscreen" as Lockscreen
+import "./components/" as Components
 
 ShellRoot {
     id: root
@@ -18,6 +19,7 @@ ShellRoot {
     Config.LanguageLoader { id: languageLoader }
     Config.ConfigLoader { id: configLoader }
     Config.PanelManager { id: panelManager }
+    Components.PanelLoaders{ id: panelLoaders}
     Dialogs.VolumeOsd { }
     Dialogs.NotificationPopup{}
     Dialogs.ConfirmDialog { id: confirmDialog }

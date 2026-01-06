@@ -180,12 +180,5 @@ Rectangle {
     }
 
     // Loader for MusicPanel
-    Loader {
-        id: musicPanelLoader
-        active: panelManager.music
-        source: "MusicPanel.qml"
-        onLoaded: {
-            item.visible = panelManager.music
-        }
-    }
+
 }

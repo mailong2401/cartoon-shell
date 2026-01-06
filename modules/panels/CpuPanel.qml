@@ -19,22 +19,7 @@ Rectangle {
 
 
 
-    Loader {
-        id: cpuPanelLoader
-        source: "./Cpu/CpuDetailPanel.qml"
-        active: panelManager.cpu
-        onLoaded: {
-            item.visible = Qt.binding(function() { return panelManager.cpu })
-        }
-      }
-      Loader {
-        id: ramPanelLoader
-        source: "./Ram/RamDetailPanel.qml"
-        active: panelManager.ram
-        onLoaded: {
-            item.visible = Qt.binding(function() { return panelManager.ram })
-        }
-      }
+
 
 
     // Process lấy CPU usage

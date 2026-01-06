@@ -39,35 +39,6 @@ property var lang: currentLanguage
         }
     }
 
-    Loader {
-        id: launcherPanelLoader
-        source: "./WeatherTime/WtDetailPanel.qml"
-        active: panelManager.calendar
-        onLoaded: {
-            item.visible = Qt.binding(function() { return panelManager.calendar })
-        }
-    }
-
-    // Flag Selection Panel
-    Loader {
-        id: flagPanelLoader
-        source: "./FlagSelectionPanel.qml"
-        active: panelManager.flag
-        onLoaded: {
-            item.visible = Qt.binding(function() { return panelManager.flag })
-            item.selectedFlag = Qt.binding(function() { return root.selectedFlag })
-        }
-    }
-
-    // Weather Panel
-    Loader {
-        id: weatherPanelLoader
-        source: "./weather/WeatherPanel.qml"
-        active: panelManager.weather
-        onLoaded: {
-            item.visible = Qt.binding(function() { return panelManager.weather })
-        }
-    }
 
     // Process lấy weather
     Process {

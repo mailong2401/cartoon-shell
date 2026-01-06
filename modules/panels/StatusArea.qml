@@ -53,51 +53,7 @@ Rectangle {
     // WifiManager component - chứa tất cả logic WiFi
     // WiFi Panel - chỉ hiện khi được toggle
     //
-      Loader {
-        id: wifiLoader
-        source: "./WifiPanel/WifiPanel.qml"
-        active: panelManager.wifi
-        onLoaded: {
-          item.visible = Qt.binding(function() { return panelManager.wifi})
-        }
-      }
 
-
-
-      Loader {
-        id: bluetoothLoader
-        source: "./Bluetooth/BluetoothPanel.qml"
-        active: panelManager.bluetooth
-        onLoaded: {
-          item.visible = Qt.binding(function() { return panelManager.bluetooth})
-        }
-      }
-
-      Loader {
-        id: cpuPanelLoader
-        source: "./Mixer/MixerPanel.qml"
-        active: panelManager.mixer
-        onLoaded: {
-            item.visible = Qt.binding(function() { return panelManager.mixer })
-        }
-      }
-      Loader {
-        id: batteryPanelLoader
-        source: "./Battery/BatteryDetailPanel.qml"
-        active: panelManager.battery
-        onLoaded: {
-            item.visible = Qt.binding(function() { return panelManager.battery })
-        }
-      }
-
-      Loader {
-        id: dashboardLoader
-        source: "./dashboard/DashboardPanel.qml"
-        active: panelManager.dashboard
-        onLoaded: {
-            item.visible = Qt.binding(function() { return panelManager.dashboard })
-        }
-      }
 
 
 
@@ -244,14 +200,7 @@ Rectangle {
     }
 
 
-    // Xử lý khi panel được mở/đóng
-    onWifiPanelVisibleChanged: {
-        if (wifiPanelVisible) {
-            wifiManager.start()
-        } else {
-            wifiManager.stop()
-        }
-    }
+
 
     // =============================
     //   UI LAYOUT
