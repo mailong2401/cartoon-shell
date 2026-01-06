@@ -93,6 +93,8 @@ function togglePanel(panelName) {
             flag = false
             launcher = false
             dashboard = false
+            setting = false
+            fullsetting = false
           } else {
             cpu = false
           }
@@ -108,6 +110,8 @@ function togglePanel(panelName) {
             flag = false
             launcher = false
             dashboard = false
+            setting = false
+            fullsetting = false
           } else {
             ram = false
           }
@@ -122,6 +126,11 @@ function togglePanel(panelName) {
             music = false
             calendar = true
             dashboard = false
+            if (setting) {
+              launcher = false
+            }
+            setting = false
+            fullsetting = false
           } else {
             calendar = false
           }
@@ -137,6 +146,8 @@ function togglePanel(panelName) {
                 cpu = false
                 ram = false
                 music = true
+                setting = false
+                fullsetting = false
             dashboard = false
             } else {
                 music = false
@@ -152,6 +163,8 @@ function togglePanel(panelName) {
             weather = true
             music = false
             dashboard = false
+            setting = false
+            fullsetting = false
           } else {
             weather = false
           }
@@ -164,6 +177,8 @@ function togglePanel(panelName) {
             music = false
             flag = true
             dashboard = false
+            setting = false
+            fullsetting = false
           } else {
             flag = false
           }
@@ -176,6 +191,8 @@ function togglePanel(panelName) {
             battery = false
             bluetooth = true
             dashboard = false
+            setting = false
+            fullsetting = false
           } else {
             bluetooth = false
           }
@@ -188,6 +205,8 @@ function togglePanel(panelName) {
             bluetooth = false
             battery = false
             dashboard = false
+            setting = false
+            fullsetting = false
           } else {
             wifi = false
           }
@@ -200,6 +219,8 @@ function togglePanel(panelName) {
             bluetooth = false
             battery = false
             dashboard = false
+            setting = false
+            fullsetting = false
 
           } else {
             mixer = false
@@ -213,6 +234,8 @@ function togglePanel(panelName) {
             wifi = false
             battery = true
             dashboard = false
+            setting = false
+            fullsetting = false
           } else {
             battery = false
           }
@@ -232,6 +255,8 @@ function togglePanel(panelName) {
             music = false
             weather = false
             dashboard = true
+            setting = false
+            fullsetting = false
           } else {
             dashboard = false
           }
@@ -239,7 +264,7 @@ function togglePanel(panelName) {
         }
         case "setting": {
           calendar = false
-            setting = true
+          setting = true
           break
         }
         case "fullsetting": {
