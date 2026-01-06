@@ -208,18 +208,18 @@ Rectangle {
     
     RowLayout {
         anchors.fill: parent
-        anchors.margins: 0
+        anchors.margins: 5
         spacing: 5
         Rectangle {
             id: bluetoothContainer
-            Layout.preferredWidth:  20
-            Layout.preferredHeight: 10
+            Layout.preferredWidth:  bluetoothContent.width
+            Layout.fillHeight: true
             color: "transparent"
             radius: 6
             transformOrigin: Item.Center
 
             RowLayout {
-                id: bluetoothCContent
+                id: bluetoothContent
                 anchors.centerIn: parent
                 spacing: 8
 
@@ -258,8 +258,8 @@ Rectangle {
         // Network Status
         Rectangle {
             id: networkContainer
-            Layout.preferredWidth: 100
-            Layout.preferredHeight: 35
+            Layout.preferredWidth: networkContent.width
+            Layout.fillHeight: true
             color: "transparent"
             radius: 6
             transformOrigin: Item.Center
@@ -278,12 +278,16 @@ Rectangle {
                 }
                 
                 Text {
+                  Layout.maximumWidth: 120 
                     text: root.net_stat
                     color: theme.primary.foreground
                     font {
                         pixelSize: 15
                         bold: true
                     }
+                    wrapMode: Text.WordWrap
+                    maximumLineCount: 1
+                    elide: Text.ElideRight
                 }
             }
 
@@ -314,8 +318,8 @@ Rectangle {
         // Volume
         Rectangle {
             id: volumeContainer
-            Layout.preferredWidth: 50
-            Layout.preferredHeight: 35
+            Layout.preferredWidth:  volumeContent.width
+            Layout.fillHeight: true
             color: "transparent"
             radius: 6
             transformOrigin: Item.Center
@@ -381,8 +385,8 @@ Rectangle {
         // Battery
         Rectangle {
             id: batteryContainer
-            Layout.preferredWidth: 50
-            Layout.preferredHeight: 35
+            Layout.preferredWidth: batteryContent.width
+            Layout.fillHeight: true
             color: "transparent"
             radius: 6
             transformOrigin: Item.Center
@@ -430,8 +434,8 @@ Rectangle {
         // Power Off
         Rectangle {
             id: powerContainer
-            Layout.preferredWidth: 40
-            Layout.preferredHeight: 40
+            Layout.preferredWidth: powerIcon.width
+            Layout.fillHeight: true
             color: "transparent"
             radius: 6
             transformOrigin: Item.Center
