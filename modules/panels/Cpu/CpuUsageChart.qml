@@ -65,8 +65,8 @@ Rectangle {
 
                         var width = cpuChart.width;
                         var height = cpuChart.height;
-                        var paddingLeft = 40;
-                        var paddingRight = 60; // Extra space for percentage labels
+                        var paddingLeft = 60;
+                        var paddingRight = 20; // Extra space for percentage labels
                         var paddingTop = 30;
                         var paddingBottom = 20;
                         var chartWidth = width - paddingLeft - paddingRight;
@@ -81,9 +81,9 @@ Rectangle {
                         // Draw horizontal grid lines and percentage labels
                         ctx.strokeStyle = theme.button.border;
                         ctx.lineWidth = 1;
-                        ctx.globalAlpha = 0.3;
-                        ctx.font = "15px 'ComicShannsMono Nerd Font'";
-                        ctx.fillStyle = theme.primary.dim_foreground;
+                        ctx.globalAlpha = 1;
+                        ctx.font = "17px 'ComicShannsMono Nerd Font'";
+                        ctx.fillStyle = theme.primary.foreground;
                         ctx.textAlign = "right";
                         ctx.textBaseline = "middle";
 
