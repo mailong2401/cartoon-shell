@@ -8,7 +8,6 @@ import "./" as Components
 PanelWindow {
     id: detailPanel
 
-
     implicitWidth: 1030
     implicitHeight: 850
 
@@ -30,67 +29,45 @@ PanelWindow {
 
     signal closeRequested()
 
-    property int cpuCores: 12
-    property var cpuUsageList: Array(cpuCores).fill("0%")
     property var cpuHistory: []
     property int maxHistoryLength: 50
     property var theme: currentTheme
+    property string cpuUsage: "0%"  // Tổng CPU usage
 
-    // Process để lấy CPU usage chi tiết
+    // Process để lấy CPU usage tổng
     Process {
         id: cpuUsageProcess
-        command: ["bash", "-c", "mpstat -P ALL 1 1 | tail -n 13 | awk '$2 != \"all\" {printf \"%.1f%%\\n\", 100-$12}'"]
+        command: ["bash", "-c", "mpstat 1 1 | awk '/Average/ && $2==\"all\" { printf \"%.1f%%\\n\", 100-$12 }'"]
         stdout: StdioCollector {
             onTextChanged: {
                 if (this.text) {
-                    parseCpuUsageList(this.text)
+                    parseCpuUsage(this.text)
                 }
             }
         }
     }
 
-    function parseCpuUsageList(text) {
+    function parseCpuUsage(text) {
         if (!text) return;
         var lines = text.trim().split('\n');
-        var cpuListTemp = Array(12).fill("0%")
-        var currentUsage = []
-        var newHistory = cpuHistory.slice();
-
-        for (var i = 0; i < lines.length && i < cpuCores; i++) {
-            var line = lines[i].trim();
-            var usage = line.replace(/[^\d.]/g, '');
-            if (usage && !isNaN(usage)) {
-                cpuListTemp[i] = parseFloat(usage).toFixed(1) + "%";
-                currentUsage.push(parseFloat(usage));
-            }
-        }
-        cpuUsageList = cpuListTemp
-        
-        if (currentUsage.length > 0) {
-            newHistory.push({
-                timestamp: new Date().getTime(),
-                usage: calculateTotalUsageValue(),
-                coreUsages: currentUsage
-            });
-            
-            if (newHistory.length > maxHistoryLength) {
-                newHistory.shift();
-            }
-        }
-        cpuHistory = newHistory;
-    }
-
-    function calculateTotalUsageValue() {
-        var total = 0;
-        var count = 0;
-        for (var i = 0; i < cpuUsageList.length; i++) {
-            var usage = parseFloat(cpuUsageList[i]);
+        if (lines.length > 0) {
+            var usageStr = lines[0].trim();
+            var usage = parseFloat(usageStr);
             if (!isNaN(usage)) {
-                total += usage;
-                count++;
+                cpuUsage = usage.toFixed(1) + "%";
+                
+                var newHistory = cpuHistory.slice();
+                newHistory.push({
+                    timestamp: new Date().getTime(),
+                    usage: usage  // Chỉ lưu giá trị tổng
+                });
+                
+                if (newHistory.length > maxHistoryLength) {
+                    newHistory.shift();
+                }
+                cpuHistory = newHistory;
             }
         }
-        return count > 0 ? total / count : 0;
     }
 
     function getUsageColor(usageStr) {
@@ -102,14 +79,11 @@ PanelWindow {
         return "#3498db";
     }
 
-    function calculateTotalUsage() {
-        return calculateTotalUsageValue().toFixed(1);
-    }
-
     function getMaxUsage() {
+        if (cpuHistory.length === 0) return "0.0";
         var max = 0;
-        for (var i = 0; i < cpuUsageList.length; i++) {
-            var usage = parseFloat(cpuUsageList[i]);
+        for (var i = 0; i < cpuHistory.length; i++) {
+            var usage = cpuHistory[i].usage;
             if (!isNaN(usage) && usage > max) {
                 max = usage;
             }
@@ -141,7 +115,6 @@ PanelWindow {
                 Layout.preferredHeight: 120
             }
 
-
             // BIỂU ĐỒ CPU USAGE
             Components.CpuUsageChart {
                 Layout.fillWidth: true
@@ -153,7 +126,7 @@ PanelWindow {
     }
 
     Timer {
-        interval: 2000
+        interval: 500
         running: detailPanel.visible
         repeat: true
         onTriggered: {

@@ -22,14 +22,14 @@ PanelWindow {
     }
 
     margins {
-        top:  20
-        bottom:  20
-        left:  20
-        right: 20
+        top:  10
+        bottom:  10
+        left:  10
+        right: 10
     }
 
-    implicitWidth:  content.implicitWidth + 40
-    implicitHeight:  content.implicitWidth + 40
+    implicitWidth:  content.implicitWidth
+    implicitHeight:  content.implicitWidth
 
     WlrLayershell.layer: WlrLayer.Bottom
 

@@ -1,6 +1,6 @@
 {
   "mainPanelPos": "bottom",
-  "clockPanelPosition": "topLeft",
+  "clockPanelPosition": "bottomRight",
   "clockPanelVisible": true,
   "spacingPanel": 12,
   "lang": "vi",
@@ -52,7 +52,7 @@
       }
     ]
   },
-  "pictureWallpaper": "/home/long/Pictures/Wallpapers/wall_6.jpg",
+  "pictureWallpaper": "/home/long/Pictures/Wallpapers/wall_1.jpg",
   "videoWallpaper": "",
   "lockscreen": {
     "name": "User",
