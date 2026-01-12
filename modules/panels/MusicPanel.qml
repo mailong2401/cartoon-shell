@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Io
 import Quickshell.Widgets
+import Quickshell.Services.Mpris
 import "../../services" as Services
 
 PanelWindow {
@@ -15,10 +16,11 @@ PanelWindow {
     property var lang: currentLanguage
 
     // Music data
-    property string currentSong: "No song playing"
-    property string currentArtist: "Unknown Artist"
-    property string albumArt: ""
-    property bool isPlaying: false
+    property var mprisPlayer: Mpris.players.values.length > 0 ? Mpris.players.values[0] : null
+    property string currentSong: musicPanel.mprisPlayer ? (musicPanel.mprisPlayer.trackTitle || "No song playing") : "No song playing"
+    property string currentArtist: musicPanel.mprisPlayer ? (musicPanel.mprisPlayer.trackArtist || "Unknown Artist") : "Unknown Artist"
+    property string albumArt: musicPanel.mprisPlayer ? (musicPanel.mprisPlayer.trackArtUrl ?? "") : ""
+    property bool isPlaying: musicPanel.mprisPlayer.isPlaying
     property int position: 0
     property int duration: 0
 
@@ -45,58 +47,8 @@ PanelWindow {
     Services.CavaService { id: cavaService }
 
     // Process get metadata
-    Process {
-        id: metadataProc
-        running: false
-        command: ["playerctl", "metadata", "--format", "{{artist}}|||{{title}}|||{{mpris:artUrl}}|||{{position}}|||{{mpris:length}}"]
-
-        stdout: StdioCollector {
-            onStreamFinished: {
-                if (this.text) {
-                    var parts = this.text.trim().split("|||")
-                    if (parts.length >= 3) {
-                        musicPanel.currentArtist = parts[0] || "Unknown Artist"
-                        musicPanel.currentSong = parts[1] || "No song playing"
-                        var artUrl = parts[2] || ""
-                        if (artUrl.startsWith("file://")) {
-                            musicPanel.albumArt = artUrl
-                        } else if (artUrl.startsWith("http")) {
-                            musicPanel.albumArt = artUrl
-                        } else {
-                            musicPanel.albumArt = ""
-                        }
-                        if (parts.length >= 5) {
-                            musicPanel.position = parseInt(parts[3]) || 0
-                            musicPanel.duration = parseInt(parts[4]) || 0
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     // Process check playing status
-    Process {
-        id: statusProc
-        running: false
-        command: ["playerctl", "status"]
-
-        stdout: StdioCollector {
-            onStreamFinished: {
-                musicPanel.isPlaying = (this.text.trim() === "Playing")
-            }
-        }
-    }
-
-    // Control processes
-    Process { id: nextProc; command: ["playerctl", "next"] }
-    Process { id: prevProc; command: ["playerctl", "previous"] }
-    Process { id: playProc; command: ["playerctl", "play"] }
-    Process { id: pauseProc; command: ["playerctl", "pause"] }
-
-    function runProcess(proc) {
-        if (!proc.running) proc.running = true
-    }
 
     function formatTime(microseconds) {
         var totalSeconds = Math.floor(microseconds / 1000000)
@@ -111,7 +63,6 @@ PanelWindow {
         running: musicPanel.visible
         repeat: true
         onTriggered: {
-            if (!metadataProc.running) metadataProc.running = true
             if (!statusProc.running) statusProc.running = true
         }
     }
@@ -120,8 +71,6 @@ PanelWindow {
     onVisibleChanged: {
         if (visible) {
             cavaService.open()
-            if (!metadataProc.running) metadataProc.running = true
-            if (!statusProc.running) statusProc.running = true
         } else {
             cavaService.close()
         }
@@ -393,7 +342,7 @@ PanelWindow {
                         anchors.fill: parent
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: runProcess(prevProc)
+                        onClicked: musicPanel.mprisPlayer?.previous()
                     }
 
                     Behavior on color { ColorAnimation { duration: 150 } }
@@ -422,7 +371,7 @@ PanelWindow {
                         anchors.fill: parent
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: isPlaying ? runProcess(pauseProc) : runProcess(playProc)
+                        onClicked: musicPanel.mprisPlayer?.togglePlaying()
                     }
 
                     Behavior on color { ColorAnimation { duration: 150 } }
@@ -448,7 +397,7 @@ PanelWindow {
                         anchors.fill: parent
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: runProcess(nextProc)
+                        onClicked: musicPanel.mprisPlayer?.next()
                     }
 
                     Behavior on color { ColorAnimation { duration: 150 } }

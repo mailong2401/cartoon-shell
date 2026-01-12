@@ -21,6 +21,7 @@ implicitHeight: launcherPanel.settingsPanelVisible ?
 
     signal closeRequested()
     signal confirmRequested(string action, string actionLabel)
+    signal lockRequested()
 
     Behavior on width { NumberAnimation { duration: 10 } }
     Behavior on height { NumberAnimation { duration: 10 } }
@@ -107,6 +108,9 @@ function closePanel() {
                     onAppSettings: launcherPanel.openSettings()
                     onConfirmRequested: (action, actionLabel) => {
                         launcherPanel.confirmRequested(action, actionLabel)
+                    }
+                    onLockRequested: {
+                        launcherPanel.lockRequested()
                     }
                 }
 

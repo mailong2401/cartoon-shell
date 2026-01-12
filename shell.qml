@@ -3,11 +3,13 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import Quickshell.Io
+import Quickshell.Wayland
 import QtQuick.Effects
 
 import "./config" as Config
 import "./modules/dialogs" as Dialogs
 import "./modules/panels" as Panels
+import "./modules/lockscreen" as Lockscreen
 
 ShellRoot {
     id: root
@@ -19,6 +21,31 @@ ShellRoot {
     Dialogs.VolumeOsd { }
     Dialogs.NotificationPopup{}
     Dialogs.ConfirmDialog { id: confirmDialog }
+
+    // Lockscreen context
+    Lockscreen.LockContext {
+		id: lockContext
+
+		onUnlocked: {
+			// Unlock the screen before exiting, or the compositor will display a
+			// fallback lock you can't interact with.
+        lockscreenVisible = false;
+
+		}
+	}
+    WlSessionLock {
+		id: lock
+
+		// Lock the session immediately when quickshell starts.
+		locked: lockscreenVisible
+
+		WlSessionLockSurface {
+			Lockscreen.LockSurface {
+				anchors.fill: parent
+				context: lockContext
+			}
+		}
+	}
 
     // Function để hiển thị confirm dialog từ bất kỳ đâu
     function showConfirmDialog(action, actionLabel) {
@@ -59,6 +86,15 @@ ShellRoot {
     // Property để điều khiển LauncherPanel
     property bool launcherPanelVisible: false
     property string hyprInstance: Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") || ""
+
+    // Property để điều khiển Lockscreen
+    property bool lockscreenVisible: false
+
+    // Function để show lockscreen
+    function showLockscreen() {
+        lockscreenVisible = true
+        launcherPanelVisible = false
+    }
 
     // Global wallpaper setter - chạy độc lập với Settings panel
     Process {
@@ -196,4 +232,7 @@ ShellRoot {
             }
         }
     }
+
+    // Lockscreen overlay
+    
 }

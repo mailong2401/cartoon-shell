@@ -31,6 +31,13 @@ Rectangle {
             item.confirmRequested.connect(function(action, actionLabel) {
                 confirmDialog.show(action, actionLabel)
             })
+            item.lockRequested.connect(function() {
+                launcherPanelVisible = false
+                // Gọi function showLockscreen từ root (shell.qml)
+                if (typeof showLockscreen === "function") {
+                    showLockscreen()
+                }
+            })
         }
     }
 

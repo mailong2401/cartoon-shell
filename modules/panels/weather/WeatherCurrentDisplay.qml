@@ -27,11 +27,7 @@ import "." as Com
         Layout.fillHeight: true
         radius: sizes.weatherCardRadius || 16
 
-        gradient: Gradient {
-            GradientStop { position: 0.0; color: Qt.rgba(theme.normal.blue.r, theme.normal.blue.g, theme.normal.blue.b, 0.15) }
-            GradientStop { position: 0.5; color: Qt.rgba(theme.normal.blue.r, theme.normal.blue.g, theme.normal.blue.b, 0.08) }
-            GradientStop { position: 1.0; color: Qt.rgba(theme.normal.blue.r, theme.normal.blue.g, theme.normal.blue.b, 0.15) }
-        }
+        color: Qt.rgba(theme.normal.black.r, theme.normal.black.g, theme.normal.black.b, 0.05)
 
         ColumnLayout {
             anchors.fill: parent

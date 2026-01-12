@@ -17,6 +17,7 @@ Rectangle {
 
     signal appLaunched()
     signal appSettings()
+    signal lockRequested()
 
     signal confirmRequested(string action, string actionLabel)
 
@@ -325,9 +326,9 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                
+
                 onClicked: {
-                    showConfirmDialog("lock", lang?.confirm?.lock || "khóa màn hình")
+                    root.lockRequested()
                 }
             }
         }
