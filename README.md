@@ -123,40 +123,35 @@ qt6-wayland
 
 #### System utilities
 ```bash
-# Hyprland
-hyprland
-hyprctl               # Hyprland control
+# Hyprland (Required)
+hyprland              # Wayland compositor
+hyprctl               # Hyprland control (bundled with hyprland)
 
-# Wallpaper (choose one or both)
-swww                  # Image wallpaper daemon
+# Wallpaper (Required)
+hyprpaper             # Image wallpaper (bundled with hyprland)
 mpvpaper              # Video wallpaper support
 ffmpeg                # Video thumbnail generation
 
-# Media player
+# Media player (Required)
 playerctl             # MPRIS media control
 cava                  # Audio visualizer for Music Panel
 
-# Network
+# Network (Required)
 networkmanager        # WiFi/Network management
-nmcli                 # NetworkManager CLI
 bluez                 # Bluetooth
 bluez-utils           # Bluetooth utilities
 
-# System monitoring
+# System monitoring (Usually pre-installed)
 procps-ng             # top, free commands
 iproute2              # ip command
-iputils               # ping command
 
-# Audio
+# Audio (Usually pre-installed)
 pipewire              # Audio server
 wireplumber           # PipeWire session manager
 
-# System control
-systemd               # System management
-
-# Other
+# Other (Required)
 curl                  # API calls (weather)
-jq                    # JSON processing (optional)
+jq                    # JSON processing
 python3               # Python scripts
 ```
 
@@ -187,15 +182,13 @@ chmod +x setup.sh
 
 #### Or manual installation
 ```bash
-# Install main packages
-sudo pacman -S hyprland quickshell playerctl networkmanager \
-               bluez bluez-utils pipewire wireplumber curl python cava \
-               swww mpvpaper ffmpeg
+# Install main packages (Arch Linux)
+sudo pacman -S hyprland hyprpaper playerctl networkmanager \
+               bluez bluez-utils pipewire wireplumber curl python \
+               jq ffmpeg
 
-# Install Nerd Font
-yay -S ttf-comicshannsmono-nerd
-# or
-sudo pacman -S ttf-nerd-fonts-symbols-mono
+# Install AUR packages
+yay -S quickshell-git cava mpvpaper ttf-comicshannsmono-nerd
 ```
 
 ### 2. Clone Cartoon Bar
@@ -288,8 +281,13 @@ echo "exec-once = export QML_XHR_ALLOW_FILE_READ=1 && quickshell --path ~/.confi
 The wallpaper settings support both **images** and **videos**:
 
 #### Supported Formats
-- **Images**: `.jpg`, `.jpeg`, `.png`, `.bmp`, `.webp`
-- **Videos**: `.mp4`, `.mkv`, `.webm`, `.gif`
+- **Images**: `.jpg`, `.jpeg`, `.png`, `.bmp`, `.webp`, `.gif`
+- **Videos**: `.mp4`, `.webm`, `.mkv`, `.avi`, `.mov`, `.flv`, `.wmv`, `.m4v`, `.mpg`, `.mpeg`
+
+#### Wallpaper Tools
+- **hyprpaper**: Used for image wallpapers (via hyprctl commands)
+- **mpvpaper**: Used for video wallpapers with hardware acceleration
+- **ffmpeg**: Generates thumbnails from video files automatically
 
 
 ---
@@ -301,11 +299,11 @@ The wallpaper settings support both **images** and **videos**:
 #### Basic
 | Key | Action |
 |-----|--------|
-| `SUPER + RETURN` | Open terminal (kitty) |
+| `SUPER + RETURN` | Open terminal |
 | `SUPER + Q` | Close current window |
 | `SUPER + M` | Exit Hyprland |
-| `SUPER + E` | Open file manager (thunar) |
-| `SUPER + SPACE` | Open app launcher (wofi) |
+| `SUPER + E` | Open file manager |
+| `SUPER + SPACE` | Open app launcher |
 | `SUPER + V` | Toggle floating window |
 | `SUPER + P` | Toggle pseudotiling |
 | `SUPER + J` | Toggle split layout |
