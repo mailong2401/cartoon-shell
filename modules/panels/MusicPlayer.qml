@@ -3,6 +3,8 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import Quickshell.Io
+import Quickshell.Services.Mpris
+
 
 Rectangle {
     id: musicPlayer
@@ -11,34 +13,12 @@ Rectangle {
     border.width: 3
     radius: currentSizes.radius?.normal || 10
 
-    property string currentSong: "No song playing"
-    property string currentArtist: ""
-    property bool isPlaying: false
+    property string currentSong: musicPlayer.mprisPlayer ? (musicPlayer.mprisPlayer.trackTitle || "No song playing") : "No song playing"
+    property string currentArtist: musicPlayer.mprisPlayer ? (musicPlayer.mprisPlayer.trackArtist || "Unknown Artist") : "Unknown Artist"
+    property var mprisPlayer: Mpris.players.values.length > 0 ? Mpris.players.values[0] : null
+    property bool isPlaying: musicPlayer.mprisPlayer.isPlaying
     property var theme: currentTheme
 
-    // Process get metadata (same as MusicPanel)
-    Process {
-        id: metadataProc
-        running: false
-        command: ["playerctl", "metadata", "--format", "{{artist}}|||{{title}}"]
-
-        stdout: StdioCollector {
-            onStreamFinished: {
-                if (this.text) {
-                    var parts = this.text.trim().split("|||")
-                    if (parts.length >= 2) {
-                        musicPlayer.currentArtist = parts[0] || ""
-                        musicPlayer.currentSong = parts[1] || "No song playing"
-                    } else {
-                        musicPlayer.currentSong = this.text.trim()
-                        musicPlayer.currentArtist = ""
-                    }
-                }
-            }
-        }
-    }
-
-    // Process check playing status (same as MusicPanel)
     Process {
         id: statusProc
         running: false
@@ -46,31 +26,11 @@ Rectangle {
 
         stdout: StdioCollector {
             onStreamFinished: {
-                musicPlayer.isPlaying = (this.text.trim() === "Playing")
+                musicPanel.isPlaying = (this.text.trim() === "Playing")
             }
         }
     }
 
-    // Control processes (direct playerctl commands like MusicPanel)
-    Process { id: nextProc; command: ["playerctl", "next"] }
-    Process { id: prevProc; command: ["playerctl", "previous"] }
-    Process { id: playProc; command: ["playerctl", "play"] }
-    Process { id: pauseProc; command: ["playerctl", "pause"] }
-
-    function runProcess(proc) {
-        if (!proc.running) proc.running = true
-    }
-
-    // Timer refresh metadata and status
-    Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: {
-            if (!metadataProc.running) metadataProc.running = true
-            if (!statusProc.running) statusProc.running = true
-        }
-    }
 
     RowLayout {
         anchors.fill: parent
@@ -180,7 +140,11 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: runProcess(prevProc)
+                    
+                    onClicked: {
+                        console.log(mprisPlayer?.canGoNext)
+                        musicPlayer.mprisPlayer?.next()
+                        }
                     onEntered: parent.scale = 1.2
                     onExited: parent.scale = 1.0
                 }
@@ -203,7 +167,7 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: isPlaying ? runProcess(pauseProc) : runProcess(playProc)
+                    onClicked: musicPlayer.mprisPlayer?.togglePlaying()
                     onEntered: parent.scale = 1.2
                     onExited: parent.scale = 1.0
                 }
@@ -223,7 +187,7 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: runProcess(nextProc)
+                    onClicked: musicPlayer.mprisPlayer?.next()
                     onEntered: parent.scale = 1.2
                     onExited: parent.scale = 1.0
                 }
