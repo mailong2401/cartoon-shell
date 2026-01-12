@@ -19,17 +19,6 @@ Rectangle {
     property bool isPlaying: musicPlayer.mprisPlayer.isPlaying
     property var theme: currentTheme
 
-    Process {
-        id: statusProc
-        running: false
-        command: ["playerctl", "status"]
-
-        stdout: StdioCollector {
-            onStreamFinished: {
-                musicPanel.isPlaying = (this.text.trim() === "Playing")
-            }
-        }
-    }
 
 
     RowLayout {
