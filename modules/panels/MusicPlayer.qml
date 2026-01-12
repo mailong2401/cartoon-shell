@@ -141,10 +141,7 @@ Rectangle {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
                     
-                    onClicked: {
-                        console.log(mprisPlayer?.canGoNext)
-                        musicPlayer.mprisPlayer?.next()
-                        }
+                    onClicked: musicPlayer.mprisPlayer?.next()
                     onEntered: parent.scale = 1.2
                     onExited: parent.scale = 1.0
                 }
