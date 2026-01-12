@@ -11,7 +11,7 @@ Rectangle {
     Layout.fillWidth: true
     Layout.fillHeight: true
     radius: 18
-    color: theme.primary.background
+    color: iconColor
 
     Label {
         anchors.centerIn: parent
