@@ -182,9 +182,12 @@ Rectangle {
                     Image {
                         anchors.centerIn: parent
                         source: {
-                            var suffix = theme.type === "dark" ? "_dark" : ""
-                            return root.mprisPlayer.isPlaying ? "../../../assets/music/pause" + suffix + ".png" : "../../../assets/music/play" + suffix + ".png"
-                        }
+    if (!root.mprisPlayer) {
+        return theme.type === "dark" ? "../../../assets/music/play_dark.png" : "../../../assets/music/play.png"
+    }
+    var suffix = theme.type === "dark" ? "_dark" : ""
+    return root.mprisPlayer.isPlaying ? "../../../assets/music/pause" + suffix + ".png" : "../../../assets/music/play" + suffix + ".png"
+}
                         width: sizes.playIconSize || 32
                         height: sizes.playIconSize || 32
                         fillMode: Image.PreserveAspectFit
