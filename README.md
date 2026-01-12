@@ -1,12 +1,11 @@
-# 🎨 Cartoon Bar - QuickShell Panel for Hyprland
+# 🎨 Cartoon Shell - QuickShell Panel for Hyprland
 
 <div align="center">
 
-[Cartoon Bar Screenshot](https://github.com/user-attachments/assets/5d26eb04-14fa-42c2-a8a8-3d8ddafc04c7)
+[Cartoon Shell Screenshot](https://github.com/user-attachments/assets/5d26eb04-14fa-42c2-a8a8-3d8ddafc04c7)
 
 *A modern, feature-rich Wayland panel built with QuickShell for Hyprland*
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Hyprland](https://img.shields.io/badge/Hyprland-Compatible-blue)](https://hyprland.org/)
 [![QuickShell](https://img.shields.io/badge/QuickShell-Wayland-green)](https://github.com/outfoxxed/quickshell)
 
@@ -17,7 +16,7 @@
 
 ## 🎯 Introduction
 
-**Cartoon Bar** is a modern Wayland panel built entirely with **QuickShell** (QML) specifically for **Hyprland window manager**. The panel provides a smooth user experience with highly customizable interface, multi-language support, and multi-resolution display compatibility.
+**Cartoon Shell** is a modern Wayland panel built entirely with **QuickShell** (QML) specifically for **Hyprland window manager**. The panel provides a smooth user experience with highly customizable interface, multi-language support, and multi-resolution display compatibility.
 
 ### ✨ Highlights
 
@@ -191,7 +190,7 @@ sudo pacman -S hyprland hyprpaper playerctl networkmanager \
 yay -S quickshell-git cava mpvpaper ttf-comicshannsmono-nerd
 ```
 
-### 2. Clone Cartoon Bar
+### 2. Clone Cartoon Shell
 ```bash
 # Clone to QuickShell config directory
 git clone git@github.com:mailong2401/cartoon-shell.git \
