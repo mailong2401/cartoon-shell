@@ -72,15 +72,11 @@ Item {
         command: ["bash", ""]
 
         stdout: StdioCollector {
-            onTextChanged: {
-                console.log("Thumbnail generation:", text)
-            }
+            onTextChanged: { }
         }
 
         stderr: StdioCollector {
-            onTextChanged: {
-                if (text) console.log("Thumbnail error:", text)
-            }
+            onTextChanged: { }
         }
     }
 
@@ -208,6 +204,8 @@ Item {
                                 fillMode: Image.PreserveAspectCrop
                                 asynchronous: true
                                 cache: false
+                                smooth: true
+                                mipmap: true
 
                                 onStatusChanged: {
                                     if (status === Image.Error && isVideoFile(fileName)) {
@@ -227,7 +225,7 @@ Item {
                                 width: currentSizes.wallpaperSettings?.currentIndicatorSize || 24
                                 height: currentSizes.wallpaperSettings?.currentIndicatorSize || 24
                                 radius: currentSizes.wallpaperSettings?.currentIndicatorRadius || 12
-                                color: theme.normal.purple
+                                color: theme.normal.magenta
 
                                 Text {
                                     text: "▶"
@@ -488,14 +486,12 @@ Item {
     }
 
     function generateThumbnail(filePath) {
+        if (!homePath) return
         var actualPath = filePath.toString().replace("file://", "")
         var thumbnailDir = homePath + "/.config/hypr/custom/scripts/mpvpaper_thumbnails"
         var fileName = actualPath.split('/').pop()
         var thumbnailPath = thumbnailDir + "/" + fileName + ".jpg"
-        var scriptPath = homePath + "/.config/quickshell/cartoon-bar/scripts/generate-video-thumbnail.sh"
-
-        console.log("Generating thumbnail for:", actualPath)
-        console.log("Output path:", thumbnailPath)
+        var scriptPath = homePath + "/.config/quickshell/cartoon-shell/scripts/generate-video-thumbnail.sh"
 
         thumbnailProcess.command = [
             "bash",
@@ -512,6 +508,7 @@ Item {
     }
 
     function getThumbnailPath(filePath) {
+        if (!homePath) return ""
         var actualPath = filePath.toString().replace("file://", "")
         var thumbnailDir = homePath + "/.config/hypr/custom/scripts/mpvpaper_thumbnails"
         var fileName = actualPath.split('/').pop()

@@ -45,9 +45,7 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        // Wait for repeater to populate
         Qt.callLater(function() {
-            console.log("Apps loaded:", container.allApps.length)
             container.allApps.sort(function(a, b) {
                 return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
             })
