@@ -57,15 +57,6 @@ PanelWindow {
         return minutes + ":" + (seconds < 10 ? "0" : "") + seconds
     }
 
-    // Refresh timer
-    Timer {
-        interval: 1000
-        running: musicPanel.visible
-        repeat: true
-        onTriggered: {
-            if (!statusProc.running) statusProc.running = true
-        }
-    }
 
     // Start cava when panel opens
     onVisibleChanged: {
