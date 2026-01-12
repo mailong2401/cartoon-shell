@@ -12,41 +12,54 @@ Rectangle {
     border.width: 2
 
     property var apps: []
+    property var allApps: []
     property string lastQuery: ""
     property var theme : currentTheme
     property int currentIndex: 0
 
-
     signal appLaunched()
+
+    // Sử dụng Repeater để convert ObjectModel thành array
+    Repeater {
+        id: appRepeater
+        model: DesktopEntries.applications
+
+        Item {
+            Component.onCompleted: {
+                container.allApps.push({
+                    name: modelData.name || "",
+                    comment: modelData.comment || "",
+                    icon: modelData.icon || "",
+                    entry: modelData
+                })
+            }
+        }
+    }
+
+    Connections {
+        target: DesktopEntries
+        function onApplicationsChanged() {
+            container.allApps = []
+            // Repeater sẽ tự động reload
+        }
+    }
+
+    Component.onCompleted: {
+        // Wait for repeater to populate
+        Qt.callLater(function() {
+            console.log("Apps loaded:", container.allApps.length)
+            container.allApps.sort(function(a, b) {
+                return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+            })
+            container.apps = container.allApps
+        })
+    }
 
     ColumnLayout {
         id: rootLayout
         anchors.fill: parent
         anchors.margins: currentSizes.launcherPanel?.listLayoutMargins || 8
         spacing: currentSizes.launcherPanel?.spacing || 6
-
-        Process {
-            id: listApps
-            running: false
-            stdout: StdioCollector { id: outputCollector }
-
-            onExited: {
-                try {
-                    var txt = outputCollector.text ? outputCollector.text.trim() : ""
-                    if (txt !== "") {
-                        container.apps = JSON.parse(txt)
-                    } else {
-                        container.apps = []
-                    }
-                } catch(e) {
-                    container.apps = []
-                }
-            }
-        }
-
-        Component.onCompleted: {
-            runSearch("")
-        }
 
         ListView {
     id: appList
@@ -78,9 +91,9 @@ Rectangle {
 
             Image {
                 Layout.preferredWidth: currentSizes.launcherPanel?.listItemIconSize || 36
-                        Layout.preferredHeight: currentSizes.launcherPanel?.listItemIconSize || 36
+                Layout.preferredHeight: currentSizes.launcherPanel?.listItemIconSize || 36
                 fillMode: Image.PreserveAspectFit
-                source: modelData.iconPath || ""
+                source: modelData.icon ? "image://icon/" + modelData.icon : ""
                 asynchronous: true
             }
 
@@ -112,9 +125,8 @@ Rectangle {
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
             onClicked: {
-                var item = modelData
-                if (item && item.exec) {
-                    container.launchApplication(item.exec)
+                if (modelData && modelData.entry) {
+                    modelData.entry.execute()
                     container.appLaunched()
                 }
             }
@@ -142,58 +154,29 @@ Rectangle {
 
     function runSearch(query) {
         if (query === undefined || query === null) query = ""
-        if (query === container.lastQuery && container.apps.length > 0) {
-            return
-        }
         container.lastQuery = query
 
-        if (query.length > 0) {
-            listApps.command = [Qt.resolvedUrl("../../../scripts/listapps.py"),query]
-        } else {
-            listApps.command = [Qt.resolvedUrl("../../../scripts/listapps.py")]
+        if (query.length === 0) {
+            container.apps = container.allApps
+            container.currentIndex = 0
+            return
         }
 
-        try { listApps.running = false } catch(e) {}
-        listApps.running = true
-    }
+        var q = query.toLowerCase()
+        var filtered = []
 
-    function _splitArgs(cmd) {
-        var parts = []
-        var re = /"([^"]*)"|'([^']*)'|([^ \t"']+)/g
-        var m
-        while ((m = re.exec(cmd)) !== null) {
-            if (m[1] !== undefined) parts.push(m[1])
-            else if (m[2] !== undefined) parts.push(m[2])
-            else if (m[3] !== undefined) parts.push(m[3])
+        for (var i = 0; i < container.allApps.length; i++) {
+            var app = container.allApps[i]
+            var name = (app.name || "").toLowerCase()
+            var comment = (app.comment || "").toLowerCase()
+
+            if (name.indexOf(q) >= 0 || comment.indexOf(q) >= 0) {
+                filtered.push(app)
+            }
         }
-        return parts
-    }
 
-    function launchApplication(execStrOrItem) {
-        try {
-            var execStr = ""
-            if (typeof execStrOrItem === "object" && execStrOrItem !== null) {
-                execStr = execStrOrItem.exec || execStrOrItem.command && execStrOrItem.command.join(" ") || ""
-            } else if (typeof execStrOrItem === "string") {
-                execStr = execStrOrItem
-            } else {
-                return
-            }
-
-            if (!execStr || execStr.trim() === "") {
-                return
-            }
-
-            execStr = execStr.replace(/%[fFuUdDinkcK%]/g, "").trim()
-            var cmdArray = _splitArgs(execStr)
-
-            if (!cmdArray || cmdArray.length === 0) {
-                return
-            }
-
-            Quickshell.execDetached(cmdArray)
-        } catch (err) {
-        }
+        container.apps = filtered
+        container.currentIndex = 0
     }
 
     Shortcut {
@@ -218,11 +201,15 @@ Rectangle {
         }
       }
       Shortcut {
-    sequence: "Return"    // hoặc "Enter" đều được
+    sequence: "Return"
     onActivated: {
-                var item = container.apps[container.currentIndex]
-                container.launchApplication(item.exec)
+        if (container.apps.length > 0 && container.currentIndex < container.apps.length) {
+            var item = container.apps[container.currentIndex]
+            if (item && item.entry) {
+                item.entry.execute()
                 container.appLaunched()
+            }
+        }
     }
 }
 
