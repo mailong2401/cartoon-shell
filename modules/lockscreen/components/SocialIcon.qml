@@ -20,6 +20,7 @@ Rectangle {
         text: root.icon
         color: theme.primary.foreground
         font.pixelSize: 22
+        font.family: "ComicShannsMono Nerd Font"
     }
 
     MouseArea {

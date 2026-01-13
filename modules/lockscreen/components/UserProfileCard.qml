@@ -5,9 +5,9 @@ import Qt5Compat.GraphicalEffects
 
 Rectangle {
     id: root
-    property string userName: "Aditya Shakya"
-    property string userHandle: "@adi1090x"
-    property string userAvatar: "/home/long/Pictures/avatar.jpg"
+    property string userName: "Long"
+    property string userHandle: "@mailong2401"
+    property string userAvatar: "/home/long/Pictures/Wallpapers/slide_4.jpg"
     property var theme: currentTheme
 
     Layout.fillWidth: true
@@ -35,14 +35,7 @@ Rectangle {
                 source: root.userAvatar
                 fillMode: Image.PreserveAspectCrop
                 smooth: true
-                layer.enabled: true
-                layer.effect: OpacityMask {
-                    maskSource: Rectangle {
-                        width: 120
-                        height: 120
-                        radius: 60
-                    }
-                }
+
             }
         }
 
@@ -53,6 +46,7 @@ Rectangle {
             color: theme.primary.foreground
             font.pixelSize: 18
             font.bold: true
+            font.family: "ComicShannsMono Nerd Font"
         }
 
         // User Handle
@@ -61,6 +55,7 @@ Rectangle {
             text: root.userHandle
             color: theme.primary.foreground
             font.pixelSize: 12
+            font.family: "ComicShannsMono Nerd Font"
         }
     }
 }

@@ -21,12 +21,14 @@ Rectangle {
         Label {
             text: ""
             color: "#ea4335"
+            font.family: "ComicShannsMono Nerd Font"
             font.pixelSize: 48
         }
 
         Label {
             text: root.emailCount.toString()
             color: "#333333"
+            font.family: "ComicShannsMono Nerd Font"
             font.pixelSize: 36
             font.bold: true
         }

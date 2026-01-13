@@ -15,12 +15,14 @@ RowLayout {
     Label {
         text: root.icon
         color: theme.primary.foreground
+        font.family: "ComicShannsMono Nerd Font"
         font.pixelSize: 16
     }
 
     Label {
         text: root.label
         color: theme.primary.foreground
+        font.family: "ComicShannsMono Nerd Font"
         font.pixelSize: 11
     }
 }

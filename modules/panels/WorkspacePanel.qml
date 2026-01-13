@@ -109,10 +109,10 @@ Rectangle {
                     height: currentSizes.iconSize?.medium || 32
                     fillMode: Image.PreserveAspectFit
                     source: modelData.id === root.activeWorkspace
-                        ? "../../assets/pacman.png"
+                        ? "../../assets/workspace/pacman.png"
                         : modelData.exists
-                            ? "../../assets/ghost.png"
-                            : "../../assets/empty.png"
+                            ? "../../assets/workspace/ghost.png"
+                            : "../../assets/workspace/empty.png"
                     opacity: 1
                 }
                 MouseArea {

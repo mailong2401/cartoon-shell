@@ -63,7 +63,7 @@ Rectangle {
         spacing: 15
 
         Repeater {
-            model: ["../../assets/dashboard.png"]
+            model: ["../../assets/launcher/dashboard.png"]
 
             Image {
                 source: modelData

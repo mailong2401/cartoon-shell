@@ -26,6 +26,7 @@ RowLayout {
             text: root.icon
             color: theme.primary.foreground
             font.pixelSize: 24
+            font.family: "ComicShannsMono Nerd Font"
         }
 
         MouseArea {

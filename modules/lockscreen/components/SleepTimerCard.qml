@@ -23,6 +23,7 @@ Rectangle {
             text: ""
             color: theme.primary.foreground
             font.pixelSize: 48
+            font.family: "ComicShannsMono Nerd Font"
         }
 
         ColumnLayout {
@@ -32,12 +33,14 @@ Rectangle {
             Label {
                 text: "9 hours"
                 color: theme.primary.foreground
+                font.family: "ComicShannsMono Nerd Font"
                 font.pixelSize: 20
                 font.bold: true
             }
 
             Label {
                 text: "55 minutes"
+                font.family: "ComicShannsMono Nerd Font"
                 color: theme.primary.foreground
                 font.pixelSize: 16
             }

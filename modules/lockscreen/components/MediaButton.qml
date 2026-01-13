@@ -19,6 +19,7 @@ Rectangle {
         text: root.icon
         color: root.backgroundColor === "transparent" ? "#8899bb" : "white"
         font.pixelSize: root.size * 0.5
+        font.family: "ComicShannsMono Nerd Font"
     }
 
     MouseArea {

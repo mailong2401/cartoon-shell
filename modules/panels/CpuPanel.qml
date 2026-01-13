@@ -160,7 +160,7 @@ function togglePanel(panelName) {
                 }
                 Image {
                     id: cpuIcon
-                    source: "../../assets/cpu.png"
+                    source: "../../assets/cpu/cpu.png"
                     Layout.preferredWidth: currentSizes.cpuPanelLayout?.cpuIconSize || 36
                     Layout.preferredHeight: currentSizes.cpuPanelLayout?.cpuIconSize || 36
                     fillMode: Image.PreserveAspectFit
@@ -232,7 +232,7 @@ function togglePanel(panelName) {
 
                 Image {
                     id: memoryIcon
-                    source: "../../assets/memory.png"
+                    source: "../../assets/panel/memory.png"
                     Layout.preferredWidth: currentSizes.cpuPanelLayout?.ramIconSize || 30
                     Layout.preferredHeight: currentSizes.cpuPanelLayout?.ramIconSize || 30
                     fillMode: Image.PreserveAspectFit

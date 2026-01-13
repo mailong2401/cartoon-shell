@@ -32,6 +32,7 @@ Rectangle {
                     color: theme.primary.foreground
                     font.pixelSize: 48
                     font.bold: true
+                    font.family: "ComicShannsMono Nerd Font"
 
                     Timer {
                         running: true
@@ -46,6 +47,7 @@ Rectangle {
                     color: theme.primary.foreground
                     font.pixelSize: 48
                     font.bold: true
+                    font.family: "ComicShannsMono Nerd Font"
                 }
             }
 
@@ -54,6 +56,7 @@ Rectangle {
                       Qt.formatDate(timeLabel.currentTime, "dddd")
                 color: theme.primary.foreground
                 font.pixelSize: 12
+                font.family: "ComicShannsMono Nerd Font"
             }
         }
 
@@ -62,6 +65,7 @@ Rectangle {
             text: "🌙"
             font.pixelSize: 64
             Layout.alignment: Qt.AlignVCenter
+            font.family: "ComicShannsMono Nerd Font"
         }
     }
 }

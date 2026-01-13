@@ -36,6 +36,7 @@ Rectangle {
                 color: theme.primary.foreground
                 font.pixelSize: 42
                 font.bold: true
+                font.family: "ComicShannsMono Nerd Font"
             }
 
             Label {
@@ -43,6 +44,7 @@ Rectangle {
                 color: theme.primary.foreground
                 font.pixelSize: 16
                 font.bold: true
+                font.family: "ComicShannsMono Nerd Font"
             }
 
             Label {
@@ -51,6 +53,7 @@ Rectangle {
                 color: theme.primary.foreground
                 font.pixelSize: 10
                 wrapMode: Text.WordWrap
+                font.family: "ComicShannsMono Nerd Font"
             }
         }
     }

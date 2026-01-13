@@ -12,10 +12,6 @@ Rectangle {
 
     property var theme: currentTheme
 
-    // Props để nhận data từ parent
-    property bool isMuted: false
-    property real batteryPercentage: 0
-    property bool batteryCharging: false
 
     // User info props
     property string userName: "Aditya Shakya"
@@ -69,8 +65,7 @@ Rectangle {
                 Layout.fillWidth: true
                 icon: ""
                 iconColor: dashboardRoot.theme.normal.green
-                value: dashboardRoot.batteryPercentage
-            }
+                value: 0.3           }
         }
 
 

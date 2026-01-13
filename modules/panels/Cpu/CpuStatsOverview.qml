@@ -22,7 +22,7 @@ Rectangle {
             Image {
                 width: sizes.statsIconSize || 40
                 height: sizes.statsIconSize || 40
-                source: '../../../assets/pie-chart.png'
+                source: '../../../assets/cpu/pie-chart.png'
             }
             Column {
                 spacing: sizes.statsColumnSpacing || 2
@@ -46,7 +46,7 @@ Rectangle {
             Image {
                 width: sizes.statsIconSize || 40
                 height: sizes.statsIconSize || 40
-                source: '../../../assets/fire.png'
+                source: '../../../assets/cpu/fire.png'
             }
             Column {
                 spacing: sizes.statsColumnSpacing || 2
