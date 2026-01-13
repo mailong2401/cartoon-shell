@@ -51,7 +51,7 @@ Rectangle {
                 anchors.margins: currentSizes.launcherPanel?.sidebarButtonMargins || 8
                 
                 Image {
-                    source: "../../../assets/launcher/dashboard.png"
+                    source: "../../../assets/dashboard.png"
                     Layout.preferredHeight: currentSizes.launcherPanel?.sidebarIconSize || currentSizes.iconSize?.normal || 28
                     Layout.preferredWidth: currentSizes.launcherPanel?.sidebarIconSize || currentSizes.iconSize?.normal || 28
                     fillMode: Image.PreserveAspectFit
