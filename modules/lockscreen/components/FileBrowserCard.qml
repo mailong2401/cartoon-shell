@@ -16,11 +16,26 @@ Rectangle {
         anchors.margins: 15
         spacing: 8
 
-        FileItem { icon: ""; label: "Documents"; iconColor: theme.primary.foreground }
-        FileItem { icon: ""; label: "Downloads"; iconColor: theme.primary.foreground }
-        FileItem { icon: ""; label: "Music"; iconColor: theme.primary.foreground }
-        FileItem { icon: ""; label: "Pictures"; iconColor: theme.primary.foreground }
-        FileItem { icon: ""; label: "~/.config"; iconColor: theme.primary.foreground }
-        FileItem { icon: ""; label: "~/.local"; iconColor: theme.primary.foreground }
+        FileItem {
+          iconDark: "../../../assets/lockscreen/filebrowser/documents_dark.png"
+          iconLight: "../../../assets/lockscreen/filebrowser/documents_light.png"
+          label: "Documents"
+          iconColor: theme.normal.red
+        }
+        FileItem {
+          iconDark: "../../../assets/lockscreen/filebrowser/downloads_dark.png"
+          iconLight: "../../../assets/lockscreen/filebrowser/downloads_light.png"
+          label: "Downloads"
+          iconColor: theme.normal.green
+        }
+        FileItem { iconDark: "";iconLight: ""; label: "Music"; iconColor: theme.primary.foreground }
+        FileItem {
+          iconDark: "../../../assets/lockscreen/filebrowser/pictures_dark.png"
+          iconLight: "../../../assets/lockscreen/filebrowser/pictures_light.png"
+          label: "Pictures"
+          iconColor: theme.normal.blue
+        }
+        FileItem { iconDark: "";iconLight: ""; label: "~/.config"; iconColor: theme.primary.foreground }
+        FileItem { iconDark: "";iconLight: ""; label: "~/.local"; iconColor: theme.primary.foreground }
     }
 }
