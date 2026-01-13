@@ -119,6 +119,7 @@ function closePanel() {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     visible: launcherPanel.settingsPanelVisible
+                    launcherPanel: launcherPanel
                     Behavior on Layout.preferredWidth {
                         NumberAnimation { duration: 250; easing.type: Easing.InOutQuad }
                     }

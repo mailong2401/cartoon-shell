@@ -101,28 +101,11 @@ Rectangle {
                     property: "opacity"
                     from: 0
                     to: 1
-                    duration: 300
+                    duration: 100
                     easing.type: Easing.OutCubic
-                }
-                NumberAnimation {
-                    target: lockIconContainer
-                    property: "scale"
-                    from: 0.8
-                    to: 1.2
-                    duration: 300
-                    easing.type: Easing.OutBack
                 }
             }
             PauseAnimation { duration: 150 }
-            NumberAnimation {
-                target: lockIcon
-                property: "scale"
-                from: 0.8
-                to: 1.2
-                duration: 200
-                easing.type: Easing.OutCubic
-            }
-            PauseAnimation { duration: 100 }
 
             ParallelAnimation {
                 NumberAnimation {

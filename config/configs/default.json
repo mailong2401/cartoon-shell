@@ -8,5 +8,9 @@
   "countryFlag": "vietnam",
   "weatherApiKey": "21e0f911c7de4308916165005251210",
   "weatherLocation": "Ho Chi Minh City,Vietnam",
-  "displaySize": "1920"
+  "displaySize": "1920",
+  "lockscreen": {
+    "name": "User",
+    "avatar": "/home/long/Pictures/Wallpapers/wall_1.jpg"
+  }
 }

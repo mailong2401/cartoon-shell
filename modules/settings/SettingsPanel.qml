@@ -8,6 +8,7 @@ import "../../services" as Services
 Rectangle {
     id: settingsPanel
     property var theme : currentTheme
+    property var launcherPanel: null  // Reference to LauncherPanel
     signal backRequested()
 
     radius: currentSizes.settingsPanel?.panelRadius || currentSizes.radius?.normal || 12
@@ -69,7 +70,13 @@ Rectangle {
                 // Wallpapers Settings
                 WallpapersSettings {
                 }
-                
+
+                // Lockscreen Settings
+                LockscreenSettings {
+                    panelConfig: sharedPanelConfig
+                    launcherPanel: settingsPanel.launcherPanel
+                }
+
                 // Network Settings
                 NetworkSettings {
                 }
