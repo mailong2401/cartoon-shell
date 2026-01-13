@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
+import "." as Com
 
 PanelWindow {
     id: wifiPanel
@@ -29,7 +30,7 @@ PanelWindow {
             anchors.margins: sizes.margins || 16
             spacing: sizes.spacing || 12
 
-            WifiHeader {
+            Com.WifiHeader {
                 Layout.fillWidth: true
                 sizes: wifiPanel.sizes
                 theme: wifiPanel.theme
@@ -37,7 +38,7 @@ PanelWindow {
                 wifiManager: wifiPanel.wifiManager
             }
 
-            WifiStatus {
+            Com.WifiStatus {
                 Layout.fillWidth: true
                 sizes: wifiPanel.sizes
                 theme: wifiPanel.theme
@@ -45,7 +46,7 @@ PanelWindow {
                 wifiManager: wifiPanel.wifiManager
             }
 
-            WifiNetworkList {
+            Com.WifiNetworkList {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 sizes: wifiPanel.sizes
@@ -55,7 +56,7 @@ PanelWindow {
                 visible: wifiManager.wifiEnabled
             }
 
-            WifiEmptyState {
+            Com.WifiEmptyState {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 sizes: wifiPanel.sizes

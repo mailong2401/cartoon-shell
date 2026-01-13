@@ -65,7 +65,7 @@ Rectangle {
         radius: 28
         color: theme.primary.background
         border.width: 3
-        border.color: theme.normal.black
+      border.color: theme.normal.black
         opacity: 0
         scale: 0.8
 
@@ -189,7 +189,7 @@ Rectangle {
             width: 450
             height: 65
             radius: 16
-            color: "transparent"
+            color: theme.primary.background
             border.color: root.context.showFailure ? theme.normal.red : (passwordBox.focus ? theme.primary.foreground : theme.primary.dim_foreground)
             border.width: 2
 
