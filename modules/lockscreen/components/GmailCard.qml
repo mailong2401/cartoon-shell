@@ -10,7 +10,7 @@ Rectangle {
     Layout.fillWidth: true
     Layout.fillHeight: true
     radius: 28
-    color: theme.primary.background
+    color: "#eff1f5"
     border.width: 3
     border.color: theme.normal.black
 
@@ -18,11 +18,12 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 20
 
-        Label {
-            text: ""
-            color: "#ea4335"
-            font.family: "ComicShannsMono Nerd Font"
-            font.pixelSize: 48
+        Image {
+            source: "../../../assets/lockscreen/appicons/gmail.png"
+            Layout.preferredWidth: 48
+            Layout.preferredHeight: 48
+            fillMode: Image.PreserveAspectFit
+            smooth: true
         }
 
         Label {

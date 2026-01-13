@@ -15,10 +15,7 @@ Rectangle {
 
 
     // Weather props
-    property string weatherCondition: "Clear Sky"
-    property string weatherDescription: "It's a clear night\nYou might want to take a evening stroll to relax..."
-    property int temperature: 35
-    property string weatherIcon: "🌙"
+
 
     RowLayout {
         anchors.fill: parent
@@ -76,6 +73,7 @@ Rectangle {
             RowLayout {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+                spacing:15
                 ColumnLayout {
                     Layout.fillHeight: true
                     Layout.preferredWidth: 100
@@ -83,44 +81,42 @@ Rectangle {
                     SleepTimerCard {}
                 }
                 WeatherCard {
-                    weatherCondition: dashboardRoot.weatherCondition
-                    weatherDescription: dashboardRoot.weatherDescription
-                    temperature: dashboardRoot.temperature
-                    weatherIcon: dashboardRoot.weatherIcon
                 }
                 ColumnLayout {
                     Layout.preferredWidth: 90
                     spacing: 20
 
                     RowLayout {
+                        spacing: 15
 
 QuickActionButton {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 110
-                        icon: ""
+                        icon: "../../../assets/system/sys-exit.png"
                         iconColor: dashboardRoot.theme.normal.red
                     }
 
                     QuickActionButton {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 110
-                        icon: ""
+                        icon: "../../../assets/system/sys-sleep.png"
                         iconColor: dashboardRoot.theme.normal.yellow
                     }
                     }
                     RowLayout {
+                        spacing: 15
 
-QuickActionButton {
+                    QuickActionButton {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 110
-                        icon: ""
+                        icon: "../../../assets/system/sys-reboot.png"
                         iconColor: dashboardRoot.theme.normal.red
                     }
 
                     QuickActionButton {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 110
-                        icon: ""
+                        icon: "../../../assets/system/shutdown.png"
                         iconColor: dashboardRoot.theme.normal.yellow
                     }
                     }
@@ -152,10 +148,10 @@ QuickActionButton {
                     RowLayout {
                         Layout.fillWidth: true
                         spacing: 10
-                        SocialIcon { icon: ""; bgColor: dashboardRoot.theme.normal.black}
-                        SocialIcon { icon: ""; bgColor: dashboardRoot.theme.normal.red }
-                        SocialIcon { icon: ""; bgColor: dashboardRoot.theme.normal.blue}
-                        SocialIcon { icon: ""; bgColor: dashboardRoot.theme.normal.red}
+                        SocialIcon { image: "../../../assets/lockscreen/appicons/youtube.png"; bgColor: "#d20f39"}
+                        SocialIcon { image: "../../../assets/lockscreen/appicons/reddit.png"; bgColor: "#fe640b" }
+                        SocialIcon { image: "../../../assets/lockscreen/appicons/facebook.png"; bgColor: "#04a5e5"}
+                        SocialIcon { image: "../../../assets/lockscreen/appicons/tiktok.png"; bgColor: "#eff1f5"}
 
                         GmailCard {
                             emailCount: 230

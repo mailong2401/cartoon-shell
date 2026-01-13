@@ -650,7 +650,8 @@
     "small": 15,
     "normal": 19,
     "medium": 24,
-    "large": 30
+    "large": 30,
+    "xlarge": 38
   },
   "spacing": {
     "small": 4,

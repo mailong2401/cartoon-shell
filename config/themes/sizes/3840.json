@@ -39,7 +39,8 @@
     "small": 40,
     "normal": 50,
     "medium": 64,
-    "large": 80
+    "large": 80,
+    "xlarge": 100
   },
   "spacing": {
     "small": 10,
