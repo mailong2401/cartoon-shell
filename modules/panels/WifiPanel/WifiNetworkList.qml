@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import "." as Com
 
 ColumnLayout {
     id: networkList
@@ -48,7 +49,7 @@ ColumnLayout {
             model: wifiManager.wifiList
             spacing: 6
 
-            delegate: WifiNetworkItem {
+            delegate: Com.WifiNetworkItem {
                 width: wifiListView.width
                 networkData: modelData
                 sizes: networkList.sizes

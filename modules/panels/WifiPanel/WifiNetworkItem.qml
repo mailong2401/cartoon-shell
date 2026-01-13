@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import "." as Com
 
 Column {
     id: networkItem
@@ -74,7 +75,7 @@ Column {
         }
     }
 
-    WifiPasswordBox {
+    Com.WifiPasswordBox {
         visible: networkItem.networkData.ssid === wifiManager.openSsid
         networkData: networkItem.networkData
         sizes: networkItem.sizes
