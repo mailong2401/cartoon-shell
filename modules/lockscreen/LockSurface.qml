@@ -101,41 +101,42 @@ Rectangle {
                     property: "opacity"
                     from: 0
                     to: 1
-                    duration: 600
+                    duration: 300
                     easing.type: Easing.OutCubic
                 }
                 NumberAnimation {
                     target: lockIconContainer
                     property: "scale"
                     from: 0.8
-                    to: 1
-                    duration: 600
+                    to: 1.2
+                    duration: 300
                     easing.type: Easing.OutBack
                 }
             }
-            PauseAnimation { duration: 300 }
+            PauseAnimation { duration: 150 }
             NumberAnimation {
                 target: lockIcon
-                property: "rotation"
-                from: 0
-                to: 360
-                duration: 800
+                property: "scale"
+                from: 0.8
+                to: 1.2
+                duration: 200
                 easing.type: Easing.OutCubic
             }
-            PauseAnimation { duration: 200 }
+            PauseAnimation { duration: 100 }
+
             ParallelAnimation {
                 NumberAnimation {
                     target: lockIconContainer
                     property: "scale"
                     to: 0.6
-                    duration: 400
+                    duration: 200
                     easing.type: Easing.InBack
                 }
                 NumberAnimation {
                     target: lockIconContainer
                     property: "opacity"
                     to: 0
-                    duration: 400
+                    duration: 200
                     easing.type: Easing.InCubic
                 }
             }
