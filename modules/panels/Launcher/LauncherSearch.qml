@@ -23,7 +23,7 @@ Rectangle {
         spacing: 8
 
         Image {
-            source: "../../../assets/search.png"
+            source: "../../../assets/launcher/search.png"
             Layout.preferredHeight: currentSizes.launcherPanel?.searchIconSize || 24
             Layout.preferredWidth: currentSizes.launcherPanel?.searchIconSize || 24
             fillMode: Image.PreserveAspectFit

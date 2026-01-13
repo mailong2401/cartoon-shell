@@ -72,7 +72,7 @@ Rectangle {
             Behavior on color { ColorAnimation { duration: 200 } }
 
             Image {
-                source: "../../../assets/search.png"
+                source: "../../../assets/launcher/search.png"
                 width: sizes.scanIconSize || 40
                 height: sizes.scanIconSize || 40
                 sourceSize: Qt.size(sizes.scanIconSize || 40, sizes.scanIconSize || 40)
