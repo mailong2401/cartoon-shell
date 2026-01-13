@@ -9,6 +9,7 @@ Rectangle {
     property string userHandle: "@mailong2401"
     property string userAvatar: "/home/long/Pictures/Wallpapers/slide_4.jpg"
     property var theme: currentTheme
+    property var sizes: currentSizes
 
     Layout.fillWidth: true
     Layout.fillHeight: true
@@ -44,7 +45,7 @@ Rectangle {
             Layout.alignment: Qt.AlignHCenter
             text: root.userName
             color: theme.primary.foreground
-            font.pixelSize: 18
+            font.pixelSize: sizes.fontSize?.title
             font.bold: true
             font.family: "ComicShannsMono Nerd Font"
         }
@@ -54,7 +55,7 @@ Rectangle {
             Layout.alignment: Qt.AlignHCenter
             text: root.userHandle
             color: theme.primary.foreground
-            font.pixelSize: 12
+            font.pixelSize: sizes.fontSize?.large
             font.family: "ComicShannsMono Nerd Font"
         }
     }

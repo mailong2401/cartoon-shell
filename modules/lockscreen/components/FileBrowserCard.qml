@@ -28,14 +28,29 @@ Rectangle {
           label: "Downloads"
           iconColor: theme.normal.green
         }
-        FileItem { iconDark: "";iconLight: ""; label: "Music"; iconColor: theme.primary.foreground }
+        FileItem {
+          iconDark: "../../../assets/lockscreen/filebrowser/music_dark.png"
+          iconLight: "../../../assets/lockscreen/filebrowser/music_light.png"
+          label: "Musics"
+          iconColor: theme.normal.yellow
+        }
         FileItem {
           iconDark: "../../../assets/lockscreen/filebrowser/pictures_dark.png"
           iconLight: "../../../assets/lockscreen/filebrowser/pictures_light.png"
           label: "Pictures"
           iconColor: theme.normal.blue
         }
-        FileItem { iconDark: "";iconLight: ""; label: "~/.config"; iconColor: theme.primary.foreground }
-        FileItem { iconDark: "";iconLight: ""; label: "~/.local"; iconColor: theme.primary.foreground }
+        FileItem {
+          iconDark: "../../../assets/lockscreen/filebrowser/config_dark.png"
+          iconLight: "../../../assets/lockscreen/filebrowser/config_light.png"
+          label: "~/.config"
+          iconColor: theme.normal.cyan
+        }
+        FileItem {
+          iconDark: "../../../assets/lockscreen/filebrowser/local_dark.png"
+          iconLight: "../../../assets/lockscreen/filebrowser/local_light.png"
+          label: "~/.local"
+          iconColor: theme.bright.red
+        }
     }
 }

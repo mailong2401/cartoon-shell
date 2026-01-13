@@ -4,9 +4,11 @@ import QtQuick.Controls.Fusion
 
 RowLayout {
     id: root
-    property string icon: ""
+    property string iconDark: ""
+    property string iconLight: ""
     property color iconColor: "white"
     property var theme: currentTheme
+    property var sizes: currentSizes
     property real value: 0.5
 
     Layout.fillWidth: true
@@ -21,12 +23,13 @@ RowLayout {
         border.width: 3
         border.color: theme.normal.black
 
-        Label {
+        Image {
+            source: theme.type === "dark" ? iconDark : iconLight
+            width: sizes.iconSize?.medium || 30
+            height: sizes.iconSize?.medium || 30
+            fillMode: Image.PreserveAspectFit
             anchors.centerIn: parent
-            text: root.icon
-            color: theme.primary.foreground
-            font.pixelSize: 24
-            font.family: "ComicShannsMono Nerd Font"
+            smooth: true
         }
 
         MouseArea {
@@ -49,7 +52,7 @@ RowLayout {
             anchors.fill: parent
             anchors.margins: 8
             radius: 17
-            color: "#555"
+            color: theme.primary.background
 
             Rectangle {
                 height: parent.height

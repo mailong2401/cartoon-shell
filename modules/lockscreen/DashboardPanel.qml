@@ -13,10 +13,6 @@ Rectangle {
     property var theme: currentTheme
 
 
-    // User info props
-    property string userName: "Aditya Shakya"
-    property string userHandle: "@adi1090x"
-    property string userAvatar: "/home/long/Pictures/avatar.jpg"
 
     // Weather props
     property string weatherCondition: "Clear Sky"
@@ -35,35 +31,36 @@ Rectangle {
             spacing: 20
 
             UserProfileCard {
-                userName: dashboardRoot.userName
-                userHandle: dashboardRoot.userHandle
-                userAvatar: dashboardRoot.userAvatar
             }
 
             SystemSlider {
                 Layout.fillWidth: true
-                icon: ""
+                iconDark: "../../../assets/lockscreen/systemslider/cpu_dark.png"
+                iconLight: "../../../assets/lockscreen/systemslider/cpu_light.png"
                 iconColor: dashboardRoot.theme.normal.red
                 value: 0.8
             }
 
             SystemSlider {
                 Layout.fillWidth: true
-                icon: ""
+                iconDark: "../../../assets/lockscreen/filebrowser/cpu_dark.png"
+                iconLight: "../../../assets/lockscreen/filebrowser/cpu_light.png"
                 iconColor: dashboardRoot.theme.normal.blue
                 value: 0.5
             }
 
             SystemSlider {
                 Layout.fillWidth: true
-                icon: ""
+                iconDark: "../../../assets/lockscreen/filebrowser/cpu_dark.png"
+                iconLight: "../../../assets/lockscreen/filebrowser/cpu_light.png"
                 iconColor: dashboardRoot.theme.normal.yellow
                 value: 0.4
             }
 
             SystemSlider {
                 Layout.fillWidth: true
-                icon: ""
+                iconDark: "../../../assets/lockscreen/filebrowser/cpu_dark.png"
+                iconLight: "../../../assets/lockscreen/filebrowser/cpu_light.png"
                 iconColor: dashboardRoot.theme.normal.green
                 value: 0.3           }
         }
