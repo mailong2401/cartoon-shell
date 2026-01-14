@@ -5,6 +5,7 @@ import Quickshell.Io
 import Quickshell.Services.Pipewire
 import "./WifiPanel/" as ComponentWifi
 import "./Bluetooth/" as ComponentBluetooth
+import "./dashboard/" as ComponentDashboard
 
 Rectangle {
     id: root
@@ -24,6 +25,7 @@ Rectangle {
     property bool visibleBatteryPanel: false
     property bool wifiPanelVisible: false
     property bool bluetoothPanelVisible: false
+    property bool visibleDashboard: false
     property bool bluetoothVisible: true
     property real currentVolume: Pipewire.defaultAudioSink?.audio.volume ?? 0
     property bool isMuted: Pipewire.defaultAudioSink?.audio.mute ?? false
@@ -165,6 +167,16 @@ Rectangle {
         }
       }
 
+      Loader {
+        id: dashboardLoader
+        active: visibleDashboard
+        source: "./dashboard/DashboardPanel.qml"
+        onLoaded: {
+          item.visible = Qt.binding(function() {return visibleDashboard})
+
+        }
+      }
+
 
 
     // =============================
@@ -211,7 +223,7 @@ Rectangle {
 
     Process {
         id: batteryCapacityProcess
-        command: ["cat", "/sys/class/power_supply/BAT*/capacity"]
+        command: ["cat", "/sys/class/power_supply/BAT1/capacity"]
         running: false
         stdout: StdioCollector { }
         onRunningChanged: {
@@ -225,7 +237,7 @@ Rectangle {
 
     Process {
         id: batteryStatusProcess
-        command: ["cat", "/sys/class/power_supply/BAT*/status"]
+        command: ["cat", "/sys/class/power_supply/BAT1/status"]
         running: false
         stdout: StdioCollector { }
         onRunningChanged: {
