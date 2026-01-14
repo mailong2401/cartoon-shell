@@ -5,7 +5,6 @@ import Quickshell.Io
 import Quickshell.Services.Pipewire
 import "./WifiPanel/" as ComponentWifi
 import "./Bluetooth/" as ComponentBluetooth
-import "./dashboard/" as ComponentDashboard
 
 Rectangle {
     id: root
@@ -84,6 +83,8 @@ Rectangle {
         case "battery":
             state = state === "batteryPanel" ? "noPanel" : "batteryPanel"
             break
+        case "dashboard":
+            visibleDashboard = !visibleDashboard
         default:
             state = "noPanel"
     }
@@ -134,21 +135,6 @@ Rectangle {
         }
       }
 
-      ComponentBluetooth.BluetoothPanel {
-        id: bluetoothPanel
-        visible: root.bluetoothPanelVisible
-
-        anchors {
-            top: currentConfig.mainPanelPos === "top"
-            bottom: currentConfig.mainPanelPos === "bottom"
-            right: true
-        }
-        margins {
-            top: currentConfig.mainPanelPos === "top" ? 10 : 0
-            right: 10
-            bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
-        }
-      }
 
       Loader {
         id: cpuPanelLoader
@@ -169,11 +155,10 @@ Rectangle {
 
       Loader {
         id: dashboardLoader
-        active: visibleDashboard
         source: "./dashboard/DashboardPanel.qml"
+        active: visibleDashboard
         onLoaded: {
-          item.visible = Qt.binding(function() {return visibleDashboard})
-
+            item.visible = Qt.binding(function() { return visibleDashboard })
         }
       }
 
@@ -585,7 +570,7 @@ Rectangle {
                 onReleased: powerContainer.scale = 1.2
                 
                 onClicked: {
-                    Qt.createQmlObject('import Quickshell; Process { command: ["gnome-session-quit", "--power-off"]; running: true }', root)
+                  togglePanel("dashboard")
                 }
             }
             

@@ -5,7 +5,6 @@ import Quickshell.Services.Mpris
 import Quickshell.Widgets
 import QtQuick.Controls
 import Quickshell.Io
-import "../../../services" as Services
 
 
 

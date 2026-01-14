@@ -11,6 +11,7 @@
   "displaySize": "1920",
   "lockscreen": {
     "name": "User",
-    "avatar": "/home/long/Pictures/Wallpapers/wall_1.jpg"
+    "avatar": "/home/long/Pictures/Wallpapers/wall_1.jpg",
+    "username": "user"
   }
 }

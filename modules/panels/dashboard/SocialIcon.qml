@@ -6,7 +6,6 @@ Rectangle {
     id: root
     property string image: ""
     property color bgColor: "white"
-    property color hoverColor: theme.normal.lightGray // Màu khi hover
     property real hoverScale: 1.1 // Tỷ lệ phóng to khi hover
     property var theme: currentTheme
     property var sizes: currentSizes

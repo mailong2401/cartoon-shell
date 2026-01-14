@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Fusion
-import Qt5Compat.GraphicalEffects
 import Quickshell.Wayland
 import Quickshell.Services.Mpris
 import Quickshell.Io
@@ -40,21 +39,6 @@ Rectangle {
         cache: true
     }
 
-    FastBlur {
-        id: blurEffect
-        anchors.fill: parent
-        source: backgroundImage
-        radius: 64
-        visible: root.backgroundImagePath !== ""
-        opacity: 1
-        cached: true
-
-        Rectangle {
-            anchors.fill: parent
-            color: "black"
-            opacity: 0.4
-        }
-    }
 
     // --- LOCK ICON ANIMATION ---
     Rectangle {
@@ -127,22 +111,6 @@ Rectangle {
                 script: root.lockIconAnimationComplete = true
             }
         }
-    }
-
-    // --- DASHBOARD PANEL ---
-    DashboardPanel {
-        id: dashboardPanel
-        anchors {
-            horizontalCenter: parent.horizontalCenter
-            bottom: passwordSection.top
-            bottomMargin: 50
-        }
-        width: 1200
-        height: 600
-        opacity: 1
-        visible: root.lockIconAnimationComplete
-
-
     }
 
     // --- PASSWORD INPUT ---

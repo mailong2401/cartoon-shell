@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Fusion
-import Qt5Compat.GraphicalEffects
 
 Rectangle {
     id: root
