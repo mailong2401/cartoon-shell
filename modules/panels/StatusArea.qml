@@ -135,6 +135,22 @@ Rectangle {
         }
       }
 
+            ComponentBluetooth.BluetoothPanel {
+        id: bluetoothPanel
+        visible: root.bluetoothPanelVisible
+
+        anchors {
+            top: currentConfig.mainPanelPos === "top"
+            bottom: currentConfig.mainPanelPos === "bottom"
+            right: true
+        }
+        margins {
+            top: currentConfig.mainPanelPos === "top" ? 10 : 0
+            right: 10
+            bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
+        }
+      }
+
 
       Loader {
         id: cpuPanelLoader
