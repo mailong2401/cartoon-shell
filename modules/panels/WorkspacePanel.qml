@@ -8,12 +8,12 @@ Rectangle {
     radius: currentSizes.radius?.normal || 10
     border.color: theme.button.border
     border.width: 3
-    color: theme.primary.background
 
     property var theme: currentTheme
     property string hyprInstance: ""
     property var workspaces: []
     property string activeWorkspace: "1"
+    color: theme.primary.background
 
     // ✅ Socket Hyprland - realtime event
     Socket {

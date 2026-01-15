@@ -206,7 +206,6 @@ main() {
   # Cheking mode theme for gen color with matugen
   if jq -e '.theme == "dark"' "$PATH_TO_CARTOON_SHELL_JSON" >/dev/null; then
     color_mode="dark"
-    ma
     matugen image $imgpath --mode $color_mode
   fi
   if jq -e '.theme == "light"' "$PATH_TO_CARTOON_SHELL_JSON" >/dev/null; then

@@ -1,10 +1,10 @@
 {
   "mainPanelPos": "bottom",
-  "clockPanelPosition": "bottomLeft",
+  "clockPanelPosition": "topRight",
   "clockPanelVisible": true,
   "spacingPanel": 12,
   "lang": "vi",
-  "theme": "dark",
+  "theme": "light",
   "countryFlag": "vietnam",
   "weatherApiKey": "21e0f911c7de4308916165005251210",
   "weatherLocation": "Ha Noi,Vietnam",
@@ -15,19 +15,5 @@
     "username": "user"
   },
   "pictureWallpaper": "/home/long/Pictures/Wallpapers/736462.png",
-  "videoWallpaper": "",
-  "wallpaper": {
-    "light": {
-      "image": "...",
-      "video": "..."
-    },
-    "dark": {
-      "image": "...",
-      "video": "..."
-    },
-    "": {
-      "image": "/home/long/Pictures/Wallpapers/anime-style-boy-girl-couple-love.jpg",
-      "video": ""
-    }
-  }
+  "videoWallpaper": ""
 }

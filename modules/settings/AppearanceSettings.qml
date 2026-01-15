@@ -239,9 +239,8 @@ Item {
                             anchors.fill: parent
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
-                                themeLoader.changeTheme("light")
                                 panelConfig.set("theme", "light")
-                                Qt.callLater(matugenHandler.triggerMatugenOnThemeChange)
+                                Qt.callLater(matugenHandler.triggerMatugenOnThemeChange("light"))
                             }
                         }
 
@@ -312,9 +311,8 @@ Item {
                             anchors.fill: parent
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
-                                themeLoader.changeTheme("dark")
                                 panelConfig.set("theme", "dark")
-                                Qt.callLater(matugenHandler.triggerMatugenOnThemeChange)
+                                Qt.callLater(matugenHandler.triggerMatugenOnThemeChange("dark"))
                             }
                         }
 

@@ -1,14 +1,14 @@
 {
-    "type": "matugen",
+    "type": "light",
     "primary": {
-        "background": "#101417",
-        "dim_background": "#101417",
+        "background": "#f7f9ff",
+        "dim_background": "#f7f9ff",
         "foreground": "#b7c9d9",
-        "dim_foreground": "#95cdf7",
-        "bright_foreground": "#95cdf7"
+        "dim_foreground": "#266489",
+        "bright_foreground": "#266489"
     },
     "button": {
-        "background": "#101417",
+        "background": "#f7f9ff",
         "text": "#cad3f5",
         "background_select": "transparent",
         "border": "#b8c0e0",

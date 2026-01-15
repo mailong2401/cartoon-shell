@@ -16,6 +16,12 @@ Item {
     property string wallpaperPath: ""
     property string currentWallpaper: ""
 
+    property Timer reloadTimer: Timer {
+        interval: 600
+        repeat: false
+        onTriggered: themeLoader.loadTheme()
+    }
+
     // Process để lấy home directory
     Process {
         id: getHomeProcess
@@ -484,6 +490,7 @@ Item {
             Qt.resolvedUrl("../../scripts/select_wall"), wallpaperPath
         ]
         wallpaperProcess.running = true
+        reloadTimer.restart()
         panelConfig.set("pictureWallpaper", wallpaperPath)
     }
 
