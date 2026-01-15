@@ -23,14 +23,13 @@ Rectangle {
         columnSpacing: 15
         rowSpacing: 15
 
-        Com.AppIcon { iconSource: "../../../assets/lockscreen/appicons/youtube.png"; bgColor: "#ff6b6b" }
-        Com.AppIcon { iconSource: "../../../assets/lockscreen/appicons/facebook.png"; bgColor: "#5fd3d3" }
-        Com.AppIcon { iconSource: "../../../assets/lockscreen/appicons/tiktok.png"; bgColor: "#a8b2d1" }
-        Com.AppIcon { iconSource: "../../../assets/lockscreen/appicons/reddit.png"; bgColor: "#eeeeee" }
-        Com.AppIcon { iconSource: "../../../assets/lockscreen/appicons/youtube.png"; bgColor: "#5fd3d3" }
-        Com.AppIcon { iconSource: "../../../assets/lockscreen/appicons/facebook.png"; bgColor: "#ffb86c" }
-        Com.AppIcon { iconSource: "../../../assets/lockscreen/appicons/tiktok.png"; bgColor: "#4da6ff" }
-        Com.AppIcon { iconSource: "../../../assets/lockscreen/appicons/reddit.png"; bgColor: "#eeeeee" }
-        Com.AppIcon { iconSource: "../../../assets/lockscreen/appicons/youtube.png"; bgColor: "#5fd3d3" }
+        Repeater {
+            model: 9
+            
+            Com.AppIcon { 
+                iconSource: configLoader.config.dashboard?.listApp?.[index]?.pathIcon || "" 
+                bgColor: theme.button.background 
+            }
+        }
     }
 }

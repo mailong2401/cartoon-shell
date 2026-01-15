@@ -2,7 +2,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "."
+import "." as Com
 import "../../services" as Services
 
 Rectangle {
@@ -30,7 +30,7 @@ Rectangle {
         spacing: currentSizes.settingsPanel?.contentSpacing || currentSizes.spacing?.large || 20
 
         // Sidebar
-        SidebarSettings {
+        Com.SidebarSettings {
             theme: settingsPanel.theme
             onCategoryChanged: function(index) {
                 settingsStack.currentIndex = index
@@ -58,44 +58,44 @@ Rectangle {
                 currentIndex: 0
                 
                 // General Settings
-                GeneralSettings {
+                Com.GeneralSettings {
                     panelConfig: sharedPanelConfig
                 }
 
                 // Appearance Settings
-                AppearanceSettings {
+                Com.AppearanceSettings {
                     panelConfig: sharedPanelConfig
                 }
 
                 // Wallpapers Settings
-                WallpapersSettings {
+                Com.WallpapersSettings {
                     panelConfig: sharedPanelConfig
                 }
 
                 // Lockscreen Settings
-                LockscreenSettings {
+                Com.DashboardSettings {
                     panelConfig: sharedPanelConfig
                     launcherPanel: settingsPanel.launcherPanel
                 }
 
                 // Network Settings
-                NetworkSettings {
+                Com.NetworkSettings {
                 }
                 
                 // Audio Settings
-                AudioSettings {
+                Com.AudioSettings {
                 }
                 
                 // Performance Settings
-                PerformanceSettings {
+                Com.PerformanceSettings {
                 }
                 
                 // Shortcuts Settings
-                ShortcutsSettings {
+                Com.ShortcutsSettings {
                 }
                 
                 // System Settings
-                SystemSettings {
+                Com.SystemSettings {
                 }
             }
         }

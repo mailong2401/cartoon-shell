@@ -10,9 +10,9 @@ Rectangle {
     property var theme: currentTheme
     property var sizes: currentSizes
     property var config: currentConfig
-    property string userName: config.lockscreen.name
-    property string userHandle: config.lockscreen.username
-    property string userAvatar: config.lockscreen.avatar
+    property string userName: config.dashboard.name
+    property string userHandle: config.dashboard.username
+    property string userAvatar: config.dashboard.avatar
 
     Layout.fillWidth: true
     Layout.fillHeight: true

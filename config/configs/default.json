@@ -4,16 +4,61 @@
   "clockPanelVisible": true,
   "spacingPanel": 12,
   "lang": "vi",
-  "theme": "light",
+  "theme": "dark",
   "countryFlag": "vietnam",
   "weatherApiKey": "21e0f911c7de4308916165005251210",
   "weatherLocation": "Ha Noi,Vietnam",
   "displaySize": "1920",
-  "lockscreen": {
+  "dashboard": {
     "name": "User",
     "avatar": "/home/long/Pictures/Wallpapers/817218.jpg",
-    "username": "user"
+    "username": "user",
+    "listApp": [
+      {
+        "exec": "nautilus --new-window",
+        "pathIcon": "/usr/share/icons/hicolor/scalable/apps/org.gnome.Nautilus.svg"
+      },
+      {
+        "exec": "/usr/bin/cachyos-hello",
+        "pathIcon": "/usr/share/icons/hicolor/scalable/apps/org.cachyos.hello.svg"
+      },
+      {
+        "exec": "nvim",
+        "pathIcon": "/usr/share/icons/hicolor/128x128/apps/nvim.png"
+      },
+      {
+        "exec": "obs",
+        "pathIcon": "/usr/share/icons/hicolor/scalable/apps/com.obsproject.Studio.svg"
+      },
+      {
+        "exec": "/usr/lib/firefox/firefox",
+        "pathIcon": "/usr/share/icons/hicolor/scalable/apps/firefox.svg"
+      },
+      {
+        "exec": "/usr/bin/cachyos-hello",
+        "pathIcon": "/usr/share/icons/hicolor/scalable/apps/org.cachyos.hello.svg"
+      },
+      {
+        "exec": "thunar-settings",
+        "pathIcon": "/usr/share/icons/hicolor/scalable/apps/org.xfce.thunar.svg"
+      },
+      {
+        "exec": "qv4l2",
+        "pathIcon": "/usr/share/icons/hicolor/scalable/apps/qv4l2.svg"
+      },
+      {
+        "exec": "cachyos-kernel-manager",
+        "pathIcon": "/usr/share/icons/hicolor/48x48/apps/octopi.png"
+      }
+    ]
   },
   "pictureWallpaper": "/home/long/Pictures/Wallpapers/698363.png",
-  "videoWallpaper": ""
+  "videoWallpaper": "",
+  "lockscreen": {
+    "name": "User",
+    "appIcons": {
+      "0": "/usr/share/icons/hicolor/scalable/apps/com.obsproject.Studio.svg"
+    },
+    "username": "user"
+  }
 }
