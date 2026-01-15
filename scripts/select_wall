@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-QUICKSHELL_CONFIG_NAME="ii"
+PATH_TO_CARTOON_SHELL_JSON="$HOME/.config/quickshell/cartoon-shell/config/configs/default.json"
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
@@ -8,8 +8,6 @@ CONFIG_DIR="$XDG_CONFIG_HOME/quickshell/$QUICKSHELL_CONFIG_NAME"
 CACHE_DIR="$XDG_CACHE_HOME/quickshell"
 STATE_DIR="$XDG_STATE_HOME/quickshell"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SHELL_CONFIG_FILE="$XDG_CONFIG_HOME/illogical-impulse/config.json"
-
 CUSTOM_DIR="$XDG_CONFIG_HOME/hypr/custom"
 RESTORE_SCRIPT_DIR="$CUSTOM_DIR/scripts"
 RESTORE_SCRIPT="$RESTORE_SCRIPT_DIR/__restore_wallpaper.sh"
@@ -201,6 +199,24 @@ main() {
     switch "$imgpath"
   else
     echo "No wallpaper selected or file not found"
+  fi
+
+  # Adding line path wallpaper into default.json
+  # --START LINE--
+  jq --arg img "$imgpath" --arg vid "$video_path" \
+  '.pictureWallpaper = $img | .videoWallpaper = $vid' \
+  "$PATH_TO_CARTOON_SHELL_JSON" > "$PATH_TO_CARTOON_SHELL_JSON.tmp" && \
+  mv "$PATH_TO_CARTOON_SHELL_JSON.tmp" "$PATH_TO_CARTOON_SHELL_JSON"
+  # --END LINE--
+
+   # Cheking mode theme for gen color with matugen
+  if jq -e '.theme == "dark"' "$PATH_TO_CARTOON_SHELL_JSON" > /dev/null; then
+    color_mode="dark"
+    matugen image $imgpath --mode $color_mode
+  fi
+  if jq -e '.theme == "light"' "$PATH_TO_CARTOON_SHELL_JSON" > /dev/null; then
+    color_mode="light"
+    matugen image $imgpath --mode $color_mode
   fi
 }
 
