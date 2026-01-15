@@ -9,6 +9,7 @@ Item {
     id: systemSettings
     property var theme: currentTheme
     property var lang: currentLanguage
+    property var panelConfig  // Received from parent SettingsPanel
 
     property string homePath: ""
     property string wallpapersPath: ""
@@ -483,6 +484,7 @@ Item {
             Qt.resolvedUrl("../../scripts/select_wall"), wallpaperPath
         ]
         wallpaperProcess.running = true
+        panelConfig.set("pictureWallpaper", wallpaperPath)
     }
 
     function generateThumbnail(filePath) {

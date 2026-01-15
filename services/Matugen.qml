@@ -5,6 +5,12 @@ import Quickshell.Io
 QtObject {
     id: root
     property var theme: currentTheme
+
+    property Timer reloadTimer: Timer {
+        interval: 60
+        repeat: false
+        onTriggered: runMatugen(currentWallpaper)
+    }
     
     property Process matugenProcess: Process {
         command: ["bash", "-c", ""]

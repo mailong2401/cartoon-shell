@@ -69,6 +69,7 @@ Rectangle {
 
                 // Wallpapers Settings
                 WallpapersSettings {
+                    panelConfig: sharedPanelConfig
                 }
 
                 // Lockscreen Settings

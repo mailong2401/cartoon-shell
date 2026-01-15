@@ -14,6 +14,20 @@
     "avatar": "/home/long/Pictures/Wallpapers/817218.jpg",
     "username": "user"
   },
-  "pictureWallpaper": "/home/long/Pictures/Wallpapers/698363.png",
-  "videoWallpaper": ""
+  "pictureWallpaper": "/home/long/Pictures/Wallpapers/736462.png",
+  "videoWallpaper": "",
+  "wallpaper": {
+    "light": {
+      "image": "...",
+      "video": "..."
+    },
+    "dark": {
+      "image": "...",
+      "video": "..."
+    },
+    "": {
+      "image": "/home/long/Pictures/Wallpapers/anime-style-boy-girl-couple-love.jpg",
+      "video": ""
+    }
+  }
 }

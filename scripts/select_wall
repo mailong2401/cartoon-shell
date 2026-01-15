@@ -21,12 +21,12 @@ mkdir -p "$THUMBNAIL_DIR"
 is_video() {
   local extension="${1##*.}"
   case "${extension,,}" in
-    mp4|webm|mkv|avi|mov|flv|wmv|m4v|mpg|mpeg)
-      return 0
-      ;;
-    *)
-      return 1
-      ;;
+  mp4 | webm | mkv | avi | mov | flv | wmv | m4v | mpg | mpeg)
+    return 0
+    ;;
+  *)
+    return 1
+    ;;
   esac
 }
 
@@ -202,19 +202,14 @@ main() {
   fi
 
   # Adding line path wallpaper into default.json
-  # --START LINE--
-  jq --arg img "$imgpath" --arg vid "$video_path" \
-  '.pictureWallpaper = $img | .videoWallpaper = $vid' \
-  "$PATH_TO_CARTOON_SHELL_JSON" > "$PATH_TO_CARTOON_SHELL_JSON.tmp" && \
-  mv "$PATH_TO_CARTOON_SHELL_JSON.tmp" "$PATH_TO_CARTOON_SHELL_JSON"
-  # --END LINE--
 
-   # Cheking mode theme for gen color with matugen
-  if jq -e '.theme == "dark"' "$PATH_TO_CARTOON_SHELL_JSON" > /dev/null; then
+  # Cheking mode theme for gen color with matugen
+  if jq -e '.theme == "dark"' "$PATH_TO_CARTOON_SHELL_JSON" >/dev/null; then
     color_mode="dark"
+    ma
     matugen image $imgpath --mode $color_mode
   fi
-  if jq -e '.theme == "light"' "$PATH_TO_CARTOON_SHELL_JSON" > /dev/null; then
+  if jq -e '.theme == "light"' "$PATH_TO_CARTOON_SHELL_JSON" >/dev/null; then
     color_mode="light"
     matugen image $imgpath --mode $color_mode
   fi
