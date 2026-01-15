@@ -138,7 +138,7 @@ Item {
                 width: currentSizes.appearanceSettings?.positionIndicatorWidth || 25
                 height: currentSizes.appearanceSettings?.positionIndicatorHeight || 15
                 radius: currentSizes.appearanceSettings?.positionIndicatorRadius || currentSizes.radius?.small || 6
-                color: theme.primary.background
+                color: currentConfig.clockPanelPosition === position ? theme.primary.dim_foreground : theme.normal.blue
 
                 anchors.top: anchorConfig.top ? parent.top : undefined
                 anchors.bottom: anchorConfig.bottom ? parent.bottom : undefined

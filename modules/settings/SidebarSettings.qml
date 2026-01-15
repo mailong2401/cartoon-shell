@@ -58,7 +58,7 @@ Rectangle {
                 property bool selected: sidebarSettings.currentIndex === index
 
                 color: mouseArea.containsPress ? theme.button.background_select : 
-                       hovered ? theme.button.background_select + "80" : 
+                       hovered ? theme.button.background_select : 
                        selected ? theme.button.background_select : theme.button.background
                 
                 border.color: mouseArea.containsPress ? theme.button.border_select : 

@@ -1,10 +1,10 @@
 {
-  "mainPanelPos": "bottom",
-  "clockPanelPosition": "topRight",
+  "mainPanelPos": "top",
+  "clockPanelPosition": "top",
   "clockPanelVisible": true,
   "spacingPanel": 12,
   "lang": "vi",
-  "theme": "light",
+  "theme": "dark",
   "countryFlag": "vietnam",
   "weatherApiKey": "21e0f911c7de4308916165005251210",
   "weatherLocation": "Ha Noi,Vietnam",
@@ -14,6 +14,6 @@
     "avatar": "/home/long/Pictures/Wallpapers/817218.jpg",
     "username": "user"
   },
-  "pictureWallpaper": "/home/long/Pictures/Wallpapers/736462.png",
+  "pictureWallpaper": "/home/long/Pictures/Wallpapers/698363.png",
   "videoWallpaper": ""
 }
