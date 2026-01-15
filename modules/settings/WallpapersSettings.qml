@@ -109,7 +109,7 @@ Item {
             Rectangle {
                 Layout.fillWidth: true
                 height: currentSizes.wallpaperSettings?.dividerHeight || 1
-                color: theme.primary.dim_foreground + "40"
+                color: theme.primary.foreground
             }
 
             // Statistics

@@ -26,7 +26,7 @@ Item {
             Rectangle {
                 Layout.fillWidth: true
                 height: 1
-                color: theme.primary.dim_foreground + "40"
+                color: theme.primary.foreground
             }
             
             // Nội dung cài đặt cụ thể sẽ được thêm ở đây

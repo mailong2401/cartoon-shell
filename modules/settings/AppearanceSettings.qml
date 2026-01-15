@@ -186,7 +186,7 @@ Item {
             Rectangle {
                 Layout.fillWidth: true
                 height: 1
-                color: theme.primary.dim_foreground + "40"
+                color: theme.primary.foreground
             }
 
             // Theme Selection
