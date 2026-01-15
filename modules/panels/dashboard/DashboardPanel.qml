@@ -106,10 +106,10 @@ PanelWindow {
                     RowLayout {
                         Layout.fillWidth: true
                         spacing: 15
-                        Com.SocialIcon { image: "../../../assets/lockscreen/appicons/youtube.png"; bgColor: "#d20f39"}
-                        Com.SocialIcon { image: "../../../assets/lockscreen/appicons/reddit.png"; bgColor: "#fe640b" }
-                        Com.SocialIcon { image: "../../../assets/lockscreen/appicons/facebook.png"; bgColor: "#04a5e5"}
-                        Com.SocialIcon { image: "../../../assets/lockscreen/appicons/tiktok.png"; bgColor: "#eff1f5"}
+                        Com.SocialIcon { image: "../../../assets/lockscreen/appicons/youtube.png"; bgColor: "#d20f39"; linkSocial: "https://www.youtube.com/"}
+                        Com.SocialIcon { image: "../../../assets/lockscreen/appicons/reddit.png"; bgColor: "#fe640b"; linkSocial: "https://www.reddit.com/"}
+                        Com.SocialIcon { image: "../../../assets/lockscreen/appicons/facebook.png"; bgColor: "#04a5e5"; linkSocial: "https://www.facebook.com/"}
+                        Com.SocialIcon { image: "../../../assets/lockscreen/appicons/tiktok.png"; bgColor: "#eff1f5"; linkSocial: "https://www.tiktok.com/"}
 
                         Com.GmailCard {
                             emailCount: 230

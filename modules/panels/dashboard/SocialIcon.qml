@@ -1,10 +1,13 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Fusion
+import Quickshell
+import Quickshell.Io
 
 Rectangle {
     id: root
     property string image: ""
+    property string linkSocial: ""
     property color bgColor: "white"
     property real hoverScale: 1.2 // Tỷ lệ phóng to khi hover
     property var theme: currentTheme
@@ -17,6 +20,8 @@ Rectangle {
     border.width: 3
     border.color: theme.button.border
     
+    Process { id: linkProcess }
+
     // Hiệu ứng chuyển đổi mượt mà
     Behavior on scale {
         NumberAnimation { 
@@ -85,6 +90,9 @@ Rectangle {
         }
         
         onClicked: {
+          linkProcess.command = ["xdg-open", linkSocial]
+          linkProcess.startDetached()
+          console.log("ksdjf")
             // Bạn có thể thêm hành động khi click ở đây
         }
     }
