@@ -7,8 +7,8 @@ Rectangle {
     property var theme: currentTheme
     property var sizes: currentSizes.cpuDetailPanel
 
-    color: theme.primary.dim_background
-    border.color: theme.normal.black
+    color: theme.primary.background
+    border.color: theme.button.border
     border.width: sizes.coresBorderWidth || 2
     radius: sizes.coresRadius || 8
 

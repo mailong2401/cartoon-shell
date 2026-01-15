@@ -19,7 +19,7 @@ Item {
     property color normalColor: theme.normal.green
     property color lowColor: theme.normal.cyan
     
-    property color borderColor: theme.normal.black
+    property color borderColor: theme.button.border
     property color progressBgColor: theme.bright.black
     
     property int updateInterval: 3000

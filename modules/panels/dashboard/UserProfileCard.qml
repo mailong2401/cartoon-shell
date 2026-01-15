@@ -1,21 +1,25 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Fusion
+import Quickshell.Widgets
+
 
 Rectangle {
     id: root
-    property string userName: "Long"
-    property string userHandle: "@mailong2401"
-    property string userAvatar: "/home/long/Pictures/Wallpapers/slide_4.jpg"
+    
     property var theme: currentTheme
     property var sizes: currentSizes
+    property var config: currentConfig
+    property string userName: config.lockscreen.name
+    property string userHandle: config.lockscreen.username
+    property string userAvatar: config.lockscreen.avatar
 
     Layout.fillWidth: true
     Layout.fillHeight: true
     radius: 28
     color: theme.primary.background
     border.width: 3
-    border.color: theme.normal.black
+    border.color: theme.button.border
 
     ColumnLayout {
         anchors.fill: parent
@@ -29,6 +33,13 @@ Rectangle {
             height: 120
             radius: 60
             color: "#2a2a2a"
+        ClippingRectangle {
+                            id: albumArtContainer
+                            anchors.fill: parent
+                            radius: width / 2
+                            color: theme.primary.dim_background
+                            border.color: theme.button.border
+                            border.width: sizes.borderWidth || 3
 
             Image {
                 anchors.fill: parent
@@ -37,6 +48,7 @@ Rectangle {
                 smooth: true
 
             }
+          }
         }
 
         // User Name

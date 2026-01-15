@@ -14,6 +14,7 @@ RowLayout {
     Layout.fillWidth: true
     spacing: 10
 
+
     // Icon button (left)
     Rectangle {
         Layout.preferredWidth: 50
@@ -21,7 +22,7 @@ RowLayout {
         radius: 25
         color: root.iconColor
         border.width: 3
-        border.color: theme.normal.black
+        border.color: theme.button.border
 
         Image {
             source: theme.type === "dark" ? iconDark : iconLight
@@ -46,7 +47,7 @@ RowLayout {
         radius: 25
         color: theme.primary.background
         border.width: 3
-        border.color: "#26ffffff"
+        border.color: theme.button.border
 
         Rectangle {
             anchors.fill: parent

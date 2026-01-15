@@ -6,7 +6,7 @@ import Quickshell.Io
 Rectangle {
     id: root
     radius: currentSizes.radius?.normal || 10
-    border.color: theme.normal.black
+    border.color: theme.button.border
     border.width: 3
     color: theme.primary.background
 

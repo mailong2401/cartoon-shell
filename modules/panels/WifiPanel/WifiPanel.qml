@@ -23,7 +23,7 @@ PanelWindow {
         anchors.fill: parent
         color: theme.primary.background
         border.width: sizes.borderWidth || 2
-        border.color: theme.normal.black
+        border.color: theme.button.border
 
         ColumnLayout {
             anchors.fill: parent

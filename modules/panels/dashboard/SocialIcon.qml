@@ -6,7 +6,7 @@ Rectangle {
     id: root
     property string image: ""
     property color bgColor: "white"
-    property real hoverScale: 1.1 // Tỷ lệ phóng to khi hover
+    property real hoverScale: 1.2 // Tỷ lệ phóng to khi hover
     property var theme: currentTheme
     property var sizes: currentSizes
 
@@ -15,7 +15,7 @@ Rectangle {
     radius: 22
     color: bgColor
     border.width: 3
-    border.color: theme.normal.black
+    border.color: theme.button.border
     
     // Hiệu ứng chuyển đổi mượt mà
     Behavior on scale {
@@ -80,7 +80,6 @@ Rectangle {
         
         onReleased: {
             if (containsMouse) {
-                root.scale = hoverScale
                 iconImage.scale = 1.1
             }
         }
@@ -98,7 +97,7 @@ Rectangle {
                 target: root
                 color: bgColor
                 scale: 1.0
-                border.color: theme.normal.black
+                border.color: theme.button.border
             }
             PropertyChanges { 
                 target: iconImage
@@ -109,12 +108,10 @@ Rectangle {
             name: "hovered"
             PropertyChanges { 
                 target: root
-                scale: hoverScale
-                border.color: theme.normal.darkGray // Border đậm hơn khi hover
             }
             PropertyChanges { 
                 target: iconImage
-                scale: 1.1 // Icon phóng to hơn một chút
+                scale: hoverScale
             }
         }
     ]

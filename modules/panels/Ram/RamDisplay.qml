@@ -17,7 +17,7 @@ Item {
     property color freeSwapColor: theme.normal.black
     property color textColor: theme.primary.foreground
     property color dimTextColor: theme.primary.dim_foreground
-    property color borderColor: theme.bright.black
+    property color borderColor: theme.button.border
     property color separatorColor: theme.normal.black
     
     property int ramPercent: 0

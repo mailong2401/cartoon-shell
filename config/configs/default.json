@@ -1,7 +1,7 @@
 {
   "mainPanelPos": "bottom",
-  "clockPanelPosition": "top",
-  "clockPanelVisible": false,
+  "clockPanelPosition": "bottomLeft",
+  "clockPanelVisible": true,
   "spacingPanel": 12,
   "lang": "vi",
   "theme": "dark",
@@ -11,7 +11,7 @@
   "displaySize": "1920",
   "lockscreen": {
     "name": "User",
-    "avatar": "/home/long/Pictures/Wallpapers/wall_1.jpg",
+    "avatar": "/home/long/Pictures/Wallpapers/817218.jpg",
     "username": "user"
   }
 }

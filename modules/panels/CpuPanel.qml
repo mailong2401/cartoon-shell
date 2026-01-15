@@ -8,7 +8,7 @@ import '../modules/ram/'
 Rectangle {
     id: root
     color: theme.primary.background
-    border.color: theme.normal.black
+    border.color: theme.button.border
     border.width: 3
     radius: currentSizes.radius?.normal || 10
     clip: true

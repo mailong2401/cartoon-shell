@@ -11,6 +11,8 @@ Rectangle {
     radius: 28
     property var theme: currentTheme
     color: theme.primary.background
+    border.color: theme.button.border
+    border.width: 3
 
     ColumnLayout {
         anchors.fill: parent

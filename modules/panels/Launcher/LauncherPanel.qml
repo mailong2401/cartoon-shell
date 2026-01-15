@@ -94,7 +94,7 @@ function closePanel() {
             anchors.fill: parent
             radius: currentSizes.launcherPanel?.radius || 20
             color: theme.primary.background
-            border.color: theme.normal.black
+            border.color: theme.button.border
             border.width: 3
 
             RowLayout {

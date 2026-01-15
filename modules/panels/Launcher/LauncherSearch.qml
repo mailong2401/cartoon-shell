@@ -8,7 +8,7 @@ Rectangle {
     Layout.preferredHeight: currentSizes.launcherPanel?.searchHeight || 45
     radius: currentSizes.radius?.normal || 12
     color: theme.primary.dim_background
-    border.color: theme.normal.black
+    border.color: theme.button.border
     border.width: 2
 
     signal searchChanged(string text) // phát ra khi cần tìm (sau debounce)

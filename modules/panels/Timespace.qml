@@ -8,7 +8,7 @@ Rectangle {
     id: root
     color: theme.primary.background
     radius: currentSizes.radius?.normal || 10
-    border.color: theme.normal.black
+    border.color: theme.button.border
 
     border.width: 3
 

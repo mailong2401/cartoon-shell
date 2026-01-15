@@ -10,7 +10,7 @@ Rectangle {
     property var lang: currentLanguage
 
     color: theme.primary.dim_background
-    border.color: "#4f4f5b"
+    border.color: theme.button.border
     border.width: sizes.statsBorderWidth || 2
     radius: sizes.statsRadius || 4
 

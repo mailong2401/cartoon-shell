@@ -33,7 +33,7 @@ PanelWindow {
         anchors.fill: parent
         color: theme.primary.background
         radius: sizes.radius || 8
-        border.color: theme.normal.black
+        border.color: theme.button.border
         border.width: sizes.borderWidth || 3
 
         ColumnLayout {

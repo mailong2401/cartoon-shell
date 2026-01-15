@@ -219,6 +219,7 @@ Item {
                     Layout.preferredWidth: 250
                     font.family: "ComicShannsMono Nerd Font"
                     font.pixelSize: 14
+                    color: theme.primary.foreground
 
                     onTextChanged: {
                         panelConfig.set("lockscreen.name", text)
@@ -254,9 +255,9 @@ Item {
                     Layout.preferredWidth: 250
                     font.family: "ComicShannsMono Nerd Font"
                     font.pixelSize: 14
+                    color: theme.primary.foreground
 
                     onTextChanged: {
-                        panelConfig.set("lockscreen.username", text)
                     }
 
                     background: Rectangle {

@@ -14,6 +14,9 @@ Rectangle {
     radius: size / 2
     color: backgroundColor
 
+    border.color: theme.normal.black
+    border.width: 3
+
     Label {
         anchors.centerIn: parent
         text: root.icon

@@ -33,7 +33,7 @@ PanelWindow {
         anchors.fill: parent
         color: theme.primary.background
         radius: currentSizes.ramManagement?.panelRadius || 8
-        border.color: theme.normal.black
+        border.color: theme.button.border
         border.width: currentSizes.ramManagement?.panelBorderWidth || 3
 
         ColumnLayout {

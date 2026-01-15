@@ -258,7 +258,7 @@ PanelWindow {
     Rectangle {
         anchors.fill: parent
         radius: sizes.radius || 20
-        border.color: theme.normal.black
+        border.color: theme.button.border
         border.width: sizes.borderWidth || 3
 
         color: theme.primary.background

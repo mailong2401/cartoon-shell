@@ -12,6 +12,8 @@ Rectangle {
     Layout.preferredHeight: 220
     radius: 28
     color: theme.primary.background
+    border.color: theme.button.border
+    border.width: 3
 
     GridLayout {
         anchors.fill: parent

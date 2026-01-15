@@ -80,7 +80,7 @@ PanelWindow {
         anchors.fill: parent
         color: theme.primary.background
         radius: sizes.radius || 10
-        border.color: theme.normal.black
+        border.color: theme.button.border
         border.width: sizes.borderWidth || 3
 
         ColumnLayout {
@@ -136,7 +136,7 @@ PanelWindow {
                             width: sizes.flagItemWidth || 105
                             height: sizes.flagItemHeight || 70
                             color: flagSelectionPanel.selectedFlag === modelData.name ? theme.primary.dim_background : theme.primary.background
-                            border.color: flagSelectionPanel.selectedFlag === modelData.name ? theme.normal.green : theme.normal.black
+                            border.color: flagSelectionPanel.selectedFlag === modelData.name ? theme.normal.green : theme.button.border
                             border.width: flagSelectionPanel.selectedFlag === modelData.name ? (sizes.flagItemSelectedBorderWidth || 3) : (sizes.flagItemBorderWidth || 2)
                             radius: sizes.flagItemRadius || 10
 

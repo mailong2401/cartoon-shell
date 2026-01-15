@@ -11,7 +11,7 @@ Rectangle {
     }
 
     color: "transparent"
-    border.color: theme.normal.black
+    border.color: theme.button.border
     border.width: sizes.chartBorderWidth || 2
     radius: sizes.chartRadius || 6
 

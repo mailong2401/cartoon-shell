@@ -12,6 +12,8 @@ Rectangle {
     Layout.fillHeight: true
     radius: 18
     color: bgColor
+    border.color: theme.button.border
+    border.width: 3
 
     Image {
         anchors.centerIn: parent

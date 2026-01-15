@@ -9,7 +9,7 @@ Rectangle {
     Layout.fillHeight: true
     radius: currentSizes.launcherPanel?.sidebarItemRadius || currentSizes.radius?.normal || 12
     color: theme.primary.dim_background
-    border.color: theme.normal.black
+    border.color: theme.button.border
     border.width: 2
 
     property var theme : currentTheme

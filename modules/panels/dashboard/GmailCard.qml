@@ -12,7 +12,7 @@ Rectangle {
     radius: 28
     color: "#eff1f5"
     border.width: 3
-    border.color: theme.normal.black
+    border.color: theme.button.border
 
     RowLayout {
         anchors.centerIn: parent

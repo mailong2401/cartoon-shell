@@ -19,12 +19,12 @@ PanelWindow {
 
       RowLayout {
         anchors.fill: parent
-        spacing: 20
+        spacing: 15
 
         ColumnLayout {
             Layout.preferredWidth: 240
             Layout.fillHeight: true
-            spacing: 20
+            spacing: 15
 
             Com.UserProfileCard {
             }
@@ -65,7 +65,7 @@ PanelWindow {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            spacing: 20
+            spacing: 15
 
             RowLayout {
                 Layout.fillHeight: true
@@ -79,72 +79,33 @@ PanelWindow {
                 }
                 Com.WeatherCard {
                 }
-                ColumnLayout {
-                    Layout.preferredWidth: 90
-                    spacing: 20
-
-                    RowLayout {
-                        spacing: 15
-
-                    Com.QuickActionButton {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 110
-                        icon: "../../../assets/system/sys-exit.png"
-                        iconColor: theme.normal.red
-                    }
-
-                    Com.QuickActionButton {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 110
-                        icon: "../../../assets/system/sys-sleep.png"
-                        iconColor: theme.normal.yellow
-                    }
-                    }
-                    RowLayout {
-                        spacing: 15
-
-                    Com.QuickActionButton {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 110
-                        icon: "../../../assets/system/sys-reboot.png"
-                        iconColor: theme.normal.red
-                    }
-
-                    Com.QuickActionButton {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 110
-                        icon: "../../../assets/system/shutdown.png"
-                        iconColor: theme.normal.yellow
-                    }
-                    }
-
-                    
-                }
+                Com.ListQuickActionButton{}
+                
             }
             RowLayout {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                spacing: 10
+                spacing: 15
 
                 // Left side: Media Player + App Grid + Social Icons
                 ColumnLayout {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    spacing: 10
+                    spacing: 15
 
                     RowLayout {
                         Layout.fillWidth: true
-                        spacing: 10
+                        spacing: 15
 
                         Com.MediaPlayerCard {
                         }
 
-                        Com.AppGridCard { theme: dashboardRoot.theme }
+                        Com.AppGridCard {}
                     }
 
                     RowLayout {
                         Layout.fillWidth: true
-                        spacing: 10
+                        spacing: 15
                         Com.SocialIcon { image: "../../../assets/lockscreen/appicons/youtube.png"; bgColor: "#d20f39"}
                         Com.SocialIcon { image: "../../../assets/lockscreen/appicons/reddit.png"; bgColor: "#fe640b" }
                         Com.SocialIcon { image: "../../../assets/lockscreen/appicons/facebook.png"; bgColor: "#04a5e5"}

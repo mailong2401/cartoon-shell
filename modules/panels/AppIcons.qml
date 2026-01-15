@@ -11,7 +11,7 @@ Rectangle {
     height: 50
     color: theme.primary.background
     radius: 10
-    border.color: theme.normal.black
+    border.color: theme.button.border
     border.width: 3
 
 

@@ -8,7 +8,7 @@ import "./Bluetooth/" as ComponentBluetooth
 
 Rectangle {
     id: root
-    border.color: theme.normal.black
+    border.color: theme.button.border
     border.width: 3
     radius: 10
     color: theme.primary.background

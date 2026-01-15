@@ -12,7 +12,7 @@ Rectangle {
     radius: 28
     color: theme.primary.background
     border.width: 3
-    border.color: theme.normal.black
+    border.color: theme.button.border
 
     Image {
         id: iconImage

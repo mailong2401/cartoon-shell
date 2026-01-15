@@ -16,6 +16,7 @@ Rectangle {
     radius: 12
     color: mouseArea.containsMouse ? Qt.rgba(iconColor.r, iconColor.g, iconColor.b, 0.1) : "transparent"
 
+
     Behavior on color {
         ColorAnimation { duration: 150; easing.type: Easing.OutCubic }
     }
@@ -44,7 +45,7 @@ Rectangle {
             text: root.label
             color: iconColor
             font.family: "ComicShannsMono Nerd Font"
-            font.pixelSize: sizes.fontSize?.medium || 16
+            font.pixelSize: sizes.fontSize?.xlarge || 16
             font.bold: mouseArea.containsMouse
 
             Behavior on font.bold {

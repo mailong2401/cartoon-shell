@@ -25,7 +25,18 @@ Rectangle {
     radius: sizes.radius || 28
     color: theme.primary.background
     border.width: sizes.borderWidth || 3
-    border.color: theme.normal.black
+    border.color: theme.button.border
+
+    function formatTime(ms) {
+    if (!ms || ms <= 0)
+        return "0:00"
+
+    var totalSeconds = Math.floor(ms)
+    var minutes = Math.floor(totalSeconds / 60)
+    var seconds = totalSeconds % 60
+
+    return minutes + ":" + (seconds < 10 ? "0" + seconds : seconds)
+}
 
 
     RowLayout {
@@ -280,4 +291,13 @@ Rectangle {
             Item { Layout.preferredHeight: 5 }
         }
     }
+    Timer {
+  // only emit the signal when the position is actually changing.
+  running: mprisPlayer.playbackState == MprisPlaybackState.Playing
+  // Make sure the position updates at least once per second.
+  interval: 1000
+  repeat: true
+  // emit the positionChanged signal every second.
+  onTriggered: mprisPlayer.positionChanged()
+}
 }
