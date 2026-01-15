@@ -2,15 +2,22 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Quickshell
+import Quickshell.Io
 import "."
 import "../../utils/components" as Utils
+import "../../services"
 
 Item {
     property var theme: currentTheme
     property var lang: currentLanguage
     property var panelConfig  // Received from parent SettingsPanel
     id: root
-
+    Matugen {
+        id: matugenHandler
+    }
+    
+    
     // Hàm helper để set position
     function setClockPosition(position) {
         panelConfig.set("clockPanelPosition", position)
@@ -24,6 +31,8 @@ Item {
         sizesLoader.changeSizeProfile(size)
     }
 
+
+        
     // Data model cho các kích thước màn hình
     ListModel {
         id: sizeOptionsModel
@@ -232,6 +241,7 @@ Item {
                             onClicked: {
                                 themeLoader.changeTheme("light")
                                 panelConfig.set("theme", "light")
+                                Qt.callLater(matugenHandler.triggerMatugenOnThemeChange)
                             }
                         }
 
@@ -304,6 +314,7 @@ Item {
                             onClicked: {
                                 themeLoader.changeTheme("dark")
                                 panelConfig.set("theme", "dark")
+                                Qt.callLater(matugenHandler.triggerMatugenOnThemeChange)
                             }
                         }
 
