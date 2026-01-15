@@ -31,32 +31,28 @@ PanelWindow {
 
             Com.SystemSlider {
                 Layout.fillWidth: true
-                iconDark: "../../../assets/lockscreen/systemslider/cpu_dark.png"
-                iconLight: "../../../assets/lockscreen/systemslider/cpu_light.png"
+                srcImage: "../../../assets/lockscreen/systemslider/cpu.png"
                 iconColor: theme.normal.red
                 value: 0.8
             }
 
             Com.SystemSlider {
                 Layout.fillWidth: true
-                iconDark: "../../../assets/lockscreen/filebrowser/cpu_dark.png"
-                iconLight: "../../../assets/lockscreen/filebrowser/cpu_light.png"
+                srcImage: "../../../assets/lockscreen/systemslider/cpu.png"
                 iconColor: theme.normal.blue
                 value: 0.5
             }
 
             Com.SystemSlider {
                 Layout.fillWidth: true
-                iconDark: "../../../assets/lockscreen/filebrowser/cpu_dark.png"
-                iconLight: "../../../assets/lockscreen/filebrowser/cpu_light.png"
+                srcImage: "../../../assets/lockscreen/systemslider/cpu.png"
                 iconColor: theme.normal.yellow
                 value: 0.4
             }
 
             Com.SystemSlider {
                 Layout.fillWidth: true
-                iconDark: "../../../assets/lockscreen/filebrowser/cpu_dark.png"
-                iconLight: "../../../assets/lockscreen/filebrowser/cpu_light.png"
+                srcImage: "../../../assets/lockscreen/systemslider/cpu.png"
                 iconColor: theme.normal.green
                 value: 0.3           }
         }

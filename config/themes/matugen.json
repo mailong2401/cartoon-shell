@@ -1,14 +1,14 @@
 {
     "type": "dark",
     "primary": {
-        "background": "#111318",
-        "dim_background": "#111318",
-        "foreground": "#a4c9fe",
-        "dim_foreground": "#bcc7db",
-        "bright_foreground": "#a4c9fe"
+        "background": "#0f1416",
+        "dim_background": "#0f1416",
+        "foreground": "#88d1eb",
+        "dim_foreground": "#b3cad4",
+        "bright_foreground": "#88d1eb"
     },
     "button": {
-        "background": "#111318",
+        "background": "#0f1416",
         "text": "#cad3f5",
         "background_select": "transparent",
         "border": "#b8c0e0",

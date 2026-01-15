@@ -4,8 +4,7 @@ import QtQuick.Controls.Fusion
 
 RowLayout {
     id: root
-    property string iconDark: ""
-    property string iconLight: ""
+    property string srcImage: ""
     property color iconColor: "white"
     property var theme: currentTheme
     property var sizes: currentSizes
@@ -25,7 +24,7 @@ RowLayout {
         border.color: theme.button.border
 
         Image {
-            source: theme.type === "dark" ? iconDark : iconLight
+            source:  srcImage
             width: sizes.iconSize?.medium || 30
             height: sizes.iconSize?.medium || 30
             fillMode: Image.PreserveAspectFit

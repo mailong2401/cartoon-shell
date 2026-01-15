@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """
-listapps_with_icons.py - optimized with full icon paths
+listapps_with_icons_only.py - optimized with only icon paths
 
 Features:
 - Parse only keys under [Desktop Entry]
 - Clean Exec field and parse with shlex
-- Provide execBase for better de-dup/selection
 - Prefer normal launchers over special entries
 - Cache results for speed
-- Filter by query (search name/exec/comment/icon)
+- Filter by query (search name/exec/comment)
 - Enhanced icon finding with multiple fallbacks
 """
 import os
@@ -21,7 +20,7 @@ import shlex
 import re
 from pathlib import Path
 
-CACHE_FILE = Path.home() / ".cache" / "listapps_icons_cache.pkl"
+CACHE_FILE = Path.home() / ".cache" / "listapps_iconpath_cache.pkl"
 CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 DESKTOP_DIRS = [
@@ -34,8 +33,7 @@ DESKTOP_DIRS = [
 # Expanded icon directories with better search order
 ICON_DIRS = [
     "/usr/share/icons/Papirus",
-    os.path.expanduser("~/.local/share/icons"),
-    os.path.expanduser("~/.icons")
+    "/usr/share/icons/hicolor",
 ]
 
 # Common icon sizes to check
@@ -179,7 +177,7 @@ def is_desktop_file_hidden(filepath):
 def parse_desktop_file(filepath):
     """
     Parse only the [Desktop Entry] section.
-    Return dict with keys: name, exec (cleaned), execBase, icon, comment, iconPath
+    Return dict with keys: name, exec (cleaned), comment, iconPath
     """
     try:
         in_entry = False
@@ -222,29 +220,17 @@ def parse_desktop_file(filepath):
         # collapse multiple spaces
         exec_clean = re.sub(r'\s+', ' ', exec_clean).strip()
 
-        # split args safely to preserve quoted parts
-        try:
-            parts = shlex.split(exec_clean)
-        except Exception:
-            # fallback: simple split
-            parts = exec_clean.split()
-
-        exec_base = parts[0] if parts else exec_clean
-
-        icon_name = data.get('Icon', '')
-        # Use comprehensive icon search
-        icon_path = find_icon_comprehensive(icon_name)
-
         comment = data.get('Comment', '')
+        
+        # Find icon path
+        icon_name = data.get('Icon', '')
+        icon_path = find_icon_comprehensive(icon_name)
 
         return {
             "name": name,
             "exec": exec_clean,
-            "execBase": exec_base,
-            "icon": icon_name,
             "comment": comment,
-            "iconPath": icon_path,
-            "desktopFile": os.path.basename(filepath)  # Add source file for debugging
+            "iconPath": icon_path
         }
     except Exception as e:
         print(f"Error parsing {filepath}: {e}", file=sys.stderr)
@@ -334,7 +320,7 @@ def scan_desktop_files():
     return final_apps
 
 def filter_apps(apps, query):
-    """Return apps where query is in name/exec/comment/icon"""
+    """Return apps where query is in name/exec/comment"""
     if not query:
         return apps
     q = query.lower()
@@ -343,8 +329,7 @@ def filter_apps(apps, query):
         name = (app.get('name') or "").lower()
         exec_cmd = (app.get('exec') or "").lower()
         comment = (app.get('comment') or "").lower()
-        icon = (app.get('icon') or "").lower()
-        if q in name or q in exec_cmd or q in comment or q in icon:
+        if q in name or q in exec_cmd or q in comment:
             out.append(app)
     return out
 
