@@ -10,29 +10,53 @@ PanelWindow {
 
     property var sizes: currentSizes.wtDetailPanel || {}
     property var theme: currentTheme
+    signal closeRequested()
 
-    implicitWidth: sizes.panelWidth || 500
-    implicitHeight: sizes.panelHeight || 500
-
+    
     anchors {
-        top: currentConfig.mainPanelPos === "top"
-        bottom: currentConfig.mainPanelPos === "bottom"
+        top: true
+        bottom: true
+        left: true
+        right: true
     }
 
-    margins {
-        top: currentConfig.mainPanelPos === "top" ? (sizes.marginTop || 10) : 0
-        bottom: currentConfig.mainPanelPos === "bottom" ? (sizes.marginBottom || 10) : 0
-        left: sizes.marginLeft || 800
+    WlrLayershell.layer: WlrLayer.Overlay
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+    WlrLayershell.exclusiveZone: -1
+
+    MouseArea {
+        anchors.fill: parent
+        z: -1
+        onClicked: closeRequested()
     }
-    exclusiveZone: 0
+
+    
+
     color: "transparent"
 
     Rectangle {
-        anchors.fill: parent
+      implicitWidth: sizes.panelWidth || 500
+      implicitHeight: sizes.panelHeight || 500
+      anchors {
+            top: currentConfig.mainPanelPos === "top" ? parent.top : undefined
+            bottom: currentConfig.mainPanelPos === "bottom" ? parent.bottom : undefined
+            left: parent.left
+        }
+        anchors.topMargin: currentConfig.mainPanelPos === "top" ? currentSizes.panelHeight + 10 : 0
+        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ? currentSizes.panelHeight + 10 : 0
+        anchors.leftMargin: sizes.marginLeft
+
         color: theme.primary.background
         radius: sizes.panelRadius || 8
         border.color: theme.button.border
         border.width: sizes.panelBorderWidth || 3
+        MouseArea {
+            anchors.fill: parent
+            propagateComposedEvents: false
+            onClicked: {
+                mouse.accepted = true
+            }
+        }
 
         ColumnLayout {
             anchors.fill: parent

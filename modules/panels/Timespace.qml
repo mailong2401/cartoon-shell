@@ -45,6 +45,9 @@ property var lang: currentLanguage
         active: panelVisible
         onLoaded: {
             item.visible = Qt.binding(function() { return panelVisible })
+            item.closeRequested.connect(function() {
+                panelVisible = false
+            })
         }
     }
 

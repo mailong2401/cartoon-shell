@@ -12,6 +12,7 @@ Rectangle {
     border.width: 2
 
     property var apps: []
+    property var filteredApps: []
     property string lastQuery: ""
     property var theme : currentTheme
     property int currentIndex: 0
@@ -34,18 +35,22 @@ Rectangle {
                 try {
                     var txt = outputCollector.text ? outputCollector.text.trim() : ""
                     if (txt !== "") {
-                        container.apps = JSON.parse(txt)
+                      container.apps = JSON.parse(txt)
+                      container.filteredApps = container.apps
                     } else {
-                        container.apps = []
+                      container.apps = []
+                      container.filteredApps = []
                     }
                 } catch(e) {
-                    container.apps = []
+                  container.apps = []
+                  container.filteredApps = []
                 }
             }
         }
 
         Component.onCompleted: {
-            runSearch("")
+          listApps.command = [Qt.resolvedUrl("../../../scripts/listapps.py")]
+          listApps.running = true
         }
 
         ListView {
@@ -54,7 +59,7 @@ Rectangle {
     Layout.fillHeight: true
     clip: true
     spacing: currentSizes.launcherPanel?.listSpacing || 4
-    model: container.apps
+    model: container.filteredApps
     currentIndex: container.currentIndex
     focus: true
     keyNavigationWraps: true
@@ -141,21 +146,22 @@ Rectangle {
     }
 
     function runSearch(query) {
-        if (query === undefined || query === null) query = ""
-        if (query === container.lastQuery && container.apps.length > 0) {
-            return
-        }
-        container.lastQuery = query
-
-        if (query.length > 0) {
-            listApps.command = [Qt.resolvedUrl("../../../scripts/listapps.py"),query]
-        } else {
-            listApps.command = [Qt.resolvedUrl("../../../scripts/listapps.py")]
-        }
-
-        try { listApps.running = false } catch(e) {}
-        listApps.running = true
+    if (!query || query.length === 0) {
+        container.filteredApps = container.apps
+        container.currentIndex = 0
+        return
     }
+
+    var q = query.toLowerCase()
+    container.filteredApps = container.apps.filter(app =>
+        (app.name && app.name.toLowerCase().includes(q)) ||
+        (app.exec && app.exec.toLowerCase().includes(q)) ||
+        (app.comment && app.comment.toLowerCase().includes(q))
+    )
+
+    container.currentIndex = 0
+}
+
 
     function _splitArgs(cmd) {
         var parts = []
