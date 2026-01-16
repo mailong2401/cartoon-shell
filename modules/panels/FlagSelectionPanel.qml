@@ -21,8 +21,19 @@ PanelWindow {
         }
     }
 
-    implicitWidth: sizes.width || 600
-    implicitHeight: sizes.height || 420
+    anchors{
+      top: true
+      bottom: true
+      left: true
+      right: true
+    }
+    MouseArea {
+        anchors.fill: parent
+        z: -1
+        onClicked: panelManager.closeAllPanels()
+    }
+
+    
 
     property var flagList: [
         { name: "britain", displayName: "Britain" },
@@ -57,18 +68,7 @@ PanelWindow {
         { name: "vietnam", displayName: "Vietnam" }
     ]
 
-    anchors {
-        top: currentConfig.mainPanelPos === "top"
-        bottom: currentConfig.mainPanelPos === "bottom"
-    }
 
-    margins {
-        top: currentConfig.mainPanelPos === "top" ? (sizes.marginTop || 10) : 0
-        bottom: currentConfig.mainPanelPos === "bottom" ? (sizes.marginBottom || 10) : 0
-        left: sizes.marginLeft || 800
-    }
-
-    exclusiveZone: 0
     color: "transparent"
 
     function setFlag(name) {
@@ -77,7 +77,17 @@ PanelWindow {
 
 
     Rectangle {
-        anchors.fill: parent
+      implicitWidth: sizes.width || 600
+      implicitHeight: sizes.height || 420
+      anchors {
+            left: parent.left
+            top: currentConfig.mainPanelPos === "top" ? parent.top : undefined
+            bottom: currentConfig.mainPanelPos === "bottom" ? parent.bottom : undefined
+        }
+
+        anchors.leftMargin: sizes.marginLeft || 800
+        anchors.topMargin: currentConfig.mainPanelPos === "top" ? 10 : 0
+        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ? 10 : 0
         color: theme.primary.background
         radius: sizes.radius || 10
         border.color: theme.button.border

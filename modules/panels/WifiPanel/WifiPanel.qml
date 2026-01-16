@@ -7,20 +7,48 @@ import "." as Com
 PanelWindow {
     id: wifiPanel
     property var sizes: currentSizes.wifiPanel || {}
-    implicitWidth: sizes.width || 430
-    implicitHeight: sizes.height || 800
+    anchors{
+      top: true
+      bottom: true
+      left: true
+      right: true
+    }
+    
     color: "transparent"
     focusable: true
-    aboveWindows: true
-    objectName: "WiFiPanel"
+    Region {
+      id: wifiMaskRegion
+      item: contentRect
+    }
+    mask: {
+      panelManager.wifiMask ? wifiMaskRegion : null
+    }
+    MouseArea {
+        anchors.fill: parent
+        z: -1
+        onClicked: panelManager.closeAllPanels()
+    }
+    Com.WifiManager {
+      id: wifiManager
+    }
 
-    required property var wifiManager
     property var theme: currentTheme
     property var lang: currentLanguage
 
     Rectangle {
+      id: contentRect
+      anchors {
+            right: parent.right
+            top: currentConfig.mainPanelPos === "top" ? parent.top : undefined
+            bottom: currentConfig.mainPanelPos === "bottom" ? parent.bottom : undefined
+        }
+
+        anchors.rightMargin: 10
+        anchors.topMargin: currentConfig.mainPanelPos === "top" ? 10 : 0
+        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ? 10 : 0
+        implicitWidth: sizes.width || 430
+        implicitHeight: sizes.height || 800
         radius: sizes.radius || 10
-        anchors.fill: parent
         color: theme.primary.background
         border.width: sizes.borderWidth || 2
         border.color: theme.button.border
@@ -35,7 +63,7 @@ PanelWindow {
                 sizes: wifiPanel.sizes
                 theme: wifiPanel.theme
                 lang: wifiPanel.lang
-                wifiManager: wifiPanel.wifiManager
+                wifiManager: wifiManager
             }
 
             Com.WifiStatus {
@@ -43,7 +71,7 @@ PanelWindow {
                 sizes: wifiPanel.sizes
                 theme: wifiPanel.theme
                 lang: wifiPanel.lang
-                wifiManager: wifiPanel.wifiManager
+                wifiManager: wifiManager
             }
 
             Com.WifiNetworkList {
@@ -52,7 +80,7 @@ PanelWindow {
                 sizes: wifiPanel.sizes
                 theme: wifiPanel.theme
                 lang: wifiPanel.lang
-                wifiManager: wifiPanel.wifiManager
+                wifiManager: wifiManager
                 visible: wifiManager.wifiEnabled
             }
 

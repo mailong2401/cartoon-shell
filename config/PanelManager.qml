@@ -6,17 +6,41 @@ QtObject {
 
     // Properties cho từng panel
     property bool launcher: false
+    property bool launcherMask: false
+
     property bool cpu: false
+    property bool cpuMask: false
+
     property bool ram: false
+    property bool ramMask: false
+
     property bool calendar: false
+    property bool calendarMask: false
+
     property bool music: false
+    property bool musicMask: false
+
     property bool weather: false
+    property bool weatherMask: false
+
     property bool flag: false
+    property bool flagMask: false
+
     property bool bluetooth: false
+    property bool bluetoothMask: false
+
     property bool wifi: false
+    property bool wifiMask: false
+
     property bool mixer: false
+    property bool mixerMask: false
+
     property bool battery: false
+    property bool batteryMask: false
+
     property bool dashboard: false
+    property bool dashboardMask: false
+
     property bool clock: currentConfig.clockPanelVisible  // Giữ nguyên từ config
 
     // Signal khi có panel thay đổi trạng thái
@@ -46,25 +70,80 @@ QtObject {
     }
 
     // Hàm toggle panel
-    function togglePanel(panelName) {
-        switch(panelName) {
-            case "launcher": launcher = !launcher; break
-            case "cpu": cpu = !cpu; break
-            case "ram": ram = !ram; break
-            case "calendar": calendar = !calendar; break
-            case "music": music = !music; break
-            case "weather": weather = !weather; break
-            case "flag": flag = !flag; break
-            case "bluetooth": bluetooth = !bluetooth; break
-            case "wifi": wifi = !wifi; break
-            case "mixer": mixer = !mixer; break
-            case "battery": battery = !battery; break
-            case "dashboard": dashboard = !dashboard; break
-            case "clock": clock = !clock; break
+    // Hàm toggle panel
+function togglePanel(panelName) {
+    switch(panelName) {
+        case "launcher": {
+          if (launcher === false) {
+            cpu = false
+            ram = false
+            weather = false
+            launcher = true
+          } else {
+            launcher = false
+          }
+          break
         }
-        
-        panelChanged(panelName, getPanelVisible(panelName))
+        case "cpu": cpu = !cpu; break
+        case "ram": ram = !ram; break
+        case "calendar": {
+          if (!calendar) {
+            weather = false
+            flag = false
+            calendar = true
+          } else {
+            calendar = false
+          }
+          break
+        }
+
+        case "music": {
+            if (music === false) {
+                calendar = false
+                weather = false
+                flag = false
+                launcher = false
+                cpu = false
+                ram = false
+                music = true
+            } else {
+                music = false
+            }
+            break
+        }
+
+        case "weather": {
+          if (!weather) {
+            flag = false
+            calendar = false
+            launcher = false
+            weather = true
+          } else {
+            weather = false
+          }
+          break
+        }
+        case "flag": {
+          if (!flag) {
+            calendar = false
+            weather = false
+            flag = true
+          } else {
+            flag = false
+          }
+          break
+        }
+        case "bluetooth": bluetooth = !bluetooth; break
+        case "wifi": wifi = !wifi; break
+        case "mixer": mixer = !mixer; break
+        case "battery": battery = !battery; break
+        case "dashboard": dashboard = !dashboard; break
+        case "clock": clock = !clock; break
     }
+
+    panelChanged(panelName, getPanelVisible(panelName))
+}
+
 
     // Hàm đóng tất cả panel
     function closeAllPanels() {

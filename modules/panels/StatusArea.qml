@@ -23,73 +23,11 @@ Rectangle {
     property bool visibleMixerPanel: false
     property bool visibleBatteryPanel: false
     property bool wifiPanelVisible: false
-    property bool bluetoothPanelVisible: false
     property bool visibleDashboard: false
     property bool bluetoothVisible: true
     property real currentVolume: Pipewire.defaultAudioSink?.audio.volume ?? 0
     property bool isMuted: Pipewire.defaultAudioSink?.audio.mute ?? false
     property var theme : currentTheme
-
-
-    states: [
-    State {
-        name: "wifiPanel"
-        PropertyChanges { target: root; wifiPanelVisible: true }
-        PropertyChanges { target: root; visibleMixerPanel: false }
-        PropertyChanges { target: root; visibleBatteryPanel: false }
-        PropertyChanges { target: root; bluetoothPanelVisible: false }
-    },
-    State {
-        name: "bluetoothPanel"
-        PropertyChanges { target: root; bluetoothPanelVisible: true }
-        PropertyChanges { target: root; wifiPanelVisible: false }
-        PropertyChanges { target: root; visibleMixerPanel: false }
-        PropertyChanges { target: root; visibleBatteryPanel: false }
-    },
-    State {
-        name: "mixerPanel"
-        PropertyChanges { target: root; wifiPanelVisible: false }
-        PropertyChanges { target: root; visibleMixerPanel: true }
-        PropertyChanges { target: root; visibleBatteryPanel: false }
-        PropertyChanges { target: root; bluetoothPanelVisible: false }
-      },
-      State {
-        name: "batteryPanel"
-        PropertyChanges { target: root; wifiPanelVisible: false }
-        PropertyChanges { target: root; visibleMixerPanel: false }
-        PropertyChanges { target: root; visibleBatteryPanel: true }
-        PropertyChanges { target: root; bluetoothPanelVisible: false }
-    },
-    State {
-        name: "noPanel"
-        PropertyChanges { target: root; wifiPanelVisible: false }
-        PropertyChanges { target: root; visibleMixerPanel: false }
-        PropertyChanges { target: root; visibleBatteryPanel: false }
-        PropertyChanges { target: root; bluetoothPanelVisible: false }
-    }
-  ]
-
-  function togglePanel(panelName) {
-    switch (panelName) {
-        case "wifi":
-            state = state === "wifiPanel" ? "noPanel" : "wifiPanel"
-            break
-        case "bluetooth":
-            state = state === "bluetoothPanel" ? "noPanel" : "bluetoothPanel"
-            break
-        case "mixer":
-            state = state === "mixerPanel" ? "noPanel" : "mixerPanel"
-            break
-        case "battery":
-            state = state === "batteryPanel" ? "noPanel" : "batteryPanel"
-            break
-        case "dashboard":
-            visibleDashboard = !visibleDashboard
-        default:
-            state = "noPanel"
-    }
-  }
-
 
 
 
@@ -113,68 +51,51 @@ Rectangle {
     
     
     // WifiManager component - chứa tất cả logic WiFi
-    ComponentWifi.WifiManager {
-        id: wifiManager
-    }
-    
     // WiFi Panel - chỉ hiện khi được toggle
-    ComponentWifi.WifiPanel {
-        id: wifiPanel
-        wifiManager: wifiManager
-        visible: root.wifiPanelVisible
-
-        anchors {
-            top: currentConfig.mainPanelPos === "top"
-            bottom: currentConfig.mainPanelPos === "bottom"
-            right: true
-        }
-        margins {
-            top: currentConfig.mainPanelPos === "top" ? 10 : 0
-            right: 10
-            bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
+    //
+      Loader {
+        id: wifiLoader
+        source: "./WifiPanel/WifiPanel.qml"
+        active: panelManager.wifi
+        onLoaded: {
+          item.visible = Qt.binding(function() { return panelManager.wifi})
         }
       }
 
-            ComponentBluetooth.BluetoothPanel {
-        id: bluetoothPanel
-        visible: root.bluetoothPanelVisible
 
-        anchors {
-            top: currentConfig.mainPanelPos === "top"
-            bottom: currentConfig.mainPanelPos === "bottom"
-            right: true
-        }
-        margins {
-            top: currentConfig.mainPanelPos === "top" ? 10 : 0
-            right: 10
-            bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
+
+      Loader {
+        id: bluetoothLoader
+        source: "./Bluetooth/BluetoothPanel.qml"
+        active: panelManager.bluetooth
+        onLoaded: {
+          item.visible = Qt.binding(function() { return panelManager.bluetooth})
         }
       }
-
 
       Loader {
         id: cpuPanelLoader
         source: "./Mixer/MixerPanel.qml"
-        active: visibleMixerPanel
+        active: panelManager.mixer
         onLoaded: {
-            item.visible = Qt.binding(function() { return visibleMixerPanel })
+            item.visible = Qt.binding(function() { return panelManager.mixer })
         }
       }
       Loader {
         id: batteryPanelLoader
         source: "./Battery/BatteryDetailPanel.qml"
-        active: visibleBatteryPanel
+        active: panelManager.battery
         onLoaded: {
-            item.visible = Qt.binding(function() { return visibleBatteryPanel })
+            item.visible = Qt.binding(function() { return panelManager.battery })
         }
       }
 
       Loader {
         id: dashboardLoader
         source: "./dashboard/DashboardPanel.qml"
-        active: visibleDashboard
+        active: panelManager.dashboard
         onLoaded: {
-            item.visible = Qt.binding(function() { return visibleDashboard })
+            item.visible = Qt.binding(function() { return panelManager.dashboard })
         }
       }
 
@@ -373,7 +294,7 @@ Rectangle {
                 onPressed: bluetoothContainer.scale = 0.95
                 onReleased: bluetoothContainer.scale = containsMouse ? 1.1 : 1.0
 
-                onClicked: togglePanel("bluetooth")
+                onClicked: panelManager.togglePanel("bluetooth")
             }
 
             Behavior on scale {
@@ -428,7 +349,7 @@ Rectangle {
                 onPressed: networkContainer.scale = 0.95
                 onReleased: networkContainer.scale = containsMouse ? 1.1 : 1.0
 
-                onClicked: togglePanel("wifi")
+                onClicked: panelManager.togglePanel("wifi")
             }
 
             Behavior on scale {
@@ -484,7 +405,7 @@ Rectangle {
                 onPressed: volumeContainer.scale = 0.95
                 onReleased: volumeContainer.scale = containsMouse ? 1.1 : 1.0
                 onClicked: {
-                  togglePanel("mixer")
+                  panelManager.togglePanel("mixer")
 
                 }
                 onWheel: {
@@ -549,7 +470,7 @@ Rectangle {
                 onPressed: batteryContainer.scale = 0.95
                 onReleased: batteryContainer.scale = 1.1
                 onClicked: {
-                  togglePanel("battery")
+                  panelManager.togglePanel("battery")
                 }
             }
             Behavior on scale { NumberAnimation { duration: 100 } }
@@ -586,7 +507,7 @@ Rectangle {
                 onReleased: powerContainer.scale = 1.2
                 
                 onClicked: {
-                  togglePanel("dashboard")
+                  panelManager.togglePanel("dashboard")
                 }
             }
             

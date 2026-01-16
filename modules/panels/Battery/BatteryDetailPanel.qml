@@ -11,22 +11,41 @@ PanelWindow {
     property var sizes: currentSizes.batteryDetailPanel || {}
     property var theme: currentTheme
 
-    width: sizes.width || 430
-    height: sizes.height || 400
-    anchors {
-        top: currentConfig.mainPanelPos === "top"
-        bottom: currentConfig.mainPanelPos === "bottom"
-        right: true
+    anchors{
+      top: true
+      bottom: true
+      left: true
+      right: true
     }
-    margins {
-        top: currentConfig.mainPanelPos === "top" ? (sizes.anchorMargin || 10) : 0
-        right: sizes.anchorMargin || 10
-        bottom: currentConfig.mainPanelPos === "bottom" ? (sizes.anchorMargin || 10) : 0
+    Region {
+      id: batteryMaskRegion
+      item: contentRect
     }
+    mask: {
+      panelManager.batteryMask ? batteryMaskRegion : null
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        z: -1
+        onClicked: panelManager.closeAllPanels()
+    }
+    
     color: "transparent"
 
     Rectangle {
-        anchors.fill: parent
+      id: contentRect
+      anchors {
+            right: parent.right
+            top: currentConfig.mainPanelPos === "top" ? parent.top : undefined
+            bottom: currentConfig.mainPanelPos === "bottom" ? parent.bottom : undefined
+        }
+
+        anchors.rightMargin: 10
+        anchors.topMargin: currentConfig.mainPanelPos === "top" ? 10 : 0
+        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ? 10 : 0
+      width: sizes.width || 430
+    height: sizes.height || 400
         color: theme.primary.background
         radius: sizes.radius || 8
         border.color: theme.normal.black

@@ -52,9 +52,9 @@ property var lang: currentLanguage
     Loader {
         id: flagPanelLoader
         source: "./FlagSelectionPanel.qml"
-        active: flagPanelVisible
+        active: panelManager.flag
         onLoaded: {
-            item.visible = Qt.binding(function() { return flagPanelVisible })
+            item.visible = Qt.binding(function() { return panelManager.flag })
             item.selectedFlag = Qt.binding(function() { return root.selectedFlag })
         }
     }
@@ -344,11 +344,8 @@ property var lang: currentLanguage
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    root.flagPanelVisible = !root.flagPanelVisible
-                    if (root.flagPanelVisible) {
-                        root.panelVisible = false
-                        root.weatherPanelVisible = false
-                    }
+                  panelManager.togglePanel("flag")
+                    
                 }
 
                 onEntered: {

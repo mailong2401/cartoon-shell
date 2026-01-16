@@ -7,14 +7,27 @@ import "." as Com
 
 PanelWindow {
   id: root
-  implicitWidth:  1300
-  implicitHeight: 600
+  anchors{
+    top: true
+    right: true
+    bottom: true
+    left: true
+  }
+  
 
   property var theme: currentTheme
 
+  MouseArea {
+        anchors.fill: parent
+        z: -1
+        onClicked: panelManager.closeAllPanels()
+    }
+
   color: "transparent"
   Rectangle {
-      anchors.fill: parent
+    implicitWidth:  1300
+  implicitHeight: 600
+  anchors.centerIn: parent
       color: "transparent"
 
       RowLayout {

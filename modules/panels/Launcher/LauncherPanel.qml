@@ -1,109 +1,86 @@
 import QtQuick
-import Qt5Compat.GraphicalEffects
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Wayland
 
-// Import các thành phần phụ trong cùng thư mục
 import "../../settings" as Settings
 import "./" as LauncherComponents
 
 PanelWindow {
     id: launcherPanel
-    
-    anchors {
-        top: true
-        bottom: true
-        left: true
-        right: true
+
+    anchors{
+      top: true
+      bottom: true
+      left: true
+      right: true
     }
-    color: "transparent"  // Đổi từ "red" sang "transparent"
+    color: "transparent"
     focusable: true
+    visible: false
+
+    property var theme: currentTheme
+    property bool settingsPanelVisible: false
+    property bool launcherPanelVisible: true
+    property var lang: currentLanguage
 
     signal confirmRequested(string action, string actionLabel)
     signal lockRequested()
 
-    Behavior on width { NumberAnimation { duration: 10 } }
-    Behavior on height { NumberAnimation { duration: 10 } }
+    /* ===============================
+       CLICKTHROUGH MASK (QUAN TRỌNG)
+       =============================== */
 
-    property var theme: currentTheme
-    property bool settingsPanelVisible: false
-    property var lang : currentLanguage
-    property bool launcherPanelVisible: true
+    Region {
+      id: launcherMaskRegion
+      item: contentRect
+    }
+    mask: {
+      panelManager.launcherMask ? launcherMaskRegion : null
+    }
 
 
-    // Xóa MouseArea cũ và thay bằng PointHandler
-    MouseArea {
+    /* ===============================
+       BACKGROUND FULLSCREEN (XUYÊN CLICK)
+       =============================== */
+        MouseArea {
         anchors.fill: parent
         z: -1
         onClicked: panelManager.closeAllPanels()
     }
+        // KHÔNG MouseArea ở đây
 
-    function openSettings() {
-        launcherPanel.settingsPanelVisible = true
-        launcherPanel.launcherPanelVisible = false
-    }
-
-    function openLauncher() {
-        launcherPanel.settingsPanelVisible = false
-        launcherPanel.launcherPanelVisible = true
-        // Focus vào search field khi mở launcher
-        Qt.callLater(function() {
-            if (searchBox && searchBox.searchField) {
-                searchBox.searchField.forceActiveFocus()
-                searchBox.searchField.selectAll()
-            }
-        })
-    }
-
-    function closePanel() {
-        visible = false
-        closeRequested()
-    }
-
-    function togglePanel() {
-        launcherPanel.visible = !launcherPanel.visible
-        if (launcherPanel.visible) {
-            openLauncher()
-        }
-    }
-
-    // Rectangle chính chứa nội dung
+    /* ===============================
+       CONTENT (KHÔNG XUYÊN CLICK)
+       =============================== */
     Rectangle {
         id: contentRect
+
         anchors {
+            left: parent.left
             top: currentConfig.mainPanelPos === "top" ? parent.top : undefined
             bottom: currentConfig.mainPanelPos === "bottom" ? parent.bottom : undefined
-            left: parent.left
         }
-        anchors.topMargin: currentConfig.mainPanelPos === "top" ?  10 : 0
-        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ?  10 : 0
+
         anchors.leftMargin: 10
-        
-        implicitWidth: launcherPanel.settingsPanelVisible ? 
-            (currentSizes.launcherPanel?.settingsWidth || 1000) : 
-            (currentSizes.launcherPanel?.width || 600)
-        implicitHeight: launcherPanel.settingsPanelVisible ? 
-            (currentSizes.launcherPanel?.settingsHeight || 700) : 
-            (currentSizes.launcherPanel?.height || 640)
-        
+        anchors.topMargin: currentConfig.mainPanelPos === "top" ? 10 : 0
+        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ? 10 : 0
+
+        implicitWidth: settingsPanelVisible
+            ? (currentSizes.launcherPanel?.settingsWidth || 1000)
+            : (currentSizes.launcherPanel?.width || 600)
+
+        implicitHeight: settingsPanelVisible
+            ? (currentSizes.launcherPanel?.settingsHeight || 700)
+            : (currentSizes.launcherPanel?.height || 640)
+
         radius: currentSizes.launcherPanel?.radius || 20
         color: theme.primary.background
         border.color: theme.button.border
         border.width: 3
-        focus: true  // Đảm bảo có thể nhận focus
-        
-        // Ngăn sự kiện click bên trong lan ra ngoài
-        MouseArea {
-            anchors.fill: parent
-            propagateComposedEvents: false
-            onClicked: {
-                // Không làm gì cả, chỉ để ngăn click lan ra ngoài
-                mouse.accepted = true
-            }
-        }
+        focus: true
 
         RowLayout {
             anchors.fill: parent
@@ -112,37 +89,28 @@ PanelWindow {
 
             LauncherComponents.Sidebar {
                 id: sidebar
-                onAppLaunched: launcherPanel.openLauncher()
-                onAppSettings: launcherPanel.openSettings()
-                onConfirmRequested: (action, actionLabel) => {
-                    launcherPanel.confirmRequested(action, actionLabel)
-                }
-                onLockRequested: {
-                    launcherPanel.lockRequested()
-                }
+                onAppLaunched: openLauncher()
+                onAppSettings: openSettings()
+                onConfirmRequested: launcherPanel.confirmRequested
+                onLockRequested: launcherPanel.lockRequested
             }
 
             Settings.SettingsPanel {
-                id: settingsPanel
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                visible: launcherPanel.settingsPanelVisible
+                visible: settingsPanelVisible
                 launcherPanel: launcherPanel
-                Behavior on Layout.preferredWidth {
-                    NumberAnimation { duration: 250; easing.type: Easing.InOutQuad }
-                }
             }
 
             ColumnLayout {
-                visible: launcherPanel.launcherPanelVisible
+                visible: launcherPanelVisible
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                spacing: currentSizes.launcherPanel?.spacing || 10
 
                 Text {
                     text: lang.system.application
                     color: theme.primary.foreground
-                    font.pixelSize: currentSizes.launcherPanel?.titleFontSize ||  40
+                    font.pixelSize: 40
                     font.bold: true
                     font.family: "ComicShannsMono Nerd Font"
                     Layout.alignment: Qt.AlignHCenter
@@ -150,8 +118,8 @@ PanelWindow {
 
                 LauncherComponents.LauncherSearch {
                     id: searchBox
-                    onSearchChanged: (text) => launcherList.runSearch(text)
-                    onAccepted: (text) => launcherList.runSearch(text)
+                    onSearchChanged: launcherList.runSearch(text)
+                    onAccepted: launcherList.runSearch(text)
                 }
 
                 LauncherComponents.LauncherList {
@@ -164,16 +132,25 @@ PanelWindow {
         }
     }
 
-    // Khi panel trở nên visible, focus vào search field
-    onVisibleChanged: {
-        if (visible && launcherPanelVisible) {
-            Qt.callLater(function() {
-                if (searchBox && searchBox.searchField) {
-                    searchBox.searchField.forceActiveFocus()
-                    searchBox.searchField.selectAll()
-                }
-            })
-        }
+    /* ===============================
+       FUNCTIONS
+       =============================== */
+    function openSettings() {
+        settingsPanelVisible = true
+        launcherPanelVisible = false
+    }
+
+    function openLauncher() {
+        settingsPanelVisible = false
+        launcherPanelVisible = true
+        Qt.callLater(() => {
+            searchBox?.searchField?.forceActiveFocus()
+            searchBox?.searchField?.selectAll()
+        })
+    }
+
+    function closePanel() {
+        visible = false
     }
 
     Shortcut {
@@ -181,8 +158,13 @@ PanelWindow {
         onActivated: closePanel()
     }
 
-    Component.onCompleted: {
-        // Đảm bảo panel không visible khi khởi động
-        visible = false
+    onVisibleChanged: {
+        if (visible && launcherPanelVisible) {
+            Qt.callLater(() => {
+                searchBox?.searchField?.forceActiveFocus()
+                searchBox?.searchField?.selectAll()
+            })
+        }
     }
 }
+

@@ -9,28 +9,49 @@ import "./" as Components
 PanelWindow {
     id: root
 
+
+    anchors{
+      top: true
+      bottom: true
+      left: true
+      right: true
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        z: -1
+        onClicked: panelManager.closeAllPanels()
+      }
+      Region {
+      id: mixerMaskRegion
+      item: contentRect
+    }
+    mask: {
+      panelManager.mixerMask ? mixerMaskRegion : null
+    }
+
     property var sizes: currentSizes.mixerPanel || {}
 
-    implicitWidth: sizes.width || 430
-    implicitHeight: sizes.height || 600
     property var lang : currentLanguage
 
-    anchors {
-            top: currentConfig.mainPanelPos === "top"
-            bottom: currentConfig.mainPanelPos === "bottom"
-            right: true
-        }
-        margins {
-            top: currentConfig.mainPanelPos === "top" ? 10 : 0
-            right: 10
-            bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
-        }
+
     color: "transparent"
 
     property var theme: currentTheme
 
     Rectangle {
-        anchors.fill: parent
+      id: contentRect
+      anchors {
+            right: parent.right
+            top: currentConfig.mainPanelPos === "top" ? parent.top : undefined
+            bottom: currentConfig.mainPanelPos === "bottom" ? parent.bottom : undefined
+        }
+
+        anchors.rightMargin: 10
+        anchors.topMargin: currentConfig.mainPanelPos === "top" ? 10 : 0
+        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ? 10 : 0
+        implicitWidth: sizes.width || 430
+        implicitHeight: sizes.height || 600
         color: theme.primary.background
         radius: sizes.radius || 8
         border.color: theme.button.border

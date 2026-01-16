@@ -7,7 +7,7 @@ Item {
     
     property string hyprInstance: Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") || ""
     property var wifiList: []
-    property bool wifiEnabled: false
+    property bool wifiEnabled: true
     property string connectedWifi: "Not connected"
     property bool isScanning: false
     property string openSsid: ""     // SSID đang mở hộp mật khẩu
@@ -198,9 +198,17 @@ Item {
     // =============================
     //   AUTO REFRESH
     // =============================
+    Component.onCompleted:{
+      if (wifiManager.userTyping) {
+                return
+            }
+            checkWifiStatus()
+            checkConnectedWifi()
+            if (wifiManager.wifiEnabled) scanWifiNetworks()
+    }
     Timer {
         interval: 10000
-        running: wifiManager.enabled
+        running: true
         repeat: true
         onTriggered: {
             if (wifiManager.userTyping) {
