@@ -80,7 +80,6 @@ QtObject {
         mixer = false
         battery = false
         dashboard = false
-        console.log("da dong het tat ca")
         // Không đóng clock panel vì nó được điều khiển bởi config
     }
 

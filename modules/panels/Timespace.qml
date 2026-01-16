@@ -42,12 +42,9 @@ property var lang: currentLanguage
     Loader {
         id: launcherPanelLoader
         source: "./WeatherTime/WtDetailPanel.qml"
-        active: panelVisible
+        active: panelManager.calendar
         onLoaded: {
-            item.visible = Qt.binding(function() { return panelVisible })
-            item.closeRequested.connect(function() {
-                panelVisible = false
-            })
+            item.visible = Qt.binding(function() { return panelManager.calendar })
         }
     }
 
@@ -241,11 +238,7 @@ property var lang: currentLanguage
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    root.panelVisible = !root.panelVisible
-                    if (root.panelVisible) {
-                        root.flagPanelVisible = false
-                        root.weatherPanelVisible = false
-                    }
+                  panelManager.calendar = true
                 }
                 
                 // Hiệu ứng hover

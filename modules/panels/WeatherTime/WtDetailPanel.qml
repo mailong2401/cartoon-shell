@@ -10,7 +10,6 @@ PanelWindow {
 
     property var sizes: currentSizes.wtDetailPanel || {}
     property var theme: currentTheme
-    signal closeRequested()
 
     
     anchors {
@@ -25,7 +24,7 @@ PanelWindow {
     MouseArea {
         anchors.fill: parent
         z: -1
-        onClicked: closeRequested()
+        onClicked: panelManager.closeAllPanels()
     }
 
     
