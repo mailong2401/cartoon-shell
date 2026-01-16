@@ -18,6 +18,7 @@ ShellRoot {
     Config.LanguageLoader { id: languageLoader }
     Config.ConfigLoader { id: configLoader }
     Config.SizesLoader { id: sizesLoader }
+    Config.PanelManager { id: panelManager }
     Dialogs.VolumeOsd { }
     Dialogs.NotificationPopup{}
     Dialogs.ConfirmDialog { id: confirmDialog }
@@ -83,8 +84,24 @@ ShellRoot {
     property var currentSizes: sizesLoader.sizes
     property string currentSizeProfile: sizesLoader.currentSizeProfile
 
-    // Property để điều khiển LauncherPanel
-    property bool launcherPanelVisible: false
+
+        function openPanel(panelName) {
+        panelManager.openPanel(panelName)
+    }
+
+    // Function để toggle một panel
+    function togglePanel(panelName) {
+        panelManager.togglePanel(panelName)
+    }
+
+    // Function để đóng tất cả panel
+    function closeAllPanels() {
+        panelManager.closeAllPanels()
+    }
+
+
+
+
     property string hyprInstance: Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") || ""
 
     // Property để điều khiển Lockscreen
@@ -93,7 +110,6 @@ ShellRoot {
     // Function để show lockscreen
     function showLockscreen() {
         lockscreenVisible = true
-        launcherPanelVisible = false
     }
 
     // Global wallpaper setter - chạy độc lập với Settings panel

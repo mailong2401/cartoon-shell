@@ -15,19 +15,16 @@ Rectangle {
     border.width: 3
 
 
-    property bool launcherPanelVisible: false
+    property bool launcherPanelVisible: panelManager.launcher
     property var theme : currentTheme
+
 
     Loader {
         id: launcherPanelLoader
         source: "./Launcher/LauncherPanel.qml"
-        active: launcherPanelVisible
-
+        active: panelManager.launcher
         onLoaded: {
-            item.visible = launcherPanelVisible
-            item.closeRequested.connect(function() {
-                launcherPanelVisible = false
-            })
+            item.visible = panelManager.launcher
             item.confirmRequested.connect(function(action, actionLabel) {
                 confirmDialog.show(action, actionLabel)
             })
@@ -77,8 +74,8 @@ Rectangle {
                     cursorShape: Qt.PointingHandCursor
                     hoverEnabled: true
                     onClicked: {
-                        launcherPanelVisible = !launcherPanelVisible
-                        if (launcherPanelLoader.item && launcherPanelVisible) {
+                        panelManager.launcher = !panelManager.launcher
+                        if (launcherPanelLoader.item && panelManager.launcher) {
                             launcherPanelLoader.item.openLauncher()
                         }
                     }

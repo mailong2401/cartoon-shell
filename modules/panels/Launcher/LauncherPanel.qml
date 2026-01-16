@@ -22,7 +22,6 @@ PanelWindow {
     color: "transparent"  // Đổi từ "red" sang "transparent"
     focusable: true
 
-    signal closeRequested()
     signal confirmRequested(string action, string actionLabel)
     signal lockRequested()
 
@@ -35,15 +34,11 @@ PanelWindow {
     property bool launcherPanelVisible: true
 
 
-    WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
-    WlrLayershell.exclusiveZone: -1
-
     // Xóa MouseArea cũ và thay bằng PointHandler
     MouseArea {
         anchors.fill: parent
         z: -1
-        onClicked: closeRequested()
+        onClicked: panelManager.closeAllPanels()
     }
 
     function openSettings() {
@@ -83,8 +78,8 @@ PanelWindow {
             bottom: currentConfig.mainPanelPos === "bottom" ? parent.bottom : undefined
             left: parent.left
         }
-        anchors.topMargin: currentConfig.mainPanelPos === "top" ? currentSizes.panelHeight + 10 : 0
-        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ? currentSizes.panelHeight + 10 : 0
+        anchors.topMargin: currentConfig.mainPanelPos === "top" ?  10 : 0
+        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ?  10 : 0
         anchors.leftMargin: 10
         
         implicitWidth: launcherPanel.settingsPanelVisible ? 

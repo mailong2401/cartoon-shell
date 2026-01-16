@@ -20,9 +20,7 @@ PanelWindow {
         right: true
     }
 
-    WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
-    WlrLayershell.exclusiveZone: -1
+
 
     MouseArea {
         anchors.fill: parent
@@ -42,8 +40,8 @@ PanelWindow {
             bottom: currentConfig.mainPanelPos === "bottom" ? parent.bottom : undefined
             left: parent.left
         }
-        anchors.topMargin: currentConfig.mainPanelPos === "top" ? currentSizes.panelHeight + 10 : 0
-        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ? currentSizes.panelHeight + 10 : 0
+        anchors.topMargin: currentConfig.mainPanelPos === "top" ?  10 : 0
+        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ?  10 : 0
         anchors.leftMargin: sizes.marginLeft
 
         color: theme.primary.background
