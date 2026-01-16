@@ -44,11 +44,7 @@ Rectangle {
                     cursorShape: Qt.PointingHandCursor
                     hoverEnabled: true
                     onClicked: {
-                        if (musicPanelLoader.active && musicPanelLoader.item) {
-                            musicPanelLoader.item.visible = !musicPanelLoader.item.visible
-                        } else {
-                            musicPanelLoader.active = true
-                        }
+                        panelManager.music = !panelManager.music 
                     }
                     onEntered: songContainer.opacity = 0.8
                     onExited: songContainer.opacity = 1.0
@@ -186,10 +182,10 @@ Rectangle {
     // Loader for MusicPanel
     Loader {
         id: musicPanelLoader
-        active: false
+        active: panelManager.music
         source: "MusicPanel.qml"
         onLoaded: {
-            item.visible = true
+            item.visible = panelManager.music
         }
     }
 }
