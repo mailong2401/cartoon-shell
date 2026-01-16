@@ -43,13 +43,13 @@ Rectangle {
         target: "rect"
         function getToggle() {
             if (launcherPanelLoader.status == Loader.Ready) {
-                launcherPanelVisible = !launcherPanelVisible
-                if (launcherPanelVisible && launcherPanelLoader.item) {
+                panelManager.launcher = !panelManager.launcher
+                if (panelManager.launcher && launcherPanelLoader.item) {
                     launcherPanelLoader.item.forceActiveFocus()
                     launcherPanelLoader.item.openLauncher()
                 }
             } else {
-                launcherPanelVisible = true
+                panelManager.launcher = true
             }
             return 0
         }
