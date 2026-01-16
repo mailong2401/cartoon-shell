@@ -6,40 +6,30 @@ QtObject {
 
     // Properties cho từng panel
     property bool launcher: false
-    property bool launcherMask: false
 
     property bool cpu: false
-    property bool cpuMask: false
 
     property bool ram: false
-    property bool ramMask: false
 
     property bool calendar: false
-    property bool calendarMask: false
 
     property bool music: false
-    property bool musicMask: false
 
     property bool weather: false
-    property bool weatherMask: false
 
     property bool flag: false
-    property bool flagMask: false
 
     property bool bluetooth: false
-    property bool bluetoothMask: false
 
     property bool wifi: false
-    property bool wifiMask: false
 
     property bool mixer: false
-    property bool mixerMask: false
 
     property bool battery: false
-    property bool batteryMask: false
 
     property bool dashboard: false
-    property bool dashboardMask: false
+
+    property bool hasPanel : wifi || mixer || music || launcher || dashboard || battery || ram || cpu || calendar || weather || bluetooth
 
     property bool clock: currentConfig.clockPanelVisible  // Giữ nguyên từ config
 
@@ -79,18 +69,52 @@ function togglePanel(panelName) {
             ram = false
             weather = false
             launcher = true
+            music = false
+            dashboard = false
           } else {
             launcher = false
           }
           break
         }
-        case "cpu": cpu = !cpu; break
-        case "ram": ram = !ram; break
+        case "cpu": {
+          if (!cpu) {
+            cpu = true
+            ram = false
+            calendar = false
+            weather = false
+            music =  false
+            flag = false
+            launcher = false
+            dashboard = false
+          } else {
+            cpu = false
+          }
+          break
+        }
+        case "ram": {
+          if (!ram) {
+            ram = true
+            cpu = false
+            calendar = false
+            flag = false
+            music = false
+            flag = false
+            launcher = false
+            dashboard = false
+          } else {
+            ram = false
+          }
+          break
+        }
         case "calendar": {
           if (!calendar) {
+            ram = false
+            cpu = false
             weather = false
             flag = false
+            music = false
             calendar = true
+            dashboard = false
           } else {
             calendar = false
           }
@@ -106,6 +130,7 @@ function togglePanel(panelName) {
                 cpu = false
                 ram = false
                 music = true
+            dashboard = false
             } else {
                 music = false
             }
@@ -118,6 +143,8 @@ function togglePanel(panelName) {
             calendar = false
             launcher = false
             weather = true
+            music = false
+            dashboard = false
           } else {
             weather = false
           }
@@ -127,17 +154,82 @@ function togglePanel(panelName) {
           if (!flag) {
             calendar = false
             weather = false
+            music = false
             flag = true
+            dashboard = false
           } else {
             flag = false
           }
           break
         }
-        case "bluetooth": bluetooth = !bluetooth; break
-        case "wifi": wifi = !wifi; break
-        case "mixer": mixer = !mixer; break
-        case "battery": battery = !battery; break
-        case "dashboard": dashboard = !dashboard; break
+        case "bluetooth": {
+          if (!bluetooth) {
+            wifi = false
+            mixer = false
+            battery = false
+            bluetooth = true
+            dashboard = false
+          } else {
+            bluetooth = false
+          }
+          break
+        }
+        case "wifi": {
+          if (!wifi) {
+            wifi = true
+            mixer = false
+            bluetooth = false
+            battery = false
+            dashboard = false
+          } else {
+            wifi = false
+          }
+          break
+        }
+        case "mixer": {
+          if (!mixer) {
+            mixer = true
+            wifi = false
+            bluetooth = false
+            battery = false
+            dashboard = false
+
+          } else {
+            mixer = false
+          }
+          break
+        }
+        case "battery": {
+          if (!battery) {
+            mixer = false
+            bluetooth = false
+            wifi = false
+            battery = true
+            dashboard = false
+          } else {
+            battery = false
+          }
+          break
+        }
+        case "dashboard": {
+          if (!dashboard) {
+            launcher = false
+            battery = false
+            wifi = false
+            bluetooth = false
+            mixer = false
+            calendar = false
+            cpu = false
+            ram = false
+            flag = false
+            music = false
+            weather = false
+            dashboard = true
+          } else {
+            dashboard = false
+          }
+          break
+        }
         case "clock": clock = !clock; break
     }
 

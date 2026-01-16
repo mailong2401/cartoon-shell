@@ -25,15 +25,10 @@ PanelWindow {
                 weatherPanel.updateWeather()
             }
         }
-      }
-      anchors {
-        top: true
-        bottom: true
-        left: true
-        right: true
     }
 
-    
+    implicitWidth: sizes.width || 1000
+    implicitHeight: sizes.height || 550
     focusable: true
 
     property string apiKey: ""
@@ -54,13 +49,6 @@ PanelWindow {
     property var locationSearchResults: []
     property int currentLocationIndex: 0
     property bool isUserSearching: false
-
-    MouseArea {
-        anchors.fill: parent
-        z: -1
-        onClicked: panelManager.closeAllPanels()
-    }
-
 
     // Timer auto-validate API key
     property Timer apiKeyValidateTimer: Timer {
@@ -95,6 +83,16 @@ PanelWindow {
         }
     }
 
+    anchors {
+        top: currentConfig.mainPanelPos === "top"
+        bottom: currentConfig.mainPanelPos === "bottom"
+    }
+
+    margins {
+        top: currentConfig.mainPanelPos === "top" ? (sizes.marginTop || 10) : 0
+        bottom: currentConfig.mainPanelPos === "bottom" ? (sizes.marginBottom || 10) : 0
+        left: sizes.marginLeft || 400
+    }
 
     exclusiveZone: 0
     color: "transparent"
@@ -258,19 +256,10 @@ PanelWindow {
 
     // Main UI
     Rectangle {
-        implicitWidth: sizes.width || 1000
-        implicitHeight: sizes.height || 550
+        anchors.fill: parent
         radius: sizes.radius || 20
         border.color: theme.button.border
         border.width: sizes.borderWidth || 3
-        anchors {
-            top: currentConfig.mainPanelPos === "top" ? parent.top : undefined
-            bottom: currentConfig.mainPanelPos === "bottom" ? parent.bottom : undefined
-            left: parent.left
-        }
-        anchors.topMargin: currentConfig.mainPanelPos === "top" ?  10 : 0
-        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ?  10 : 0
-        anchors.leftMargin: sizes.marginLeft || 400
 
         color: theme.primary.background
 

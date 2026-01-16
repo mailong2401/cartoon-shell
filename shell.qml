@@ -189,7 +189,25 @@ ShellRoot {
         function onSizesReloaded() {
             currentSizes = sizesLoader.sizes
         }
-    }
+      }
+
+      PanelWindow{
+        visible: panelManager.hasPanel
+        color: "transparent"
+        anchors: {
+          right: true
+          left : true
+          top: currentConfig.mainPanelPos === "top"
+          bottom: currentConfig.mainPanelPos === "bottom"
+        }
+        width: Screen.width
+        height: Screen.height - currentSizes.panelHeight
+        MouseArea {
+          anchors.fill: parent
+          z: -1
+          onClicked: panelManager.closeAllPanels()
+        }
+      }
 
 
     PanelWindow {
@@ -247,7 +265,8 @@ ShellRoot {
                 Layout.fillHeight: true
             }
         }
-    }
+      }
+      
 
     // Lockscreen overlay
     

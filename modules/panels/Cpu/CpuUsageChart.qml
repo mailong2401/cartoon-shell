@@ -25,7 +25,7 @@ Rectangle {
             Image {
                 width: sizes.chartHeaderIconSize || 24
                 height: sizes.chartHeaderIconSize || 24
-                source: '../../../assets/chart.png'
+                source: '../../../assets/cpu/chart.png'
                 anchors.verticalCenter: parent.verticalCenter
             }
             Text {

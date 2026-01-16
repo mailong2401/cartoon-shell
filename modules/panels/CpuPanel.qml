@@ -15,57 +15,24 @@ Rectangle {
 
     property string cpuUsage: "0%"
     property string memoryUsage: "0%"
-    property bool cpuPanelVisible: false
-    property bool ramPanelVisible: false
     property var theme : currentTheme
 
-    states: [
-    State {
-        name: "cpuPanel"
-        PropertyChanges { target: root; cpuPanelVisible: true }
-        PropertyChanges { target: root; ramPanelVisible: false }
-    },
-    State {
-        name: "ramPanel" 
-        PropertyChanges { target: root; cpuPanelVisible: false }
-        PropertyChanges { target: root; ramPanelVisible: true }
-    },
-    State {
-        name: "noPanel"
-        PropertyChanges { target: root; cpuPanelVisible: false }
-        PropertyChanges { target: root; ramPanelVisible: false }
-    }
-  ]
 
-  // Sửa hàm togglePanel
-function togglePanel(panelName) {
-    switch(panelName) {
-        case "cpu":
-            state = state === "cpuPanel" ? "noPanel" : "cpuPanel"
-            break
-        case "ram":
-            state = state === "ramPanel" ? "noPanel" : "ramPanel"
-            break
-        default:
-            state = "noPanel"
-    }
-}
 
     Loader {
         id: cpuPanelLoader
         source: "./Cpu/CpuDetailPanel.qml"
-        active: cpuPanelVisible
+        active: panelManager.cpu
         onLoaded: {
-            item.exclusiveZone = 0
-            item.visible = Qt.binding(function() { return cpuPanelVisible })
+            item.visible = Qt.binding(function() { return panelManager.cpu })
         }
       }
       Loader {
         id: ramPanelLoader
         source: "./Ram/RamDetailPanel.qml"
-        active: ramPanelVisible
+        active: panelManager.ram
         onLoaded: {
-            item.visible = Qt.binding(function() { return ramPanelVisible })
+            item.visible = Qt.binding(function() { return panelManager.ram })
         }
       }
 
@@ -176,7 +143,7 @@ function togglePanel(panelName) {
                 cursorShape: Qt.PointingHandCursor
 
                 onClicked: {
-                  root.togglePanel("cpu")
+                  panelManager.togglePanel("cpu")
                 }
 
                 // Hiệu ứng hover - dùng opacity thay vì scale để tránh tràn
@@ -246,7 +213,7 @@ function togglePanel(panelName) {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                  root.togglePanel("ram")
+                  panelManager.togglePanel("ram")
                 }
 
                 // Hiệu ứng hover - dùng opacity thay vì scale để tránh tràn

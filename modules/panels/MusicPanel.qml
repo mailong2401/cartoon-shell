@@ -24,20 +24,23 @@ PanelWindow {
     property int position: 0
     property int duration: 0
 
+    implicitWidth: sizes.width || 500
+    implicitHeight: sizes.height || 400
+    focusable: true
+
     anchors {
-        top: true
-        bottom: true
+        top: currentConfig.mainPanelPos === "top"
+        bottom: currentConfig.mainPanelPos === "bottom"
         left: true
-        right: true
     }
 
-    MouseArea {
-        anchors.fill: parent
-        z: -1
-        onClicked: panelManager.closeAllPanels()
+    margins {
+        top: currentConfig.mainPanelPos === "top" ? (sizes.marginTop || 10) : 0
+        bottom: currentConfig.mainPanelPos === "bottom" ? (sizes.marginBottom || 10) : 0
+        left: sizes.marginLeft || 400
     }
 
-    
+    exclusiveZone: 0
     color: "transparent"
 
     // CavaService instance
@@ -63,20 +66,10 @@ PanelWindow {
             cavaService.close()
         }
     }
-    focusable: true
 
     // Main content
     Rectangle {
-        implicitWidth: sizes.width || 500
-        implicitHeight: sizes.height || 400
-        anchors {
-            top: currentConfig.mainPanelPos === "top" ? parent.top : undefined
-            bottom: currentConfig.mainPanelPos === "bottom" ? parent.bottom : undefined
-            left: parent.left
-        }
-        anchors.topMargin: currentConfig.mainPanelPos === "top" ?  10 : 0
-        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ?  10 : 0
-        anchors.leftMargin: sizes.marginLeft
+        anchors.fill: parent
         radius: sizes.radius || 16
         color: theme.primary.background
         border.color: theme.button.border

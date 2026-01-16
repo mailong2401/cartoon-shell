@@ -11,49 +11,28 @@ PanelWindow {
     property var sizes: currentSizes.wtDetailPanel || {}
     property var theme: currentTheme
 
-    
+    implicitWidth: sizes.panelWidth || 500
+    implicitHeight: sizes.panelHeight || 500
+
     anchors {
-        top: true
-        bottom: true
-        left: true
-        right: true
+        top: currentConfig.mainPanelPos === "top"
+        bottom: currentConfig.mainPanelPos === "bottom"
     }
 
-
-
-    MouseArea {
-        anchors.fill: parent
-        z: -1
-        onClicked: panelManager.closeAllPanels()
+    margins {
+        top: currentConfig.mainPanelPos === "top" ? (sizes.marginTop || 10) : 0
+        bottom: currentConfig.mainPanelPos === "bottom" ? (sizes.marginBottom || 10) : 0
+        left: sizes.marginLeft || 800
     }
-
-    
-
+    exclusiveZone: 0
     color: "transparent"
 
     Rectangle {
-      implicitWidth: sizes.panelWidth || 500
-      implicitHeight: sizes.panelHeight || 500
-      anchors {
-            top: currentConfig.mainPanelPos === "top" ? parent.top : undefined
-            bottom: currentConfig.mainPanelPos === "bottom" ? parent.bottom : undefined
-            left: parent.left
-        }
-        anchors.topMargin: currentConfig.mainPanelPos === "top" ?  10 : 0
-        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ?  10 : 0
-        anchors.leftMargin: sizes.marginLeft
-
+        anchors.fill: parent
         color: theme.primary.background
         radius: sizes.panelRadius || 8
         border.color: theme.button.border
         border.width: sizes.panelBorderWidth || 3
-        MouseArea {
-            anchors.fill: parent
-            propagateComposedEvents: false
-            onClicked: {
-                mouse.accepted = true
-            }
-        }
 
         ColumnLayout {
             anchors.fill: parent

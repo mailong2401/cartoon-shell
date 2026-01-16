@@ -8,14 +8,19 @@ import "." as Components
 
 PanelWindow {
     id: root
-    
-    color: "transparent"
+    implicitWidth: currentSizes.bluetoothPanel?.width || 470
+    implicitHeight: currentSizes.bluetoothPanel?.height || 600
     anchors {
-      top: true
-      bottom: true
-      left: true
-      right: true
+        top: currentConfig.mainPanelPos === "top"
+        bottom: currentConfig.mainPanelPos === "bottom"
+        right: true
     }
+    margins {
+        top: currentConfig.mainPanelPos === "top" ? (sizes.anchorMargin || 10) : 0
+        right: sizes.anchorMargin || 10
+        bottom: currentConfig.mainPanelPos === "bottom" ? (sizes.anchorMargin || 10) : 0
+    }
+    color: "transparent"
     focusable: true
     aboveWindows: true
     objectName: "BluetoothPanel"
@@ -30,20 +35,6 @@ PanelWindow {
             if (Bluetooth.devices[i].connected) count++
         }
         return count
-      }
-
-      MouseArea {
-        anchors.fill: parent
-        z: -1
-        onClicked: panelManager.closeAllPanels()
-    }
-
-    Region {
-      id: bluetoothMaskRegion
-      item: contentRect
-    }
-    mask: {
-      panelManager.bluetoothMask ? bluetoothMaskRegion : null
     }
 
     property bool isDiscoverable: adapter ? adapter.discoverable : false
@@ -70,18 +61,7 @@ PanelWindow {
 
     // Main container
     Rectangle {
-        id: contentRect
-        implicitWidth: currentSizes.bluetoothPanel?.width || 470
-        implicitHeight: currentSizes.bluetoothPanel?.height || 600
-        anchors {
-            right: parent.right
-            top: currentConfig.mainPanelPos === "top" ? parent.top : undefined
-            bottom: currentConfig.mainPanelPos === "bottom" ? parent.bottom : undefined
-        }
-
-        anchors.rightMargin: 10
-        anchors.topMargin: currentConfig.mainPanelPos === "top" ? 10 : 0
-        anchors.bottomMargin: currentConfig.mainPanelPos === "bottom" ? 10 : 0
+        anchors.fill: parent
         color: "transparent"
 
         Rectangle {
