@@ -238,7 +238,7 @@ property var lang: currentLanguage
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                  panelManager.calendar = true
+                  panelManager.togglePanel("calendar")
                 }
                 
                 // Hiệu ứng hover
@@ -307,11 +307,7 @@ property var lang: currentLanguage
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    root.weatherPanelVisible = !root.weatherPanelVisible
-                    if (root.weatherPanelVisible) {
-                        root.panelVisible = false
-                        root.flagPanelVisible = false
-                    }
+                  
                 }
                 
                 onEntered: {

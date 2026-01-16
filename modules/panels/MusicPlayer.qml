@@ -44,7 +44,7 @@ Rectangle {
                     cursorShape: Qt.PointingHandCursor
                     hoverEnabled: true
                     onClicked: {
-                        panelManager.music = !panelManager.music 
+                        panelManager.togglePanel("music")
                     }
                     onEntered: songContainer.opacity = 0.8
                     onExited: songContainer.opacity = 1.0

@@ -74,10 +74,7 @@ Rectangle {
                     cursorShape: Qt.PointingHandCursor
                     hoverEnabled: true
                     onClicked: {
-                        panelManager.launcher = !panelManager.launcher
-                        if (launcherPanelLoader.item && panelManager.launcher) {
-                            launcherPanelLoader.item.openLauncher()
-                        }
+                        panelManager.togglePanel("launcher")
                     }
                 }
             }
