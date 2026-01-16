@@ -205,7 +205,7 @@ Rectangle {
     Shortcut {
         sequence: "Tab"
         onActivated: {
-          container.currentIndex = (container.currentIndex + 1) % container.apps.length
+          container.currentIndex = (container.currentIndex + 1) % container.filteredApps.length
           appList.currentIndex = container.currentIndex
         }
       }
@@ -219,14 +219,14 @@ Rectangle {
       Shortcut {
         sequence: "Down"
         onActivated: {
-          container.currentIndex = (container.currentIndex + 1) % container.apps.length
+          container.currentIndex = (container.currentIndex + 1) % container.filteredApps.length
           appList.currentIndex = container.currentIndex
         }
       }
       Shortcut {
     sequence: "Return"    // hoặc "Enter" đều được
     onActivated: {
-                var item = container.apps[container.currentIndex]
+                var item = container.filteredApps[container.currentIndex]
                 container.launchApplication(item.exec)
                 container.appLaunched()
     }
