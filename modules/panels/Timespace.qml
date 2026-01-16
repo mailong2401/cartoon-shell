@@ -63,9 +63,9 @@ property var lang: currentLanguage
     Loader {
         id: weatherPanelLoader
         source: "./weather/WeatherPanel.qml"
-        active: weatherPanelVisible
+        active: panelManager.weather
         onLoaded: {
-            item.visible = Qt.binding(function() { return weatherPanelVisible })
+            item.visible = Qt.binding(function() { return panelManager.weather })
         }
     }
 
@@ -307,6 +307,7 @@ property var lang: currentLanguage
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
+                  panelManager.togglePanel("weather")
                   
                 }
                 
