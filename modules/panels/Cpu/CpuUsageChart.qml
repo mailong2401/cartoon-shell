@@ -4,11 +4,6 @@ import QtQuick.Layouts
 Rectangle {
     property var theme: currentTheme
     property var cpuHistory: []
-    property var getUsageColor: function(usage) {
-        if (usage < 50) return theme.normal.green
-        else if (usage < 80) return theme.normal.yellow
-        else return theme.normal.red
-    }
 
     color: "transparent"
     border.color: theme.button.border
@@ -199,7 +194,6 @@ Rectangle {
                                 var currentX = paddingLeft + chartWidth;
                                 var currentY = points[points.length - 1].y;
                                 
-                                ctx.fillStyle = getUsageColor(currentUsage);
                                 ctx.font = "15px 'ComicShannsMono Nerd Font'";
                                 ctx.fillText(currentUsage.toFixed(1) + "%", currentX + 5, currentY - 8);
                             }
