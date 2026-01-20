@@ -4,12 +4,10 @@ import QtQuick.Layouts
 import QtQuick.Shapes
 import Quickshell.Io
 import Quickshell
+import "../../../services/" as Service
 
 Item {
     id: ramDisplay
-    width: 320
-    height: 180
-
     property var lang: currentLanguage
     property color usedRamColor: theme.normal.green
     property color freeRamColor: theme.normal.black
@@ -20,56 +18,12 @@ Item {
     property color borderColor: theme.button.border
     property color separatorColor: theme.normal.black
     
-    property int ramPercent: 0
-    property int swapPercent: 0
-    property int updateInterval: 2000
-    
-    property int ramTotal: 0
-    property int ramUsed: 0
-    property int ramFree: 0
-    property int ramAvailable: 0
-    property int swapTotal: 0
-    property int swapUsed: 0
-    property int swapFree: 0
-
-    property bool dataLoaded: false
-
-    Timer {
-        interval: updateInterval
-        running: true
-        repeat: true
-        onTriggered: ramFetcher.running = true
+    Service.RamService{
+      id: ramService
+      useSimpleCalculation: false
     }
 
-    Process {
-        id: ramFetcher
-        running: false
-        stdout: StdioCollector { id: outputCollector }
-
-        command: [Qt.resolvedUrl("../../../scripts/memory-info.py")]
-
-        onExited: {
-            try {
-                var txt = outputCollector.text ? outputCollector.text.trim() : ""
-                if (txt !== "") {
-                    const data = JSON.parse(txt)
-                    ramDisplay.ramPercent = data.memory.used_percent
-                    ramDisplay.swapPercent = data.swap.used_percent
-                    
-                    ramDisplay.ramTotal = data.memory.total_mb
-                    ramDisplay.ramUsed = data.memory.used_mb
-                    ramDisplay.ramFree = data.memory.free_mb
-                    ramDisplay.ramAvailable = data.memory.available_mb
-                    ramDisplay.swapTotal = data.swap.total_mb
-                    ramDisplay.swapUsed = data.swap.used_mb
-                    ramDisplay.swapFree = data.swap.free_mb
-                    
-                    ramDisplay.dataLoaded = true
-                }
-            } catch (e) {
-            }
-        }
-    }
+    property bool dataLoaded: true
 
     Rectangle {
         anchors.fill: parent
@@ -157,8 +111,8 @@ Item {
                     Item { Layout.fillWidth: true }
                     
                     Text {
-                        text: ramPercent + "%"
-                        color: getUsageColor(ramPercent)
+                        text: ramService.memPercent + "%"
+                        color: getUsageColor(ramService.memPercent)
                         font.bold: true
                         font.family: "ComicShannsMono Nerd Font"
                         font.pixelSize: 24
@@ -172,7 +126,7 @@ Item {
                     color: freeRamColor
 
                     Rectangle {
-                        width: parent.width * (ramPercent / 100)
+                        width: parent.width * (ramService.memPercent / 100)
                         height: parent.height
                         radius: 10
                         gradient: Gradient {
@@ -189,7 +143,7 @@ Item {
 
                     Text {
                         anchors.centerIn: parent
-                        text: ramUsed + " / " + ramTotal + " MB"
+                        text: ramService.memUsed + " / " + ramService.memTotal+ " MB"
                         color: theme.primary.background
                         font.bold: true
                         font.pixelSize: 20
@@ -213,13 +167,15 @@ Item {
                         font.family: "ComicShannsMono Nerd Font"
                     }
                     Text {
-                        text: ramUsed + " MB"
+                        text: ramService.memUsed + " MB"
                         color: theme.normal.red
                         font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
                         font.bold: true
                     }
-                }
+                  }
+                Item { Layout.preferredWidth: 20 }
+
 
                 Column {
                     Layout.alignment: Qt.AlignHCenter
@@ -230,7 +186,7 @@ Item {
                         font.family: "ComicShannsMono Nerd Font"
                     }
                     Text {
-                        text: ramFree + " MB"
+                        text: ramService.memFree + " MB"
                         color: theme.normal.green
                         font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
@@ -238,22 +194,6 @@ Item {
                     }
                 }
 
-                Column {
-                    Layout.alignment: Qt.AlignHCenter
-                    Text {
-                        text: lang?.ram?.available || "Available"
-                        color: dimTextColor
-                        font.pixelSize: 20
-                        font.family: "ComicShannsMono Nerd Font"
-                    }
-                    Text {
-                        text: ramAvailable + " MB"
-                        color: theme.normal.cyan
-                        font.pixelSize: 20
-                        font.family: "ComicShannsMono Nerd Font"
-                        font.bold: true
-                    }
-                }
             }
         }
 
@@ -297,8 +237,8 @@ Item {
                     Item { Layout.fillWidth: true }
                     
                     Text {
-                        text: swapPercent + "%"
-                        color: getUsageColor(swapPercent)
+                        text: ramService.swapPercent + "%"
+                        color: getUsageColor(ramService.swapPercent)
                         font.bold: true
                         font.family: "ComicShannsMono Nerd Font"
                         font.pixelSize: 24
@@ -314,7 +254,7 @@ Item {
                     opacity: swapTotal > 0 ? 1 : 0.3
 
                     Rectangle {
-                        width: parent.width * (swapPercent / 100)
+                        width: parent.width * (ramService.swapPercent / 100)
                         height: parent.height
                         radius: 7
                         gradient: Gradient {
@@ -331,7 +271,7 @@ Item {
 
                     Text {
                         anchors.centerIn: parent
-                        text: swapTotal > 0 ? (swapUsed + " / " + swapTotal + " MB") : (lang?.ram?.no_swap || "No SWAP")
+                        text: ramService.swapTotal > 0 ? (ramService.swapUsed + " / " + ramService.swapTotal + " MB") : (lang?.ram?.no_swap || "No SWAP")
                         color: theme.primary.background
                         font.bold: true
                         font.pixelSize: 20
@@ -355,7 +295,7 @@ Item {
                         font.family: "ComicShannsMono Nerd Font"
                     }
                     Text {
-                        text: swapUsed + " MB"
+                        text: ramService.swapUsed + " MB"
                         color: theme.normal.blue
                         font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
@@ -372,7 +312,7 @@ Item {
                         font.family: "ComicShannsMono Nerd Font"
                     }
                     Text {
-                        text: swapFree + " MB"
+                        text: ramService.swapFree + " MB"
                         color: theme.normal.green
                         font.pixelSize: 20
                         font.family: "ComicShannsMono Nerd Font"
@@ -419,5 +359,4 @@ Item {
         return theme.normal.cyan
     }
 
-    Component.onCompleted: ramFetcher.running = true
 }

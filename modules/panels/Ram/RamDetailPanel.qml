@@ -48,7 +48,7 @@ PanelWindow {
 
             Components.RamDisplay {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 300
+                Layout.preferredHeight: 330
             }
 
             Components.RamTaskManager {

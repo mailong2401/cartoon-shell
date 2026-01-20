@@ -22,6 +22,7 @@ Rectangle {
     }
     Service.RamService{
       id: ramService
+      useSimpleCalculation: true
     }
 
     RowLayout {
@@ -118,7 +119,7 @@ Rectangle {
                     spacing: 0
                     Text {
                         id: memoryText
-                        text: ramService.ramUsed + "%"
+                        text: ramService.memPercent + "%"
                         color: theme.primary.foreground
                         font {
                             family: "ComicShannsMono Nerd Font"
