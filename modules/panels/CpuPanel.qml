@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Io
 import './widgets/'
 import '../modules/ram/'
+import '../../services/' as Service
 
 Rectangle {
     id: root
@@ -13,14 +14,9 @@ Rectangle {
     radius: 10
     clip: true
 
-    property string cpuUsage: "0%"
     property string memoryUsage: "0%"
     property var theme : currentTheme
-
-
-
-
-
+    Service.CpuUsageService{id: cpuUsageService}
 
     // Process lấy CPU usage
     Process {
@@ -38,32 +34,12 @@ Rectangle {
         }
     }
 
-    // Process lấy Memory usage
-    Process {
-        id: memoryProcess
-        command: [Qt.resolvedUrl("../../scripts/ram-usage")]
-        running: false
-        stdout: StdioCollector { }
-        onRunningChanged: {
-            if (!running && stdout.text) {
-                const usage = parseFloat(stdout.text)
-                if (!isNaN(usage)) {
-                    root.memoryUsage = Math.round(usage) + "%"
-                }
-            }
-        }
-    }
 
-
-    function updateCpu() {
-        if (!cpuProcess.running) cpuProcess.running = true
-    }
 
     function updateMemory() {
         if (!memoryProcess.running) memoryProcess.running = true
     }
     function updateAll() {
-        updateCpu()
         updateMemory()
     }
 
@@ -90,7 +66,7 @@ Rectangle {
                     spacing: 0
                     Text {
                         id: cpuText
-                        text: root.cpuUsage
+                        text: cpuUsageService.cpuUsage
                         color: theme.primary.foreground
                         font {
                             family: "ComicShannsMono Nerd Font"
@@ -219,13 +195,7 @@ Rectangle {
         updateAll()
     }
 
-    // Timers
-    Timer {
-        interval: 2000 // Cập nhật CPU mỗi 2 giây
-        running: true
-        repeat: true
-        onTriggered: updateCpu()
-    }
+
 
     Timer {
         interval: 2000 // Cập nhật Memory mỗi 5 giây

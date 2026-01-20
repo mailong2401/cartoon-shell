@@ -1,5 +1,5 @@
 {
-  "mainPanelPos": "bottom",
+  "mainPanelPos": "top",
   "clockPanelPosition": "top",
   "clockPanelVisible": true,
   "spacingPanel": 12,
@@ -52,7 +52,7 @@
       }
     ]
   },
-  "pictureWallpaper": "/home/long/Pictures/Wallpapers/wall_5.jpg",
+  "pictureWallpaper": "/home/long/Pictures/Wallpapers/wall_7.jpg",
   "videoWallpaper": "",
   "lockscreen": {
     "name": "User",
