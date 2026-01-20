@@ -4,7 +4,6 @@ import Quickshell.Io
 
 QtObject {
     id: root
-    property var theme: currentTheme
     property Process matugenProcess: Process {
         command: ["bash", "-c", ""]
         stdout: StdioCollector {
