@@ -85,7 +85,7 @@ Rectangle {
                 Layout.preferredWidth: 36
                         Layout.preferredHeight: 36
                 fillMode: Image.PreserveAspectFit
-                source: modelData.iconPath || ""
+                source: "image://icon/" + modelData.icon || ""
                 asynchronous: true
             }
 
