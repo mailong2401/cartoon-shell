@@ -16,31 +16,12 @@ Rectangle {
 
     property string memoryUsage: "0%"
     property var theme : currentTheme
-    Service.CpuUsageService{id: cpuUsageService}
-
-    // Process lấy CPU usage
-    Process {
-        id: cpuProcess
-        command: [Qt.resolvedUrl("../../scripts/cpu")]
-        running: false
-        stdout: StdioCollector { }
-        onRunningChanged: {
-            if (!running && stdout.text) {
-                const usage = parseFloat(stdout.text)
-                if (!isNaN(usage)) {
-                    root.cpuUsage = Math.round(usage) + "%"
-                }
-            }
-        }
+    Service.CpuService{
+      id: cpuService
+      enableCpuHistory: true
     }
-
-
-
-    function updateMemory() {
-        if (!memoryProcess.running) memoryProcess.running = true
-    }
-    function updateAll() {
-        updateMemory()
+    Service.RamService{
+      id: ramService
     }
 
     RowLayout {
@@ -66,7 +47,7 @@ Rectangle {
                     spacing: 0
                     Text {
                         id: cpuText
-                        text: cpuUsageService.cpuUsage
+                        text: cpuService.cpuPercent + "%"
                         color: theme.primary.foreground
                         font {
                             family: "ComicShannsMono Nerd Font"
@@ -137,7 +118,7 @@ Rectangle {
                     spacing: 0
                     Text {
                         id: memoryText
-                        text: root.memoryUsage
+                        text: ramService.ramUsed + "%"
                         color: theme.primary.foreground
                         font {
                             family: "ComicShannsMono Nerd Font"
@@ -190,17 +171,4 @@ Rectangle {
         }
     }
 
-
-    Component.onCompleted: {
-        updateAll()
-    }
-
-
-
-    Timer {
-        interval: 2000 // Cập nhật Memory mỗi 5 giây
-        running: true
-        repeat: true
-        onTriggered: updateMemory()
-    }
 }

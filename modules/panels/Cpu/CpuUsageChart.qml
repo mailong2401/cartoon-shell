@@ -26,20 +26,18 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 32
                 spacing: 8
-
-                Image {
-                    Layout.preferredWidth: 24
-                    Layout.preferredHeight: 24
-                    source: '../../../assets/cpu/chart.png'
+                Item {
+                  Layout.fillWidth: true
                 }
-
                 Text {
-                    text: "CPU Usage History"
-                    color: theme.primary.foreground
-                    font.pixelSize: 16
-                    font.bold: true
-                    font.family: "ComicShannsMono Nerd Font"
-                }
+        text: "CPU Usage History"
+        color: theme.primary.foreground
+        font.pixelSize: 32
+        font.bold: true
+        font.family: "ComicShannsMono Nerd Font"
+    }Item {
+        Layout.fillWidth: true
+    }
             }
 
             // Chart area

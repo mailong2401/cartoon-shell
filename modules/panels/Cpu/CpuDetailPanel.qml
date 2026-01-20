@@ -30,34 +30,13 @@ PanelWindow {
 
     signal closeRequested()
 
-    property var cpuHistory: []
-    property int maxHistoryLength: 50
     property var theme: currentTheme
-    property string cpuUsage: "0%"  // Tổng CPU usage
 
     // Process để lấy CPU usage tổng
-    Service.CpuUsageService {
-        id: cpuUsageService
-    }
-
-    // Cập nhật lịch sử CPU từ service
-    function updateCpuHistory() {
-        if (!cpuUsageService.cpuPercent) return;
-        
-        var usage = cpuUsageService.cpuPercent;
-        var newHistory = cpuHistory.slice();
-        
-        newHistory.push({
-            timestamp: new Date().getTime(),
-            usage: usage
-        });
-        
-        if (newHistory.length > maxHistoryLength) {
-            newHistory.shift();
-        }
-        cpuHistory = newHistory;
-    }
-
+    Service.CpuService {
+    id: cpuService
+    enableCpuHistory: true
+}
 
 
 
@@ -89,23 +68,9 @@ PanelWindow {
             Components.CpuUsageChart {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                cpuHistory: detailPanel.cpuHistory
+                cpuHistory: cpuService.cpuHistory
             }
         }
     }
 
-    Timer {
-        interval: 500
-        running: detailPanel.visible
-        repeat: true
-        onTriggered: {
-            cpuUsageProcess.running = true;
-        }
-    }
-
-    Component.onCompleted: {
-        if (detailPanel.visible) {
-            cpuUsageProcess.running = true;
-        }
-    }
 }
