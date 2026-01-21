@@ -3,8 +3,8 @@
   "clockPanelPosition": "bottomRight",
   "clockPanelVisible": true,
   "spacingPanel": 12,
-  "lang": "vi",
-  "theme": "dark",
+  "lang": "en",
+  "theme": "light",
   "countryFlag": "vietnam",
   "weatherApiKey": "21e0f911c7de4308916165005251210",
   "weatherLocation": "Ho Chi Minh City,Vietnam",
@@ -52,13 +52,6 @@
       }
     ]
   },
-  "pictureWallpaper": "/home/long/Pictures/Wallpapers/wall_2.jpg",
-  "videoWallpaper": "",
-  "lockscreen": {
-    "name": "User",
-    "appIcons": {
-      "0": "/usr/share/icons/hicolor/scalable/apps/com.obsproject.Studio.svg"
-    },
-    "username": "user"
-  }
+  "pictureWallpaper": "/home/long/Pictures/Wallpapers/wall_7.jpg",
+  "videoWallpaper": ""
 }

@@ -90,20 +90,6 @@ ShellRoot {
         globalWallpaperProcess.running = true
     }
 
-    Connections {
-        target: languageLoader
-        function onLanguageChanged() {
-            currentLanguage = languageLoader.translations
-        }
-    }
-
-
-    Connections {
-        target: configLoader
-        function onConfigReloaded() {
-            currentConfig = configLoader.config
-        }
-    }
 
 
 
