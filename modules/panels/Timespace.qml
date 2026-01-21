@@ -76,7 +76,6 @@ Rectangle {
         root.theme?.type === "dark"
             ? "../../assets/weather/dark"
             : "../../assets/weather/light"
-    console.log(basePath)
 
     // 1000: Sunny / Clear
     if (code === 1000)
