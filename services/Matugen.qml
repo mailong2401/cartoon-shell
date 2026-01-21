@@ -44,7 +44,6 @@ QtObject {
 
     // Debug to see if triggered working or not;v
     function triggerMatugenOnThemeChange(themeMode) {
-        console.log("Theme changed to:", root.theme.type)
         var currentWallpaper = currentConfig.pictureWallpaper || ""
         console.log("Current wallpaper path:", currentWallpaper)
         
