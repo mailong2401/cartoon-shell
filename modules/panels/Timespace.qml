@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import "./WeatherTime/" as WeatherTime
+import "../../services/" as Service
 
 Rectangle {
     id: root
@@ -13,150 +14,17 @@ Rectangle {
 
 
     property var lang: currentLanguage
-    property string currentDate: ""
-    property string currentTime: ""
-    property string temperature: "..."
-    property string condition: "Đang tải"
-    property string icon: ""
-    property string humidity: ""
-    property string feelsLike: ""
     property bool panelVisible: false
     property bool flagPanelVisible: false
     property bool weatherPanelVisible: false
     property string selectedFlag: currentConfig.countryFlag
-    property string weatherApiKey: currentConfig.weatherApiKey
-    property string weatherLocation: currentConfig.weatherLocation || "Ho Chi Minh,VN"
     property var theme : currentTheme
 
-    // SystemClock để lấy thời gian thực
-    SystemClock {
-        id: clock
-        precision: SystemClock.Seconds
-        onDateChanged: {
-            updateDateTime()
-        }
+    Service.WeatherService{
+      id: weatherService
     }
-
-    // Process lấy weather
-    Process {
-        id: weatherProcess
-        command: ["curl", "-s", `https://api.weatherapi.com/v1/current.json?key=${root.weatherApiKey}&q=${root.weatherLocation.replace(/ /g, '%20')}&lang=${currentConfig.lang}`]
-        running: false
-
-        stdout: StdioCollector {
-            onStreamFinished: {
-                if (text && text.length > 0 && root.weatherApiKey !== "") {
-                    const parsed = JSON.parse(text)
-                    root.processWeatherData(parsed)
-                } else if (root.weatherApiKey === "") {
-                    root.temperature = "No API"
-                    root.condition = "Chưa có API key"
-                } else {
-                    root.temperature = "Lỗi"
-                    root.condition = "Không có dữ liệu"
-                }
-            }
-        }
-    }
-
-    function processWeatherData(data) {
-        if (data.current) {
-            root.temperature = `${Math.round(data.current.temp_c)}°C`
-            root.condition = data.current.condition.text
-            root.humidity = `${data.current.humidity}%`
-            root.feelsLike = `${Math.round(data.current.feelslike_c)}°C`
-            root.icon = root.getWeatherIcon(data.current.condition.code, data.current.is_day)
-        }
-    }
-
-    function getWeatherIcon(code, isDay) {
-    code = Number(code)
-
-    const basePath = "../../assets/weather/icon_weather_status"
-
-    // ☀️ Clear / Sunny
-    if (code === 1000)
-        return isDay
-            ? `${basePath}/sun.png`
-            : `${basePath}/night.png`
-
-    // ⛅ Partly cloudy
-    if (code === 1003)
-        return isDay
-            ? `${basePath}/cloudy_sunny.png`
-            : `${basePath}/cloudy_night.png`
-
-    // ☁️ Cloudy / Overcast
-    if ([1006, 1009].includes(code))
-        return `${basePath}/cloudy.png`
-
-    // 🌫️ Mist / Fog
-    if ([1030].includes(code))
-        return `${basePath}/mist.png`
-
-    if ([1135, 1147].includes(code))
-        return `${basePath}/fog.png`
-
-    // 🌧️ Rain / Drizzle / Freezing rain
-    if ((code >= 1063 && code <= 1195) || (code >= 1198 && code <= 1201))
-        return `${basePath}/rain.png`
-
-    // 🌨️ Snow / Sleet / Ice pellets
-    if (code >= 1204 && code <= 1264)
-        return `${basePath}/snowy.png`
-
-    // ⛈️ Thunderstorm
-    if (code >= 1273 && code <= 1282)
-        return `${basePath}/thunder.png`
-
-    // 🌈 Fallback
-    return `${basePath}/rainbow.png`
-}
-
-
-
-    function updateWeather() {
-        if (root.weatherApiKey === "" || root.weatherApiKey === undefined) {
-            root.temperature = "No API"
-            root.condition = "Chưa có key"
-            return
-        }
-        if (!weatherProcess.running) {
-            weatherProcess.running = true
-        }
-    }
-
-    function updateDateTime() {
-        const now = clock.date
-        const weekdayData = lang?.calendar?.weekdays
-        const weekdays = weekdayData ? [
-            weekdayData.sunday || "CN",
-            weekdayData.monday || "T2",
-            weekdayData.tuesday || "T3",
-            weekdayData.wednesday || "T4",
-            weekdayData.thursday || "T5",
-            weekdayData.friday || "T6",
-            weekdayData.saturday || "T7"
-        ] : ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
-
-        const monthData = lang?.dateFormat?.month
-        const months = monthData ? [
-            monthData.january || "Th1",
-            monthData.february || "Th2",
-            monthData.march || "Th3",
-            monthData.april || "Th4",
-            monthData.may || "Th5",
-            monthData.june || "Th6",
-            monthData.july || "Th7",
-            monthData.august || "Th8",
-            monthData.september || "Th9",
-            monthData.october || "Th10",
-            monthData.november || "Th11",
-            monthData.december || "Th12"
-        ] : ["Th1", "Th2", "Th3", "Th4", "Th5", "Th6", "Th7", "Th8", "Th9", "Th10", "Th11", "Th12"]
-
-        root.currentDate = `${weekdays[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`
-        root.currentTime = Qt.formatTime(now, "HH:mm")
+    Service.DateTimeService{
+      id: dateTimeService
     }
 
     RowLayout {
@@ -181,7 +49,7 @@ Rectangle {
                 anchors.leftMargin: 10
                 spacing: 0
                 Text {
-                    text: root.currentTime
+                    text: dateTimeService.currentTime
                     color: root.theme.primary.foreground
                     font {
                         pixelSize: 16
@@ -192,7 +60,7 @@ Rectangle {
 
                 Text {
                     id: textCurrentDate
-                    text: root.currentDate
+                    text: dateTimeService.currentDate
                     color: root.theme.primary.dim_foreground
                     font.pixelSize: 13
                     font.family: "ComicShannsMono Nerd Font"
@@ -234,7 +102,7 @@ Rectangle {
                 id: contentWeather
                 anchors.centerIn: parent
                 Image {
-                    source: root.icon
+                    source: weatherService.icon
                     Layout.preferredWidth: 30
                     Layout.preferredHeight: 30
                     fillMode: Image.PreserveAspectFit
@@ -247,7 +115,7 @@ Rectangle {
                 ColumnLayout {
                     spacing: 1
                     Text {
-                        text: root.temperature || "Đang tải..."
+                        text: weatherService.temperature || "Đang tải..."
                         color: root.theme.primary.foreground
                         Layout.alignment: Qt.AlignVCenter
                         font {
@@ -259,7 +127,7 @@ Rectangle {
                     
                     Text {
                         id: textCondition
-                        text: root.condition || "..."
+                        text: weatherService.condition || "..."
                         color: root.theme.primary.dim_foreground
                         font {
                             pixelSize: 11
@@ -331,25 +199,5 @@ Rectangle {
 
             Behavior on scale { NumberAnimation { duration: 100 } }
         }
-    }
-
-    // Timer cho weather (giữ nguyên)
-    Timer {
-        interval: 50000 // 5 phút
-        running: true
-        repeat: true
-        onTriggered: root.updateWeather()
-    }
-    Timer {
-        id: initialLoadTimer
-        interval: 100
-        running: true
-        repeat: false
-        onTriggered: root.updateWeather()
-    }
-
-    Component.onCompleted: {
-        root.updateDateTime() // Khởi tạo thời gian ban đầu
-        root.updateWeather()
     }
 }

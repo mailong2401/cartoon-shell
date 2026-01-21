@@ -23,7 +23,8 @@ Rectangle {
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: 1
+        anchors.leftMargin: 10
+        anchors.rightMargin: 10
         spacing: 12
 
         // Song info with marquee effect
