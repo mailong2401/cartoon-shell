@@ -2,7 +2,6 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "../../utils/components" as Utils
 
 Item {
     property var theme: currentTheme

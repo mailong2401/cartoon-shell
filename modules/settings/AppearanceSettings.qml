@@ -5,7 +5,6 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import "."
-import "../../utils/components" as Utils
 import "../../services"
 
 Item {

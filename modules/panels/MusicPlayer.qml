@@ -16,7 +16,7 @@ Rectangle {
     property string currentSong: musicPlayer.mprisPlayer ? (musicPlayer.mprisPlayer.trackTitle || "No song playing") : "No song playing"
     property string currentArtist: musicPlayer.mprisPlayer ? (musicPlayer.mprisPlayer.trackArtist || "Unknown Artist") : "Unknown Artist"
     property var mprisPlayer: Mpris.players.values.length > 0 ? Mpris.players.values[0] : null
-    property bool isPlaying: musicPlayer.mprisPlayer.isPlaying
+    property bool isPlaying: mprisPlayer ? mprisPlayer.isPlaying : false
     property var theme: currentTheme
 
 
@@ -138,9 +138,9 @@ Rectangle {
             Image {
                 id: playPauseBtn
                 source: {
-                    var suffix = theme.type === "dark" ? "_dark" : ""
-                    return isPlaying ? "../../assets/music/pause" + suffix + ".png" : "../../assets/music/play" + suffix + ".png"
-                }
+                            var suffix = theme.type === "dark" ? "_dark" : ""
+                            return isPlaying ? "../../assets/music/pause" + suffix + ".png" : "../../assets/music/play" + suffix + ".png"
+                        }
                 Layout.preferredWidth: 30
                 Layout.preferredHeight: 30
                 fillMode: Image.PreserveAspectFit

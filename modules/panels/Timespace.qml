@@ -17,7 +17,7 @@ Rectangle {
     property string currentTime: ""
     property string temperature: "..."
     property string condition: "Đang tải"
-    property string icon: "⏳"
+    property string icon: ""
     property string humidity: ""
     property string feelsLike: ""
     property bool panelVisible: false

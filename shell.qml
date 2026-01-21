@@ -9,7 +9,6 @@ import QtQuick.Effects
 import "./config" as Config
 import "./modules/dialogs" as Dialogs
 import "./modules/panels" as Panels
-import "./modules/lockscreen" as Lockscreen
 import "./components/" as Components
 
 ShellRoot {
@@ -98,12 +97,6 @@ ShellRoot {
         }
     }
 
-    Connections {
-        target: themeLoader
-        function onThemeReloaded() {
-            currentTheme = themeLoader.theme
-        }
-    }
 
     Connections {
         target: configLoader
@@ -114,23 +107,23 @@ ShellRoot {
 
 
 
-      PanelWindow{
-        visible: panelManager.hasPanel
-        color: "transparent"
-        anchors: {
-          right: true
-          left : true
-          top: currentConfig.mainPanelPos === "top"
-          bottom: currentConfig.mainPanelPos === "bottom"
-        }
-        width: Screen.width
-        height: Screen.height - 50
-        MouseArea {
-          anchors.fill: parent
-          z: -1
-          onClicked: panelManager.closeAllPanels()
-        }
-      }
+
+PanelWindow {
+    visible: panelManager.hasPanel
+    color: "transparent"
+
+    implicitWidth: Screen.width
+    implicitHeight: Screen.height - 50
+
+    MouseArea {
+        anchors.fill: parent
+        z: -1
+        onClicked: panelManager.closeAllPanels()
+    }
+}
+
+
+
 
 
     PanelWindow {

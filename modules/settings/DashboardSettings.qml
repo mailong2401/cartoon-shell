@@ -4,7 +4,6 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Io
 import "."
-import "../../utils/components" as Utils
 
 Item {
     id: root
@@ -676,7 +675,7 @@ Item {
                         Image {
                             anchors.fill: parent
                             anchors.margins: 8
-                            source: configLoader.config.dashboard.listApp[index].pathIcon
+                            source: ""
                             fillMode: Image.PreserveAspectFit
                             smooth: true
                         }
@@ -723,7 +722,7 @@ Item {
                         Image {
                             anchors.fill: parent
                             anchors.margins: 8
-                            source: panelConfig?.get(`lockscreen.socialIcons.${index}`, "") || ""
+                            source: ""
                             fillMode: Image.PreserveAspectFit
                             smooth: true
                         }
