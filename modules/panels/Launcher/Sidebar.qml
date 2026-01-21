@@ -15,7 +15,6 @@ Rectangle {
     property var theme : currentTheme
     property var lang : currentLanguage
 
-    signal lockRequested()
 
     signal confirmRequested(string action, string actionLabel)
 
@@ -326,7 +325,6 @@ Rectangle {
                 cursorShape: Qt.PointingHandCursor
 
                 onClicked: {
-                    root.lockRequested()
                 }
             }
         }

@@ -2,6 +2,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import "../modules/panels/" as Panels
 
 Item {
     id: root
@@ -12,7 +13,7 @@ Item {
         onLoaded: {
             item.visible = Qt.binding(function() { return panelManager.calendar })
         }
-    }
+      }
 
     // Flag Selection Panel
     Loader {
@@ -22,6 +23,24 @@ Item {
             item.visible = Qt.binding(function() { return panelManager.flag })
             item.selectedFlag = Qt.binding(function() { return root.selectedFlag })
         }
+      }
+
+      
+    property bool anchorsTop: currentConfig.clockPanelPosition === "top" || currentConfig.clockPanelPosition === "topLeft" || currentConfig.clockPanelPosition === "topRight"
+    property bool anchorsBottom: currentConfig.clockPanelPosition === "bottom" || currentConfig.clockPanelPosition === "bottomLeft" || currentConfig.clockPanelPosition === "bottomRight"
+    property bool anchorsRight: currentConfig.clockPanelPosition === "right" || currentConfig.clockPanelPosition === "topRight" || currentConfig.clockPanelPosition === "bottomRight"
+    property bool anchorsLeft: currentConfig.clockPanelPosition === "left" || currentConfig.clockPanelPosition === "topLeft" || currentConfig.clockPanelPosition === "bottomLeft"
+
+
+      Panels.ClockPanel {
+        id: clockPanel
+        visible: currentConfig.clockPanelVisible
+        anchors {
+        top: anchorsTop
+        bottom: anchorsBottom
+        left: anchorsLeft
+        right: anchorsRight
+    }
     }
 
     // Weather Panel

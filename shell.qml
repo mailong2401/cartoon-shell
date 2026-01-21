@@ -24,82 +24,18 @@ ShellRoot {
     Dialogs.NotificationPopup{}
     Dialogs.ConfirmDialog { id: confirmDialog }
 
-    // Lockscreen context
-    Lockscreen.LockContext {
-		id: lockContext
-
-		onUnlocked: {
-			// Unlock the screen before exiting, or the compositor will display a
-			// fallback lock you can't interact with.
-        lockscreenVisible = false;
-
-		}
-	}
-    WlSessionLock {
-		id: lock
-
-		// Lock the session immediately when quickshell starts.
-		locked: lockscreenVisible
-
-		WlSessionLockSurface {
-			Lockscreen.LockSurface {
-				anchors.fill: parent
-				context: lockContext
-			}
-		}
-	}
 
     // Function để hiển thị confirm dialog từ bất kỳ đâu
     function showConfirmDialog(action, actionLabel) {
         confirmDialog.show(action, actionLabel)
     }
 
-    property bool clockPanelVisible: currentConfig.clockPanelVisible
 
-
-    property bool anchorsTop: currentConfig.clockPanelPosition === "top" || currentConfig.clockPanelPosition === "topLeft" || currentConfig.clockPanelPosition === "topRight"
-    property bool anchorsBottom: currentConfig.clockPanelPosition === "bottom" || currentConfig.clockPanelPosition === "bottomLeft" || currentConfig.clockPanelPosition === "bottomRight"
-    property bool anchorsRight: currentConfig.clockPanelPosition === "right" || currentConfig.clockPanelPosition === "topRight" || currentConfig.clockPanelPosition === "bottomRight"
-    property bool anchorsLeft: currentConfig.clockPanelPosition === "left" || currentConfig.clockPanelPosition === "topLeft" || currentConfig.clockPanelPosition === "bottomLeft"
-
-    Panels.ClockPanel {
-        id: clockPanel
-        visible: clockPanelVisible
-        anchors {
-        top: anchorsTop
-        bottom: anchorsBottom
-        left: anchorsLeft
-        right: anchorsRight
-    }
-    }
-
-
-    function toggleClockPanel() {
-        clockPanelVisible = !clockPanelVisible
-    }
 
     property var currentTheme: themeLoader.theme
     property var currentLanguage: languageLoader.translations
     property var currentConfig: configLoader.config
     property string currentConfigProfile: configLoader.currentConfigProfile
-
-
-        function openPanel(panelName) {
-        panelManager.openPanel(panelName)
-    }
-
-    // Function để toggle một panel
-    function togglePanel(panelName) {
-        panelManager.togglePanel(panelName)
-    }
-
-    // Function để đóng tất cả panel
-    function closeAllPanels() {
-        panelManager.closeAllPanels()
-    }
-
-
-
 
     property string hyprInstance: Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") || ""
 
@@ -107,9 +43,6 @@ ShellRoot {
     property bool lockscreenVisible: false
 
     // Function để show lockscreen
-    function showLockscreen() {
-        lockscreenVisible = true
-    }
 
     // Global wallpaper setter - chạy độc lập với Settings panel
     Process {
@@ -256,8 +189,4 @@ ShellRoot {
             }
         }
       }
-      
-
-    // Lockscreen overlay
-    
 }
