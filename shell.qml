@@ -133,34 +133,38 @@ PanelWindow {
 
         RowLayout {
             anchors.fill: parent
-            spacing: currentConfig.spacingPanel
 
             Panels.AppIcons {
                 id: appIcons
                 Layout.preferredWidth: 60
                 Layout.fillHeight: true
             }
+            Item{Layout.fillWidth: true}
 
             Panels.WorkspacePanel {
                 Layout.preferredWidth: 380
                 Layout.fillHeight: true
                 hyprInstance: root.hyprInstance
             }
+            Item{Layout.fillWidth: true}
 
             Panels.MusicPlayer {
                 Layout.preferredWidth: 340
                 Layout.fillHeight: true
             }
+            Item{Layout.fillWidth: true}
 
             Panels.Timespace {
                 Layout.preferredWidth: 400
                 Layout.fillHeight: true
             }
+            Item{Layout.fillWidth: true}
 
             Panels.CpuPanel {
                 Layout.preferredWidth: 200
                 Layout.fillHeight: true
             }
+            Item{Layout.fillWidth: true}
 
             Panels.StatusArea {
                 Layout.preferredWidth: 430
