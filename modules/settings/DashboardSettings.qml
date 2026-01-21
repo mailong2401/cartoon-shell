@@ -31,83 +31,29 @@ Item {
 
     function runlistapp() {
         if (!listAppsProccess.running) {
-            listAppsProccess.running = true
-        }
+          listAppsProccess.running = true
+          }
     }
 
-    Process {
+      Process {
         id: listAppsProccess
-        command: Qt.resolvedUrl("../../scripts/listappsdashboard.py")
         running: false
-        stdout: StdioCollector { 
-            id: outputCollector 
-            onTextChanged: {
-                try {
-                    var txt = text ? text.trim() : ""
-                    if (txt !== "") {
-                        root.apps = JSON.parse(txt)
-                        console.log("Loaded apps:", root.apps.length)
-                    } else {
-                        root.apps = []
-                    }
-                } catch(e) {
-                    console.error("Error parsing JSON:", e)
-                    root.apps = []
-                }
-            }
-        }
+        command: [Qt.resolvedUrl("../../scripts/listapps.py")]
+        stdout: StdioCollector { id: outputCollector }
 
         onExited: {
-            running = false
-        }
-    }
-
-    // File picker process
-    Process {
-        id: filePickerProcess
-        running: false
-        stdout: StdioCollector {
-            onStreamFinished: {
-                // Show LauncherPanel again when zenity closes
-                if (root.launcherPanel) {
-                    root.launcherPanel.visible = true
+                var txt = outputCollector.text ? outputCollector.text.trim() : ""
+                if (txt !== "") {
+                  root.apps = JSON.parse(txt)
+                  console.log(JSON.parse(txt)[1].icon)
+                  console.log(apps.length)
+                  root.filteredApps = root.apps
+                } else {
+                  root.apps = []
+              console.log('hello1')
+                  root.filteredApps = []
                 }
-
-                if (text && text.length > 0) {
-                    const path = text.trim()
-                    // Don't save if it's an error message
-                    if (path && path.length > 0 && !path.includes("No file picker available")) {
-                        switch(root.currentPickerType) {
-                            case "avatar":
-                                panelConfig.set("lockscreen.avatar", path)
-                                break
-                            case "background":
-                                panelConfig.set("lockscreen.background", path)
-                                break
-                            case "appIcon":
-                                panelConfig.set(`lockscreen.appIcons.${root.currentIconIndex}`, path)
-                                break
-                            case "socialIcon":
-                                panelConfig.set(`lockscreen.socialIcons.${root.currentSocialIconIndex}`, path)
-                                break
-                        }
-                    } else if (path.includes("No file picker available")) {
-                        console.error("Please install a file picker: sudo pacman -S zenity")
-                    }
-                }
-            }
         }
-    }
-
-    // Helper functions
-    function selectAvatar() {
-        currentPickerType = "avatar"
-        openFilePicker()
-    }
-
-    function selectBackground() {
-        currentPickerType = "background"
-        openFilePicker()
     }
 
     function selectAppIcon(index) {
@@ -124,29 +70,7 @@ Item {
         }
     }
 
-    function selectSocialIcon(index) {
-        currentSocialIconIndex = index
-        currentPickerType = "socialIcon"
-        openFilePicker()
-    }
 
-    function openFilePicker() {
-        // Hide LauncherPanel when opening zenity
-        if (launcherPanel) {
-            launcherPanel.visible = false
-        }
-
-        // Use zenity with optimized settings for Hyprland
-        filePickerProcess.command = [
-            "zenity",
-            "--file-selection",
-            "--title=Select Image",
-            "--file-filter=Image files (png,jpg,jpeg) | *.png *.jpg *.jpeg *.PNG *.JPG *.JPEG",
-            "--file-filter=All files | *",
-            "--filename=" + (Qt.resolvedUrl("~/Pictures").toString().replace("file://", ""))
-        ]
-        filePickerProcess.running = true
-    }
 
     // Grid App Icons Selector
     Rectangle {
@@ -272,13 +196,13 @@ Item {
                                 Image {
                                     anchors.fill: parent
                                     anchors.margins: 2
-                                    source: modelData.iconPath || ""
+                                    source: "image://icon/" + modelData.icon || ""
                                     fillMode: Image.PreserveAspectFit
                                     smooth: true
                                     Rectangle {
                                         anchors.fill: parent
                                         color: theme.button.background
-                                        visible: !modelData.iconPath || parent.status === Image.Error
+                                        visible: !modelData.icon || parent.status === Image.Error
                                         Text {
                                             anchors.centerIn: parent
                                             text: "📱"
@@ -291,7 +215,7 @@ Item {
                               }
                               Text {
                                 width: 65
-                                text: getAppName(modelData.exec)
+                                text: modelData.name
                                 color: theme.primary.foreground
                                 font {
                                     family: "ComicShannsMono Nerd Font"
@@ -750,35 +674,4 @@ Item {
         }
     }
     
-    // Helper functions for app grid
-    function getAppName(execPath) {
-        // Extract app name from exec path
-        if (!execPath) return ""
-        
-        // Remove path and arguments
-        var name = execPath.split('/').pop().split(' ')[0]
-        
-        // Remove common prefixes and file extensions
-        name = name.replace(/^\.\//, '') // Remove ./
-        name = name.replace(/\.(exe|bin|sh|py|pl)$/, '') // Remove extensions
-        
-        // Capitalize first letter
-        if (name.length > 0) {
-            name = name.charAt(0).toUpperCase() + name.slice(1)
-        }
-        
-        return name
-    }
-    
-    function filterApps() {
-        if (!searchField.text) {
-            return root.apps
-        }
-        
-        var searchText = searchField.text.toLowerCase()
-        return root.apps.filter(function(app) {
-            var execName = getAppName(app.exec).toLowerCase()
-            return execName.includes(searchText)
-        })
-    }
 }

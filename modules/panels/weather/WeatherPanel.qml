@@ -203,29 +203,29 @@ PanelWindow {
       function getWeatherIcon(code, isDay) {
     code = Number(code)
 
-    const basePath =
-        weatherPanel.theme?.type === "dark"
-            ? "../../../assets/weather/dark"
-            : "../../../assets/weather/light"
+    const basePath = "../../../assets/weather/icon_weather_status"
 
-    // 1000: Sunny / Clear
+    // ☀️ Clear / Sunny
     if (code === 1000)
         return isDay
-            ? `${basePath}/sunny.png`
+            ? `${basePath}/sun.png`
             : `${basePath}/night.png`
 
-    // 1003: Partly cloudy
+    // ⛅ Partly cloudy
     if (code === 1003)
         return isDay
-            ? `${basePath}/partly_cloudy_day.png`
-            : `${basePath}/partly_cloudy_night.png`
+            ? `${basePath}/cloudy_sunny.png`
+            : `${basePath}/cloudy_night.png`
 
-    // 1006, 1009: Cloudy / Overcast
+    // ☁️ Cloudy / Overcast
     if ([1006, 1009].includes(code))
-        return `${basePath}/cloud.png`
+        return `${basePath}/cloudy.png`
 
-    // 1030, 1135, 1147: Mist / Fog
-    if ([1030, 1135, 1147].includes(code))
+    // 🌫️ Mist / Fog
+    if ([1030].includes(code))
+        return `${basePath}/mist.png`
+
+    if ([1135, 1147].includes(code))
         return `${basePath}/fog.png`
 
     // 🌧️ Rain / Drizzle / Freezing rain
@@ -243,6 +243,7 @@ PanelWindow {
     // 🌈 Fallback
     return `${basePath}/rainbow.png`
 }
+
 
     function saveAndValidateApiKey(key) {
         if (key === "") {

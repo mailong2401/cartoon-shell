@@ -65,7 +65,7 @@ Item {
                     contentItem: Text {
                         text: advancedButton.text
                         font: advancedButton.font
-                        color: theme.button.foreground
+                        color: theme.primary.foreground
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                     }
