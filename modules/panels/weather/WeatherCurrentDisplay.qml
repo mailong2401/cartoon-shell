@@ -33,11 +33,16 @@ RowLayout {
             anchors.margins: 20
             spacing: 15
 
-            Text {
-                text: currentDisplay.icon
-                font.pixelSize: 40
-                Layout.alignment: Qt.AlignHCenter
-            }
+              Image {
+                    source: currentDisplay.icon
+                    Layout.preferredWidth: 60
+                    Layout.preferredHeight: 60
+                    fillMode: Image.PreserveAspectFit
+                    asynchronous: true
+                    cache: false
+                    smooth: true
+                    mipmap: true
+                }
 
             Text {
                 text: currentDisplay.temperature

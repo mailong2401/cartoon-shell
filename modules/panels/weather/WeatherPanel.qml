@@ -155,7 +155,7 @@ PanelWindow {
             pressure = `${data.current.pressure_mb} mb`
             visibility = `${data.current.vis_km} km`
             uvIndex = data.current.uv.toString()
-            icon = getWeatherIcon(data.current.condition.code, data.current.is_day)
+            icon = getWeatherIcon(data.current.condition.code, data.current.is_day,theme)
         }
 
         if (data.forecast && data.forecast.forecastday) {
@@ -200,14 +200,49 @@ PanelWindow {
         return days[date.getDay()]
     }
 
-    function getWeatherIcon(code, isDay) {
-        const iconMap = {
-            "1000": isDay ? "☀️" : "🌙", "1003": isDay ? "⛅" : "☁️", "1006": "☁️",
-            "1009": "🌫️", "1030": "🌫️", "1063": "🌦️", "1066": "🌨️", "1087": "⛈️",
-            "1183": "🌧️", "1186": "🌧️", "1273": "⛈️", "1276": "⛈️", "1279": "⛈️", "1282": "⛈️"
-        }
-        return iconMap[code.toString()] || "🌈"
-    }
+      function getWeatherIcon(code, isDay) {
+    code = Number(code)
+
+    const basePath =
+        weatherPanel.theme?.type === "dark"
+            ? "../../../assets/weather/dark"
+            : "../../../assets/weather/light"
+
+    // 1000: Sunny / Clear
+    if (code === 1000)
+        return isDay
+            ? `${basePath}/sunny.png`
+            : `${basePath}/night.png`
+
+    // 1003: Partly cloudy
+    if (code === 1003)
+        return isDay
+            ? `${basePath}/partly_cloudy_day.png`
+            : `${basePath}/partly_cloudy_night.png`
+
+    // 1006, 1009: Cloudy / Overcast
+    if ([1006, 1009].includes(code))
+        return `${basePath}/cloud.png`
+
+    // 1030, 1135, 1147: Mist / Fog
+    if ([1030, 1135, 1147].includes(code))
+        return `${basePath}/fog.png`
+
+    // 🌧️ Rain / Drizzle / Freezing rain
+    if ((code >= 1063 && code <= 1195) || (code >= 1198 && code <= 1201))
+        return `${basePath}/rain.png`
+
+    // 🌨️ Snow / Sleet / Ice pellets
+    if (code >= 1204 && code <= 1264)
+        return `${basePath}/snowy.png`
+
+    // ⛈️ Thunderstorm
+    if (code >= 1273 && code <= 1282)
+        return `${basePath}/thunder.png`
+
+    // 🌈 Fallback
+    return `${basePath}/rainbow.png`
+}
 
     function saveAndValidateApiKey(key) {
         if (key === "") {

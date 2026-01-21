@@ -67,11 +67,17 @@ Rectangle {
                         }
 
                         // Weather icon
-                        Text {
-                            text: modelData.icon
-                            font.pixelSize: 32
+                          Image {
+                    source: modelData.icon
                             Layout.alignment: Qt.AlignHCenter
-                        }
+                    Layout.preferredWidth: 40
+                    Layout.preferredHeight: 40
+                    fillMode: Image.PreserveAspectFit
+                    asynchronous: true
+                    cache: false
+                    smooth: true
+                    mipmap: true
+                }
 
                         // Temperature range
                         RowLayout {

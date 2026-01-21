@@ -69,7 +69,7 @@ Rectangle {
         }
     }
 
-    function getWeatherIcon(code, isDay, theme) {
+    function getWeatherIcon(code, isDay) {
     code = Number(code)
 
     const basePath =
@@ -271,7 +271,6 @@ Rectangle {
                     cache: false
                     smooth: true
                     mipmap: true
-                    visible: root.selectedFlag !== ""
                 }
             }
 
