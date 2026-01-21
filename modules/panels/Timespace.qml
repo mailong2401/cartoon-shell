@@ -234,7 +234,6 @@ Rectangle {
             RowLayout {
                 id: contentWeather
                 anchors.centerIn: parent
-                spacing: 10
 
                 ColumnLayout {
                     spacing: 1
