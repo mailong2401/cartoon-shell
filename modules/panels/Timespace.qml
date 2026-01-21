@@ -9,10 +9,10 @@ Rectangle {
     color: theme.primary.background
     radius: 10
     border.color: theme.button.border
-
     border.width: 3
 
-property var lang: currentLanguage
+
+    property var lang: currentLanguage
     property string currentDate: ""
     property string currentTime: ""
     property string temperature: "..."
@@ -26,9 +26,7 @@ property var lang: currentLanguage
     property string selectedFlag: currentConfig.countryFlag
     property string weatherApiKey: currentConfig.weatherApiKey
     property string weatherLocation: currentConfig.weatherLocation || "Ho Chi Minh,VN"
-
     property var theme : currentTheme
-
 
     // SystemClock để lấy thời gian thực
     SystemClock {
@@ -39,7 +37,6 @@ property var lang: currentLanguage
         }
     }
 
-
     // Process lấy weather
     Process {
         id: weatherProcess
@@ -48,7 +45,6 @@ property var lang: currentLanguage
 
         stdout: StdioCollector {
             onStreamFinished: {
-
                 if (text && text.length > 0 && root.weatherApiKey !== "") {
                     const parsed = JSON.parse(text)
                     root.processWeatherData(parsed)
@@ -172,20 +168,26 @@ property var lang: currentLanguage
     }
 
     RowLayout {
-        anchors.centerIn: parent
-        spacing: 8
+            anchors.fill: parent
+    anchors {
+        leftMargin: 10
+        rightMargin: 10
+        topMargin: 5
+        bottomMargin: 5
+    }
+    spacing: 5
 
-        // Phần datetime
-        Rectangle {
+
+        // Phần datetime - căn trái
+        Item {
             id: timeContainer
-            Layout.preferredWidth: 190
-            Layout.fillHeight: true
-            color: "transparent"
+            Layout.preferredWidth: textCurrentDate.implicitWidth + 20
+            Layout.fillHeight: parent
 
             ColumnLayout {
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.fill: parent
+                anchors.leftMargin: 10
                 spacing: 0
-
                 Text {
                     text: root.currentTime
                     color: root.theme.primary.foreground
@@ -197,6 +199,7 @@ property var lang: currentLanguage
                 }
 
                 Text {
+                    id: textCurrentDate
                     text: root.currentDate
                     color: root.theme.primary.dim_foreground
                     font.pixelSize: 13
@@ -209,7 +212,7 @@ property var lang: currentLanguage
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                  panelManager.togglePanel("calendar")
+                    panelManager.togglePanel("calendar")
                 }
                 
                 // Hiệu ứng hover
@@ -224,43 +227,37 @@ property var lang: currentLanguage
             Behavior on scale { NumberAnimation { duration: 100 } }
         }
 
-        // Phần weather - ĐÃ SỬA: Thêm icon và condition
-        Rectangle {
+        // Spacer để đẩy phần giữa ra chính giữa
+        Item {
+            Layout.fillWidth: true
+        }
+
+        // Phần weather - căn giữa
+        Item {
             id: weatherContainer
-            Layout.preferredWidth: 120
+            Layout.preferredWidth: contentWeather.implicitWidth
             Layout.fillHeight: true
-            color: "transparent"
 
+            RowLayout {
+                id: contentWeather
+                anchors.centerIn: parent
+                spacing: 10
 
-                
-                
-                
                 ColumnLayout {
-                    anchors.verticalCenter: parent.verticalCenter
                     spacing: 1
-
-                    RowLayout {
-                        spacing: 8
-                        Text {
-                            text: root.temperature || "Đang tải..."
-                            color: root.theme.primary.foreground
-                            Layout.alignment: Qt.AlignVCenter
-                            font {
-                                pixelSize: 16
-                                bold: true
-                                family: "ComicShannsMono Nerd Font"
-                            }
-                        }
-                        Text {
-                            text: root.icon
-                            font.pixelSize: 24
-                            Layout.alignment: Qt.AlignVCenter
+                    Text {
+                        text: root.temperature || "Đang tải..."
+                        color: root.theme.primary.foreground
+                        Layout.alignment: Qt.AlignVCenter
+                        font {
+                            pixelSize: 16
+                            bold: true
+                            family: "ComicShannsMono Nerd Font"
                         }
                     }
-
-
-
+                    
                     Text {
+                        id: textCondition
                         text: root.condition || "..."
                         color: root.theme.primary.dim_foreground
                         font {
@@ -272,14 +269,23 @@ property var lang: currentLanguage
                         Layout.preferredWidth: 80
                     }
                 }
+                
+                Image {
+                    source: "../../assets/weather/cloud.png"
+                    Layout.preferredWidth: 30
+                    Layout.preferredHeight: 30
+                    fillMode: Image.PreserveAspectFit
+                    smooth: true
+                    visible: root.selectedFlag !== ""
+                }
+            }
 
             MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                  panelManager.togglePanel("weather")
-                  
+                    panelManager.togglePanel("weather")
                 }
                 
                 onEntered: {
@@ -293,12 +299,16 @@ property var lang: currentLanguage
             Behavior on scale { NumberAnimation { duration: 100 } }
         }
 
-        // Flag Selector
-        Rectangle {
+        // Spacer để đẩy phần flag sang bên phải
+        Item {
+            Layout.fillWidth: true
+        }
+
+        // Flag Selector - căn phải
+        Item {
             id: flagContainer
-            Layout.preferredWidth: 60
-            Layout.preferredHeight: 60
-            color: "transparent"
+            Layout.preferredWidth: 50
+            Layout.fillHeight: parent
 
             Image {
                 source: root.selectedFlag ? `../../assets/flags/${root.selectedFlag}.png` : ""
@@ -315,8 +325,7 @@ property var lang: currentLanguage
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                  panelManager.togglePanel("flag")
-                    
+                    panelManager.togglePanel("flag")
                 }
 
                 onEntered: {

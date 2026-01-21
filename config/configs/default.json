@@ -7,7 +7,7 @@
   "theme": "dark",
   "countryFlag": "vietnam",
   "weatherApiKey": "21e0f911c7de4308916165005251210",
-  "weatherLocation": "Ha Noi,Vietnam",
+  "weatherLocation": "Ho Chi Minh City,Vietnam",
   "displaySize": "1920",
   "dashboard": {
     "name": "User",

@@ -1,0 +1,4 @@
+.wpa-test-msg{background: #d1ecf1 !important; border: 1px solid #bee5eb !important; border-radius: 5px !important;color: #0c5460 !important; font-size: 14px !important; padding:.75rem 1.25rem !important; font-family: Arial !important; margin-top:5px !important;}
+span.wpa-button{ display: inline-block !important; padding-top: 5px !important; color: #fff !important;background-color: #6c757d !important;border-color: #6c757d !important; padding: 5px 10px !important; border-radius: 5px !important; margin-top:5px !important;  cursor: pointer !important; }
+
+#altEmail_container, .altEmail_container{position:absolute !important; overflow: hidden !important; display: inline !important; height:1px !important; width: 1px !important;z-index:-1000 !important;}
