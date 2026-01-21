@@ -92,7 +92,7 @@ Rectangle {
                     text: lang?.weather?.apiKeyHint || "Nhận API key miễn phí tại: weatherapi.com\nAPI key sẽ tự động lưu và kiểm tra khi bạn nhập"
                     color: theme.primary.dim_foreground
                     font {
-                        pixelSize: 11
+                        pixelSize: 12
                         family: "ComicShannsMono Nerd Font"
                         italic: true
                     }

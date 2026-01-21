@@ -90,9 +90,9 @@ PanelWindow {
                     spacing: 12
 
                     Image {
-                        source: "../../assets/music/music-icon.png"
-                        width: 32
-                        height: 32
+                        source: "../../assets/music/logo_music.png"
+                        width: 40
+                        height: 40
                         fillMode: Image.PreserveAspectFit
                         visible: source != ""
                     }
@@ -130,7 +130,7 @@ PanelWindow {
                         anchors.fill: parent
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: musicPanel.visible = false
+                        onClicked: panelManager.togglePanel("music")
                     }
                 }
             }
@@ -285,7 +285,7 @@ PanelWindow {
                             Text {
                                 text: formatTime(position)
                                 font.family: "ComicShannsMono Nerd Font"
-                                font.pixelSize: 11
+                                font.pixelSize: 12
                                 color: theme.primary.dim_foreground
                             }
 
@@ -294,7 +294,7 @@ PanelWindow {
                             Text {
                                 text: formatTime(duration)
                                 font.family: "ComicShannsMono Nerd Font"
-                                font.pixelSize: 11
+                                font.pixelSize: 12
                                 color: theme.primary.dim_foreground
                             }
                         }

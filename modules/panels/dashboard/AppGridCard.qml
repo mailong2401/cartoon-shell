@@ -27,7 +27,7 @@ Rectangle {
             model: 9
             
             Com.AppIcon { 
-                iconSource: configLoader.config.dashboard?.listApp?.[index]?.pathIcon || "" 
+                iconSource: "" 
                 bgColor: theme.button.background 
             }
         }

@@ -163,7 +163,7 @@ Item {
                                     color: currentConfig.lang === modelData.code ? theme.primary.background : theme.primary.foreground
                                     font {
                                         family: "ComicShannsMono Nerd Font"
-                                        pixelSize: 11
+                                        pixelSize: 12
                                         bold: currentConfig.lang === modelData.code
                                     }
                                     anchors.horizontalCenter: parent.horizontalCenter
@@ -194,7 +194,7 @@ Item {
                                 Text {
                                     text: "✓"
                                     color: theme.primary.background
-                                    font.pixelSize: 11
+                                    font.pixelSize: 12
                                     font.bold: true
                                     anchors.centerIn: parent
                                 }

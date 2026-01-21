@@ -130,7 +130,7 @@ Rectangle {
                         text: weatherService.condition || "..."
                         color: root.theme.primary.dim_foreground
                         font {
-                            pixelSize: 11
+                            pixelSize: 12
                             family: "ComicShannsMono Nerd Font"
                         }
                         elide: Text.ElideRight

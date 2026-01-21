@@ -277,7 +277,7 @@ Item {
                             Text {
                                 text: fileName
                                 color: theme.primary.foreground
-                                font.pixelSize: 11
+                                font.pixelSize: 12
                                 elide: Text.ElideMiddle
                                 width: parent.width
                             }

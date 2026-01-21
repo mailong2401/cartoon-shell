@@ -439,7 +439,7 @@ Item {
 
                 TextField {
                     id: nameField
-                    text: panelConfig?.get("lockscreen.name", "User") || "User"
+                    text: "User"
                     Layout.preferredWidth: 250
                     font.family: "ComicShannsMono Nerd Font"
                     font.pixelSize: 14
@@ -475,7 +475,7 @@ Item {
 
                 TextField {
                     id: usernameField
-                    text: panelConfig?.get("lockscreen.username", "user") || "user"
+                    text:  "user"
                     Layout.preferredWidth: 250
                     font.family: "ComicShannsMono Nerd Font"
                     font.pixelSize: 14
