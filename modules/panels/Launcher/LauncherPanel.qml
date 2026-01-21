@@ -32,7 +32,6 @@ PanelWindow {
     color: "transparent"
     focusable: true
 
-    signal closeRequested()
     signal confirmRequested(string action, string actionLabel)
     signal lockRequested()
 
@@ -45,10 +44,6 @@ PanelWindow {
     property bool launcherPanelVisible: true
 
     // Sửa hàm closePanel
-function closePanel() {
-    visible = false
-    closeRequested()
-}
 
     function togglePanel() {
         launcherPanel.visible = !launcherPanel.visible
@@ -179,7 +174,6 @@ function closePanel() {
                         id: launcherList
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        onAppLaunched: closePanel()
                     }
                 }
             }}

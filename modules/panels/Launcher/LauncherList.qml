@@ -18,8 +18,6 @@ Rectangle {
     property int currentIndex: 0
 
 
-    signal appLaunched()
-
     ColumnLayout {
         id: rootLayout
         anchors.fill: parent
@@ -228,7 +226,7 @@ Rectangle {
     onActivated: {
                 var item = container.filteredApps[container.currentIndex]
                 container.launchApplication(item.exec)
-                container.appLaunched()
+                panelManager.closeAllPanels()
     }
 }
 
