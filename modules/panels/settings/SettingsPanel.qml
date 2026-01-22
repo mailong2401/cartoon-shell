@@ -3,7 +3,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import "." as Com
-import "../../../services" as Services
+import qs.services
 
 Rectangle {
     id: settingsPanel
@@ -13,11 +13,12 @@ Rectangle {
 
     radius: 12
     color: theme.primary.background
+
     // Shadow effect
     layer.enabled: true
 
     // Shared JsonEditor for all Settings
-    Services.JsonEditor {
+    JsonEditor {
         id: sharedPanelConfig
         filePath: Qt.resolvedUrl("../../../config/configs/" + currentConfigProfile + ".json")
         Component.onCompleted: {
@@ -63,7 +64,8 @@ Rectangle {
                 }
 
                 // Appearance Settings
-                Com.AppearanceSettings {
+                Com.Appearance {
+                    Layout.fillWidth: true
                     panelConfig: sharedPanelConfig
                 }
 

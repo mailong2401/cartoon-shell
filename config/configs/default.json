@@ -1,6 +1,6 @@
 {
   "mainPanelPos": "top",
-  "clockPanelPosition": "bottomRight",
+  "clockPanelPosition": "center",
   "clockPanelVisible": true,
   "spacingPanel": 12,
   "lang": "en",
@@ -52,6 +52,6 @@
       }
     ]
   },
-  "pictureWallpaper": "/home/long/Pictures/Wallpapers/wall_1.jpg",
+  "pictureWallpaper": "/home/long/Pictures/Wallpapers/wall_6.jpg",
   "videoWallpaper": ""
 }

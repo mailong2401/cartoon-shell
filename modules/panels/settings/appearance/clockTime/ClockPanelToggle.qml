@@ -5,9 +5,10 @@ import QtQuick.Layouts
 
 RowLayout {
     id: clockPanelToggle
-    property var theme
-    property var lang
+    property var theme: currentTheme
+    property var lang: currentLanguage
     property var panelConfig
+    width: parent?.width
     
     spacing: 10
 

@@ -1,11 +1,12 @@
 // components/Settings/ThemeSelection.qml
 import QtQuick
 import QtQuick.Layouts
+import "." as Com
 
 RowLayout {
     id: themeSelection
-    property var theme
-    property var lang
+    property var theme: currentTheme
+    property var lang: currentLanguage
     property var panelConfig
     property var matugenHandler
     
@@ -26,7 +27,7 @@ RowLayout {
         Layout.fillWidth: true
 
         // Light Theme Card
-        ThemeCard {
+        Com.ThemeCard {
             type: "light"
             isSelected: theme.type === "light"
             label: lang.appearance?.theme_light || "Sáng"
@@ -38,7 +39,7 @@ RowLayout {
         }
 
         // Dark Theme Card
-        ThemeCard {
+        Com.ThemeCard {
             type: "dark"
             isSelected: theme.type === "dark"
             label: lang.appearance?.theme_dark || "Tối"

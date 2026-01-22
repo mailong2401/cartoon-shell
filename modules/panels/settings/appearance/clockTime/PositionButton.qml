@@ -6,7 +6,7 @@ Rectangle {
     property string label: ""
     property string position: ""
     property bool isSelected: false
-    property var theme
+    property var theme: currentTheme
     
     signal clicked
     

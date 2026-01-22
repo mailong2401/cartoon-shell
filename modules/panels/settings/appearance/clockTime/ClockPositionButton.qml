@@ -5,7 +5,7 @@ Rectangle {
     id: clockPositionButton
     property string position: ""
     property bool isSelected: false
-    property var theme
+    property var theme: currentTheme
     property var anchorConfig: ({})
     
     signal clicked
