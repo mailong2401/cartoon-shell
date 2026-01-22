@@ -3,7 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import "." as Com
 
-Rectangle {
+Item {
     id: clockPositionSelector
     property var theme: currentTheme
     property var lang: currentLanguage
@@ -11,13 +11,12 @@ Rectangle {
     
     signal positionSelected(string position)
     
-    color: "transparent"
     implicitHeight: content.implicitHeight
     
     ColumnLayout {
         id: content
         width: parent.width
-        spacing: 20
+        spacing: 0
         
         // Label row
         RowLayout {

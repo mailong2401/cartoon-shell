@@ -7,7 +7,7 @@ Item{
   property var theme: currentTheme
     property var lang: currentLanguage
     property var panelConfig
-    height: clockPanelToggle.height
+    implicitHeight: clockPanelToggle.implicitHeight
 RowLayout {
     id: clockPanelToggle
     
