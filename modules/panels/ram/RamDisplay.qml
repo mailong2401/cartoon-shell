@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Shapes
 import Quickshell.Io
 import Quickshell
-import "../../../services/" as Service
+import qs.services
 
 Item {
     id: ramDisplay
@@ -18,7 +18,7 @@ Item {
     property color borderColor: theme.button.border
     property color separatorColor: theme.normal.black
     
-    Service.RamService{
+    RamService{
       id: ramService
       useSimpleCalculation: false
     }
@@ -84,8 +84,8 @@ Item {
                 width: 8
                 height: 8
                 radius: 4
-                color: ramPercent > 80 ? theme.normal.red : 
-                       ramPercent > 60 ? theme.normal.yellow : theme.normal.green
+                color: ramService.memPercent > 80 ? theme.normal.red : 
+                       ramService.memPercent > 60 ? theme.normal.yellow : theme.normal.green
             }
         }
 
@@ -242,7 +242,7 @@ Item {
                         font.bold: true
                         font.family: "ComicShannsMono Nerd Font"
                         font.pixelSize: 24
-                        opacity: swapTotal > 0 ? 1 : 0.3
+                        opacity: ramService.swapTotal > 0 ? 1 : 0.3
                     }
                 }
 
@@ -251,7 +251,7 @@ Item {
                     height: 14
                     radius: 7
                     color: freeSwapColor
-                    opacity: swapTotal > 0 ? 1 : 0.3
+                    opacity: ramService.swapTotal > 0 ? 1 : 0.3
 
                     Rectangle {
                         width: parent.width * (ramService.swapPercent / 100)
@@ -285,7 +285,7 @@ Item {
                 columns: 2
                 rowSpacing: 2
                 columnSpacing: 8
-                opacity: swapTotal > 0 ? 1 : 0.3
+                opacity: ramService.swapTotal > 0 ? 1 : 0.3
                 Column {
                     Layout.alignment: Qt.AlignHCenter
                     Text {

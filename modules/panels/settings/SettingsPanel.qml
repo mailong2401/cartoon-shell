@@ -3,7 +3,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import "." as Com
-import "../../services" as Services
+import "../../../services" as Services
 
 Rectangle {
     id: settingsPanel
@@ -19,7 +19,7 @@ Rectangle {
     // Shared JsonEditor for all Settings
     Services.JsonEditor {
         id: sharedPanelConfig
-        filePath: Qt.resolvedUrl("../../config/configs/" + currentConfigProfile + ".json")
+        filePath: Qt.resolvedUrl("../../../config/configs/" + currentConfigProfile + ".json")
         Component.onCompleted: {
             sharedPanelConfig.load(sharedPanelConfig.filePath)
         }

@@ -150,7 +150,7 @@ Item {
                                 spacing: 4
 
                                 Image {
-                                    source: `../../assets/flags/${modelData.flagImg}.png`
+                                    source: `../../../assets/flags/${modelData.flagImg}.png`
                                     width: 48
                                     height: 32
                                     fillMode: Image.PreserveAspectFit

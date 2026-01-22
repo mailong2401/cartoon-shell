@@ -6,22 +6,22 @@ import Quickshell.Io
 import Quickshell.Wayland
 import QtQuick.Effects
 
-import "./config" as Config
-import "./modules/dialogs" as Dialogs
-import "./modules/panels" as Panels
-import "./components/" as Components
+import qs.config
+import qs.components
+import qs.modules.dialogs
+import qs.modules.panels
 
 ShellRoot {
     id: root
 
-    Config.ThemeLoader { id: themeLoader }
-    Config.LanguageLoader { id: languageLoader }
-    Config.ConfigLoader { id: configLoader }
-    Config.PanelManager { id: panelManager }
-    Components.PanelLoaders{ id: panelLoaders}
-    Dialogs.VolumeOsd { }
-    Dialogs.NotificationPopup{}
-    Dialogs.ConfirmDialog { id: confirmDialog }
+    ThemeLoader { id: themeLoader }
+    LanguageLoader { id: languageLoader }
+    ConfigLoader { id: configLoader }
+    PanelManager { id: panelManager }
+    PanelLoaders{ id: panelLoaders}
+    VolumeOsd { }
+    NotificationPopup{}
+    ConfirmDialog { id: confirmDialog }
 
 
     // Function để hiển thị confirm dialog từ bất kỳ đâu
@@ -134,39 +134,39 @@ PanelWindow {
         RowLayout {
             anchors.fill: parent
 
-            Panels.AppIcons {
+            AppIcons {
                 id: appIcons
                 Layout.preferredWidth: 60
                 Layout.fillHeight: true
             }
             Item{Layout.fillWidth: true}
 
-            Panels.WorkspacePanel {
+            WorkspacePanel {
                 Layout.preferredWidth: 380
                 Layout.fillHeight: true
                 hyprInstance: root.hyprInstance
             }
             Item{Layout.fillWidth: true}
 
-            Panels.MusicPlayer {
+            MusicPlayer {
                 Layout.preferredWidth: 340
                 Layout.fillHeight: true
             }
             Item{Layout.fillWidth: true}
 
-            Panels.Timespace {
+            Timespace {
                 Layout.preferredWidth: 400
                 Layout.fillHeight: true
             }
             Item{Layout.fillWidth: true}
 
-            Panels.CpuPanel {
+            CpuPanel {
                 Layout.preferredWidth: 200
                 Layout.fillHeight: true
             }
             Item{Layout.fillWidth: true}
 
-            Panels.StatusArea {
+            StatusArea {
                 Layout.preferredWidth: 430
                 Layout.fillHeight: true
             }

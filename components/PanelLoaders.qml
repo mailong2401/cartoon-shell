@@ -2,7 +2,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import "../modules/panels/" as Panels
+import qs.modules.panels
 
 Item {
     id: root
@@ -32,7 +32,7 @@ Item {
     property bool anchorsLeft: currentConfig.clockPanelPosition === "left" || currentConfig.clockPanelPosition === "topLeft" || currentConfig.clockPanelPosition === "bottomLeft"
 
 
-      Panels.ClockPanel {
+      ClockPanel {
         id: clockPanel
         visible: currentConfig.clockPanelVisible
         anchors {
@@ -52,14 +52,14 @@ Item {
         }
       }
           Loader {
-        source: "../modules/panels/Cpu/CpuDetailPanel.qml"
+        source: "../modules/panels/cpu/CpuDetailPanel.qml"
         active: panelManager.cpu
         onLoaded: {
             item.visible = Qt.binding(function() { return panelManager.cpu })
         }
       }
       Loader {
-        source: "../modules/panels/Ram/RamDetailPanel.qml"
+        source: "../modules/panels/ram/RamDetailPanel.qml"
         active: panelManager.ram
         onLoaded: {
             item.visible = Qt.binding(function() { return panelManager.ram })

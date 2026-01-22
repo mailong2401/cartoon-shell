@@ -5,7 +5,7 @@ import Quickshell
 import Quickshell.Widgets
 
 // Import các thành phần phụ trong cùng thư mục
-import "../../settings" as Settings
+import "../settings" as Settings
 import "../../../components/" as Components
 import "./" as LauncherComponents
 

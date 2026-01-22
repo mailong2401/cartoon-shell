@@ -3,7 +3,6 @@ import QtQuick.Layouts
 import Quickshell
 import QtQuick.Effects
 import Quickshell.Io
-import "./Launcher/"
 
 Rectangle {
     id: appIconsRoot

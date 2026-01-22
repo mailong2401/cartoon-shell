@@ -217,7 +217,6 @@ Rectangle {
 
                 RowLayout {
                     spacing: 6
-                    anchors.verticalCenter: parent.verticalCenter
 
                     Rectangle {
                         Layout.preferredHeight: 12
@@ -235,7 +234,6 @@ Rectangle {
 
                 RowLayout {
                     spacing: 6
-                    anchors.verticalCenter: parent.verticalCenter
 
                     Rectangle {
                         Layout.preferredHeight: 12
@@ -253,7 +251,6 @@ Rectangle {
 
                 RowLayout {
                     spacing: 6
-                    anchors.verticalCenter: parent.verticalCenter
 
                     Rectangle {
                         Layout.preferredHeight: 12

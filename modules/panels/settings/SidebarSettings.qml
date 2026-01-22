@@ -37,15 +37,15 @@ Rectangle {
         // Danh mục cài đặt
         Repeater {
             model: [
-                { name: lang.settings.general, icon: "../../assets/settings/home.png", category: "general" },
-                { name: lang.settings.appearance, icon: "../../assets/settings/paint-brush.png", category: "appearance" },
-                { name: lang.settings.wallpapers, icon: "../../assets/settings/Wallpaper.png", category: "wallpaper" },
-                { name: lang.settings.lockscreen || "Lock Screen", icon: "../../assets/settings/lockscreen.png", category: "dashboard" },
-                { name: lang.settings.network, icon: "../../assets/settings/network.png", category: "network" },
-                { name: lang.settings.audio, icon: "../../assets/settings/volume.png", category: "audio" },
-                { name: lang.settings.performance, icon: "../../assets/settings/speedometer.png", category: "performance" },
-                { name: lang.settings.shortcuts, icon: "../../assets/settings/keyboard.png", category: "shortcuts" },
-                { name: lang.settings.system, icon: "../../assets/settings/mark.png", category: "system" }
+                { name: lang.settings.general, icon: "../../../assets/settings/home.png", category: "general" },
+                { name: lang.settings.appearance, icon: "../../../assets/settings/paint-brush.png", category: "appearance" },
+                { name: lang.settings.wallpapers, icon: "../../../assets/settings/Wallpaper.png", category: "wallpaper" },
+                { name: "dashboard" , icon: "../../../assets/settings/lockscreen.png", category: "dashboard" },
+                { name: lang.settings.network, icon: "../../../assets/settings/network.png", category: "network" },
+                { name: lang.settings.audio, icon: "../../../assets/settings/volume.png", category: "audio" },
+                { name: lang.settings.performance, icon: "../../../assets/settings/speedometer.png", category: "performance" },
+                { name: lang.settings.shortcuts, icon: "../../../assets/settings/keyboard.png", category: "shortcuts" },
+                { name: lang.settings.system, icon: "../../../assets/settings/mark.png", category: "system" }
             ]
 
             delegate: Rectangle {

@@ -2,9 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
-import './widgets/'
-import '../modules/ram/'
-import '../../services/' as Service
+import qs.services
 
 Rectangle {
     id: root
@@ -16,11 +14,11 @@ Rectangle {
 
     property string memoryUsage: "0%"
     property var theme : currentTheme
-    Service.CpuService{
+    CpuService{
       id: cpuService
       enableCpuHistory: true
     }
-    Service.RamService{
+    RamService{
       id: ramService
       useSimpleCalculation: true
     }

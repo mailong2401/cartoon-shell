@@ -6,7 +6,7 @@ import Quickshell.Wayland
 import Quickshell.Io
 import Quickshell.Widgets
 import Quickshell.Services.Mpris
-import "../../services" as Services
+import qs.services
 
 PanelWindow {
     id: musicPanel
@@ -43,7 +43,7 @@ PanelWindow {
     color: "transparent"
 
     // CavaService instance
-    Services.CavaService { id: cavaService }
+    CavaService { id: cavaService }
 
     // Process get metadata
 

@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Pipewire
-import "../../services/" as Service
+import qs.services
 
 
 Rectangle {
@@ -28,7 +28,7 @@ Rectangle {
     property var theme : currentTheme
 
 
-    Service.NetworkService{
+    NetworkService{
       id: networkService
     }
 

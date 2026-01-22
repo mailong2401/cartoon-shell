@@ -4,12 +4,13 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Io
 import "./" as Components
+import qs.services
 
 PanelWindow {
-    id: root
+    id: detailPanel
 
-    implicitWidth: 930
-    implicitHeight: 960
+    implicitWidth: 1030
+    implicitHeight: 850
 
     anchors {
         top: currentConfig.mainPanelPos === "top"
@@ -24,11 +25,21 @@ PanelWindow {
     }
 
     exclusiveZone: 0
+
     color: "transparent"
 
-    property var theme : currentTheme
-    property var lang : currentLanguage
-    
+    signal closeRequested()
+
+    property var theme: currentTheme
+
+    // Process để lấy CPU usage tổng
+    CpuService {
+    id: cpuService
+    enableCpuHistory: true
+}
+
+
+
     Rectangle {
         anchors.fill: parent
         color: theme.primary.background
@@ -39,23 +50,27 @@ PanelWindow {
         ColumnLayout {
             anchors.fill: parent
             anchors.margins: 16
-            spacing: 30
+            spacing: 16
 
-            Components.RamDetailHeader {
+            // Header với nút đóng
+            Components.CpuDetailHeader {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 40
+                Layout.preferredHeight: 70
             }
 
-            Components.RamDisplay {
+            // Thông tin CPU
+            Components.CpuInfoSection {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 330
+                Layout.preferredHeight: 120
             }
 
-            Components.RamTaskManager {
+            // BIỂU ĐỒ CPU USAGE
+            Components.CpuUsageChart {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 500
+                Layout.fillHeight: true
+                cpuHistory: cpuService.cpuHistory
             }
-
         }
     }
+
 }

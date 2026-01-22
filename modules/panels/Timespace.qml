@@ -2,8 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
-import "./WeatherTime/" as WeatherTime
-import "../../services/" as Service
+import qs.services
 
 Rectangle {
     id: root
@@ -20,10 +19,10 @@ Rectangle {
     property string selectedFlag: currentConfig.countryFlag
     property var theme : currentTheme
 
-    Service.WeatherService{
+    WeatherService{
       id: weatherService
     }
-    Service.DateTimeService{
+    DateTimeService{
       id: dateTimeService
     }
 

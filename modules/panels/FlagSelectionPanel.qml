@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Io
-import "../../services" as Services
+import qs.services
 
 PanelWindow {
     id: flagSelectionPanel
@@ -12,7 +12,7 @@ PanelWindow {
     property var theme: currentTheme
     property string selectedFlag: currentConfig.selectedFlag
 
-    Services.JsonEditor {
+    JsonEditor {
         id: panelConfig
         filePath: Qt.resolvedUrl("../../config/configs/" + currentConfigProfile + ".json")
         Component.onCompleted: {

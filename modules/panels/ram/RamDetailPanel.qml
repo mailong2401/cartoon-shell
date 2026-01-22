@@ -3,14 +3,13 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Io
-import "./" as Components
-import "../../../services/" as Service
+import "." as Components
 
 PanelWindow {
-    id: detailPanel
+    id: root
 
-    implicitWidth: 1030
-    implicitHeight: 850
+    implicitWidth: 930
+    implicitHeight: 960
 
     anchors {
         top: currentConfig.mainPanelPos === "top"
@@ -25,21 +24,11 @@ PanelWindow {
     }
 
     exclusiveZone: 0
-
     color: "transparent"
 
-    signal closeRequested()
-
-    property var theme: currentTheme
-
-    // Process để lấy CPU usage tổng
-    Service.CpuService {
-    id: cpuService
-    enableCpuHistory: true
-}
-
-
-
+    property var theme : currentTheme
+    property var lang : currentLanguage
+    
     Rectangle {
         anchors.fill: parent
         color: theme.primary.background
@@ -50,27 +39,23 @@ PanelWindow {
         ColumnLayout {
             anchors.fill: parent
             anchors.margins: 16
-            spacing: 16
+            spacing: 30
 
-            // Header với nút đóng
-            Components.CpuDetailHeader {
+            Components.RamDetailHeader {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 70
+                Layout.preferredHeight: 40
             }
 
-            // Thông tin CPU
-            Components.CpuInfoSection {
+            Components.RamDisplay {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 120
+                Layout.preferredHeight: 330
             }
 
-            // BIỂU ĐỒ CPU USAGE
-            Components.CpuUsageChart {
+            Components.RamTaskManager {
                 Layout.fillWidth: true
-                Layout.fillHeight: true
-                cpuHistory: cpuService.cpuHistory
+                Layout.preferredHeight: 500
             }
+
         }
     }
-
 }
