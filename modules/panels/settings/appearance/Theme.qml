@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import "./theme" as Com
 import qs.services
+import qs.components
 
 Item {
     id: root
@@ -39,17 +40,10 @@ Item {
             spacing: 25
 
             // Tiêu đề chính
-            Text {
-                text: lang.appearance?.theme || "Theme"
-                color: theme.primary.foreground
-                font {
-                    family: "ComicShannsMono Nerd Font"
-                    pixelSize: 24
-                    bold: true
-                }
-                Layout.alignment: Qt.AlignLeft
-                Layout.topMargin: 10
+            HeaderSettings{
+              name: "Theme"
             }
+            
 
             // Đường phân cách
             Rectangle {

@@ -142,6 +142,7 @@ PanelWindow {
             Item{Layout.fillWidth: true}
 
             WorkspacePanel {
+                visible: true
                 Layout.preferredWidth: 380
                 Layout.fillHeight: true
                 hyprInstance: root.hyprInstance

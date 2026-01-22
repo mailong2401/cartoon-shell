@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import "clockTime" as Com
+import qs.components
 
 Item {
   id: root
@@ -25,15 +26,8 @@ Item {
       width: scrollView.availableWidth
       spacing: 20
 
-      Text {
-        text: lang.appearance?.clock || "Clock"
-        color: theme.primary.foreground
-        font {
-          family: "ComicShannsMono Nerd Font"
-          pixelSize: 24
-          bold: true
-        }
-        Layout.alignment: Qt.AlignLeft
+      HeaderSettings{
+        name: "Clock Time"
       }
 
       Rectangle {

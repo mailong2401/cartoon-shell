@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import qs.services
+import qs.components
 import "./appearance/" as Com
 
 Item {
@@ -21,7 +22,7 @@ Item {
     Com.SideBar {
       currentTab: root.currentTab
       Layout.fillWidth: true
-      Layout.preferredHeight: 50
+      Layout.preferredHeight: 70
     }
 
     // Nội dung các tab
@@ -46,7 +47,10 @@ Item {
           width: parent.width
           spacing: 20
 
-          Text {
+          RowLayout{
+
+                Layout.fillWidth: true
+            Text {
             text: lang.appearance?.panel || "Panel"
             color: theme.primary.foreground
             font {
@@ -56,6 +60,12 @@ Item {
             }
             Layout.alignment: Qt.AlignLeft
           }
+          Item{
+            Layout.fillWidth: true
+          }
+          }
+
+          
 
           Rectangle {
             Layout.fillWidth: true
@@ -261,40 +271,6 @@ Item {
       }
 
       // Tab Advanced
-      ScrollView {
-        clip: true
-        ScrollBar.vertical.policy: ScrollBar.AsNeeded
-        
-        ColumnLayout {
-          width: parent.width
-          spacing: 20
-
-          Text {
-            text: lang.appearance?.advanced || "Advanced"
-            color: theme.primary.foreground
-            font {
-              family: "ComicShannsMono Nerd Font"
-              pixelSize: 24
-              bold: true
-            }
-            Layout.alignment: Qt.AlignLeft
-          }
-
-          Rectangle {
-            Layout.fillWidth: true
-            height: 1
-            color: theme.primary.foreground
-            opacity: 0.3
-          }
-
-          // Nội dung Advanced ở đây
-          Text {
-            text: "Advanced settings content"
-            color: theme.primary.foreground
-            Layout.alignment: Qt.AlignLeft
-          }
-        }
-      }
     }
   }
 
