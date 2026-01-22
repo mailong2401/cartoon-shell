@@ -3,17 +3,13 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import "clockTime" as Com
 
-Rectangle{
+Item{
   id: root
   property var theme: currentTheme
   property var lang: currentLanguage
   property var panelConfig
-color: "green"
-  ScrollView {
-                anchors.fill: parent
-      clip: true
       ColumnLayout {
-                anchors.fill: parent
+          width: parent.width
           spacing: 20
 
           Text {
@@ -27,7 +23,7 @@ color: "green"
           }
 
           Rectangle {
-              Layout.fillWidth: true
+            width: parent.width
               height: 1
               color: theme.primary.foreground
               opacity: 0.3
@@ -46,7 +42,5 @@ color: "green"
               Layout.fillWidth: true
               panelConfig: root.panelConfig
             }
-
       }
-  }
 }

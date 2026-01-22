@@ -65,7 +65,6 @@ Rectangle {
 
                 // Appearance Settings
                 Com.Appearance {
-                    Layout.fillWidth: true
                     panelConfig: sharedPanelConfig
                 }
 

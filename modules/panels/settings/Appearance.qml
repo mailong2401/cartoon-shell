@@ -25,8 +25,6 @@ Item {
         Com.SideBar{
           currentTab: root.currentTab
         }
-        
-
         // Nội dung các tab
         StackLayout {
             Layout.fillWidth: true
@@ -37,6 +35,7 @@ Item {
             Com.Theme{
               panelConfig: root.panelConfig
               Layout.fillWidth: true
+            Layout.fillHeight: true
 
             }
             
@@ -76,9 +75,6 @@ Item {
             // Tab Clock
             Com.ClockTime{
               panelConfig: root.panelConfig
-              Layout.fillWidth: true
-
-
             }
 
             // Tab Fonts

@@ -5,11 +5,10 @@ import "./theme" as Com
 import qs.services
 
 
-Rectangle{
+Item{
 property var theme: currentTheme
 property var lang: currentLanguage
 property var panelConfig
-color: "green"
 
 Matugen {
         id: matugenHandler

@@ -3,12 +3,14 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-RowLayout {
-    id: clockPanelToggle
-    property var theme: currentTheme
+Item{
+  property var theme: currentTheme
     property var lang: currentLanguage
     property var panelConfig
-    width: parent?.width
+    height: clockPanelToggle.height
+RowLayout {
+    id: clockPanelToggle
+    
     
     spacing: 10
 
@@ -27,9 +29,6 @@ RowLayout {
         checked: currentConfig.clockPanelVisible || false
         onToggled: {
             panelConfig.set("clockPanelVisible", checked)
-            Qt.callLater(function() {
-                configLoader.loadConfig()
-            })
         }
         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
@@ -55,4 +54,5 @@ RowLayout {
             }
         }
     }
+}
 }
