@@ -1,3 +1,4 @@
+// components/Settings/BarListSettings.qml
 import QtQuick
 import QtQuick.Layouts
 
@@ -117,7 +118,6 @@ Rectangle {
                     cursorShape: Qt.PointingHandCursor
 
                     onClicked: {
-                        barListSettings.currentIndex = index
                         barListSettings.categoryChanged(index)
                     }
 
