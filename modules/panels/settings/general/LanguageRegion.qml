@@ -4,6 +4,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 Item {
+  id: root
     property var theme: currentTheme
     property var lang: currentLanguage
     property var panelConfig
@@ -133,8 +134,8 @@ Item {
                         ]
                         
                         delegate: Rectangle {
-                            width: !panelManager.fullsetting ? 85 : 110
-                            height: !panelManager.fullsetting ? 70 : 91
+                          width: !panelManager.fullsetting ? root.width/6 : root.width/12
+                            height: !panelManager.fullsetting ? root.width/6 : root.width/12
                             radius: 10
                             color: currentConfig.lang === modelData.code ? theme.normal.blue : (langMouseArea.containsMouse ? theme.button.background_select : theme.button.background)
                             border.color: currentConfig.lang === modelData.code ? theme.normal.blue : (langMouseArea.containsPress ? theme.button.border_select : theme.button.border)
@@ -146,8 +147,8 @@ Item {
                                 
                                 Image {
                                     source: `../../../../assets/flags/${modelData.flagImg}.png`
-                                    width: 48
-                                    height: 32
+                                    width: !panelManager.fullsetting ? root.width/6 * 0.6 : root.width/12 * 0.6
+                                    height: !panelManager.fullsetting ? root.width/6 * 0.4 : root.width/12 * 0.4
                                     fillMode: Image.PreserveAspectFit
                                     smooth: true
                                     anchors.horizontalCenter: parent.horizontalCenter
