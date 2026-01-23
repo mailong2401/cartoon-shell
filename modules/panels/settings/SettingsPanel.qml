@@ -37,7 +37,7 @@ Rectangle {
         spacing: 20
 
         // Sidebar - chỉ hiển thị khi không ở chế độ fullsetting
-        Com.SidebarSettings {
+        Com.Sidebar {
             theme: settingsPanel.theme
             onCategoryChanged: function(index) {
                 settingsPanel.currentTab = 0
@@ -92,34 +92,34 @@ Rectangle {
                 }
 
                 // Wallpapers Settings
-                Com.WallpapersSettings {
+                Com.Wallpapers {
                     panelConfig: sharedPanelConfig
                 }
 
                 // Lockscreen Settings
-                Com.DashboardSettings {
+                Com.Dashboard {
                     panelConfig: sharedPanelConfig
                     launcherPanel: settingsPanel.launcherPanel
                 }
 
                 // Network Settings
-                Com.NetworkSettings {
+                Com.Network {
                 }
                 
                 // Audio Settings
-                Com.AudioSettings {
+                Com.Audio {
                 }
                 
                 // Performance Settings
-                Com.PerformanceSettings {
+                Com.Performance {
                 }
                 
                 // Shortcuts Settings
-                Com.ShortcutsSettings {
+                Com.Shortcuts {
                 }
                 
                 // System Settings
-                Com.SystemSettings {
+                Com.System {
                 }
             }
         }

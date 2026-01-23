@@ -19,6 +19,7 @@ Item {
         id: scrollView
         anchors.fill: parent
         clip: true
+        anchors.margins: 20
         
         // Cấu hình scrollbar
         ScrollBar.vertical.policy: ScrollBar.AsNeeded
@@ -38,7 +39,6 @@ Item {
             id: contentLayout
             width: scrollView.availableWidth
             spacing: 25
-
             // Tiêu đề chính
             HeaderSettings{
               name: "Theme"
@@ -72,27 +72,13 @@ Item {
                         matugenHandler: matugenHandler
                         Layout.fillWidth: true
                     }
+                    Com.ListTheme{
+                        panelConfig: root.panelConfig
+
+                    }
 
                     // Thêm phần cài đặt theme khác nếu cần
                     // Ví dụ: chế độ tối/sáng tự động
-                    ColumnLayout {
-                        width: parent.width
-                        spacing: 15
-                        visible: false // Tạm ẩn
-                        
-                        Text {
-                            text: "Tùy chọn nâng cao"
-                            color: theme.primary.foreground
-                            font {
-                                family: "ComicShannsMono Nerd Font"
-                                pixelSize: 18
-                                bold: true
-                            }
-                            Layout.alignment: Qt.AlignLeft
-                        }
-                        
-                        // Các tùy chọn nâng cao có thể thêm ở đây
-                    }
                 }
             }
 

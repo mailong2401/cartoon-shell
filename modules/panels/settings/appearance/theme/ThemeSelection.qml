@@ -33,7 +33,6 @@ RowLayout {
             label: lang.appearance?.theme_light || "Sáng"
             theme: themeSelection.theme
             onClicked: {
-                panelConfig.set("theme", "light")
                 Qt.callLater(matugenHandler.triggerMatugenOnThemeChange("light"))
             }
         }
@@ -45,7 +44,6 @@ RowLayout {
             label: lang.appearance?.theme_dark || "Tối"
             theme: themeSelection.theme
             onClicked: {
-                panelConfig.set("theme", "dark")
                 Qt.callLater(matugenHandler.triggerMatugenOnThemeChange("dark"))
             }
         }

@@ -25,6 +25,7 @@ Item {
       id: contentLayout
       width: scrollView.availableWidth
       spacing: 20
+            anchors.margins: 20
 
       HeaderSettings{
         name: "Clock Time"

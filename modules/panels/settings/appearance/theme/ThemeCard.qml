@@ -3,20 +3,28 @@ import QtQuick
 
 Rectangle {
     id: themeCard
-    property string type: "light" // "light" or "dark"
+
+    property string type: "light"
     property bool isSelected: false
     property string label: ""
     property var theme
-    property alias mouseArea: clickArea
-    
+
+
+    // 👇 chỉ active khi matugen
+    property bool isEnabled: currentConfig.theme === "matugen"
+
     signal clicked
-    
+
     width: 100
     height: 80
     radius: 12
+
     color: type === "light" ? "#f5eee6" : "#24273a"
     border.color: isSelected ? theme.normal.blue : theme.button.border
     border.width: isSelected ? 3 : 2
+
+    // 👇 hiệu ứng xám
+    opacity: isEnabled ? 1.0 : 0.45
 
     Column {
         anchors.centerIn: parent
@@ -38,15 +46,19 @@ Rectangle {
     }
 
     MouseArea {
-        id: clickArea
         anchors.fill: parent
-        cursorShape: Qt.PointingHandCursor
+        enabled: isEnabled
+        cursorShape: isEnabled
+            ? Qt.PointingHandCursor
+            : Qt.ForbiddenCursor
+
         onClicked: themeCard.clicked()
     }
 
     Text {
         text: label
         color: type === "light" ? "#2b2530" : "#cad3f5"
+        opacity: isEnabled ? 1 : 0.6
         font {
             family: "ComicShannsMono Nerd Font"
             pixelSize: 12
@@ -57,9 +69,8 @@ Rectangle {
         anchors.bottomMargin: 8
     }
 
-    // Checkmark for selected theme
     Rectangle {
-        visible: isSelected
+        visible: isSelected && isEnabled
         width: 20
         height: 20
         radius: 10
@@ -77,3 +88,4 @@ Rectangle {
         }
     }
 }
+

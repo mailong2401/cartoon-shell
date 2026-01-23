@@ -4,7 +4,7 @@ import QtQuick 2.15
 QtObject {
     id: themeLoader
 
-    property string currentTheme: "matugen"
+    property string currentTheme: configLoader.config.theme
     property var theme: ({})  // theme hiện tại
 
     signal themeReloaded()     // signal thông báo theme đã thay đổi
