@@ -1,4 +1,4 @@
-// components/Settings/GeneralSettings.qml
+// components/Settings/general/LanguageRegion.qml
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -6,14 +6,14 @@ import QtQuick.Layouts
 Item {
     property var theme: currentTheme
     property var lang: currentLanguage
-    property var panelConfig  // Received from parent SettingsPanel
-
+    property var panelConfig
+    
     property Timer reloadTimer: Timer {
         interval: 30
         repeat: false
         onTriggered: languageLoader.loadLanguage()
     }
-
+    
     function setLanguageEditor(name) {
         panelConfig.set("lang", name)
         reloadTimer.restart()
@@ -23,32 +23,28 @@ Item {
         anchors.fill: parent
         anchors.margins: 20
         clip: true
+        ScrollBar.vertical.policy: ScrollBar.AsNeeded
         
         ColumnLayout {
             width: parent.width
             spacing: 15
+            
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 10
                 
-                // Button Nâng cao ở góc trái
-                
-                
-                
-                
-                // Tiêu đề (được đẩy sang bên phải)
+                // Tiêu đề
                 Text {
-                    text: lang.general?.title
+                    text: lang.general?.language_region || "Language & Region"
                     color: theme.primary.foreground
                     font.pixelSize: 24
                     font.bold: true
                     font.family: "ComicShannsMono Nerd Font"
-                  }
-                  Item {
+                }
+                Item {
                     Layout.fillWidth: true
                 }
-                  Button {
-
+                Button {
                     id: advancedButton
                     visible: !panelManager.fullsetting
                     text: "Nâng cao"
@@ -72,7 +68,6 @@ Item {
                     
                     onClicked: {
                         panelManager.togglePanel("fullsetting")
-                        // Thêm xử lý khi click vào đây
                     }
                 }
             }
@@ -87,7 +82,7 @@ Item {
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 10
-
+                
                 Text {
                     text: lang.general?.language_label || "Ngôn ngữ:"
                     color: theme.primary.foreground
@@ -96,13 +91,13 @@ Item {
                         pixelSize: 16
                     }
                 }
-
+                
                 Grid {
                     Layout.fillWidth: true
                     columns: !panelManager.fullsetting ? 5 : 10
                     columnSpacing: !panelManager.fullsetting ? 8 : 10
                     rowSpacing: !panelManager.fullsetting ? 8 : 10
-
+                    
                     Repeater {
                         model: [
                             { code: "vi", name: "Tiếng Việt", flagImg: "vietnam" },
@@ -136,7 +131,7 @@ Item {
                             { code: "bg", name: "Български", flagImg: "bulgaria" },
                             { code: "sk", name: "Slovenčina", flagImg: "slovakia" },
                         ]
-
+                        
                         delegate: Rectangle {
                             width: !panelManager.fullsetting ? 85 : 110
                             height: !panelManager.fullsetting ? 70 : 91
@@ -144,20 +139,20 @@ Item {
                             color: currentConfig.lang === modelData.code ? theme.normal.blue : (langMouseArea.containsMouse ? theme.button.background_select : theme.button.background)
                             border.color: currentConfig.lang === modelData.code ? theme.normal.blue : (langMouseArea.containsPress ? theme.button.border_select : theme.button.border)
                             border.width: 2
-
+                            
                             Column {
                                 anchors.centerIn: parent
                                 spacing: 4
-
+                                
                                 Image {
-                                    source: `../../../assets/flags/${modelData.flagImg}.png`
+                                    source: `../../../../assets/flags/${modelData.flagImg}.png`
                                     width: 48
                                     height: 32
                                     fillMode: Image.PreserveAspectFit
                                     smooth: true
                                     anchors.horizontalCenter: parent.horizontalCenter
                                 }
-
+                                
                                 Text {
                                     text: modelData.name
                                     color: currentConfig.lang === modelData.code ? theme.primary.background : theme.primary.foreground
@@ -169,7 +164,7 @@ Item {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                 }
                             }
-
+                            
                             MouseArea {
                                 id: langMouseArea
                                 anchors.fill: parent
@@ -179,7 +174,7 @@ Item {
                                     setLanguageEditor(modelData.code)
                                 }
                             }
-
+                            
                             // Checkmark for selected language
                             Rectangle {
                                 visible: currentConfig.lang === modelData.code
@@ -190,7 +185,7 @@ Item {
                                 anchors.top: parent.top
                                 anchors.right: parent.right
                                 anchors.margins: 4
-
+                                
                                 Text {
                                     text: "✓"
                                     color: theme.primary.background
@@ -202,7 +197,7 @@ Item {
                         }
                     }
                 }
-            }   
+            }
             
             Item { Layout.fillHeight: true } // Spacer
         }

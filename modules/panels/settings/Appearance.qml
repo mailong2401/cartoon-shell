@@ -20,6 +20,7 @@ Item {
 
     // Sidebar chọn tab
     Com.SideBar {
+      visible: !panelManager.fullsetting
       currentTab: root.currentTab
       Layout.fillWidth: true
       Layout.preferredHeight: 70

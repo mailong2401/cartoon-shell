@@ -9,6 +9,7 @@ Rectangle {
     id: settingsPanel
     property var theme : currentTheme
     property var launcherPanel: null  // Reference to LauncherPanel
+    property int currentTab: 0
     signal backRequested()
 
     radius: 12
@@ -25,6 +26,9 @@ Rectangle {
             sharedPanelConfig.load(sharedPanelConfig.filePath)
         }
     }
+    ListSettingsService{
+      id: listSettingService
+    }
 
     RowLayout {
         anchors.fill: parent
@@ -39,6 +43,16 @@ Rectangle {
             onBackRequested: function() {
                 settingsPanel.backRequested()
             }
+        }
+        Com.BarListSettings{
+          onCategoryChanged: function(index) {
+                settingsPanel.currentTab = index
+            }
+            title: listSettingService.listCategories[settingsStack.currentIndex].categoryName
+
+          listModal: listSettingService.listCategories[settingsStack.currentIndex].items
+
+          visible: panelManager.fullsetting
         }
         
         // Content Area
@@ -59,12 +73,14 @@ Rectangle {
                 currentIndex: 0
                 
                 // General Settings
-                Com.GeneralSettings {
+                Com.General {
+                  currentTab: settingsPanel.currentTab
                     panelConfig: sharedPanelConfig
                 }
 
                 // Appearance Settings
                 Com.Appearance {
+                    currentTab: settingsPanel.currentTab
                     panelConfig: sharedPanelConfig
                 }
 
