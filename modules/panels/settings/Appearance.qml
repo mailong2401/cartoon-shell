@@ -18,13 +18,6 @@ Item {
     anchors.fill: parent
     spacing: 0
 
-    // Sidebar chọn tab
-    Com.SideBar {
-      visible: !panelManager.fullsetting
-      currentTab: root.currentTab
-      Layout.fillWidth: true
-      Layout.preferredHeight: 70
-    }
 
     // Nội dung các tab
     StackLayout {

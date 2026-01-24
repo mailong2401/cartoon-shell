@@ -3,16 +3,16 @@
     "primary": {
         "background": "#11140f",
         "dim_background": "#11140f",
-        "foreground": "#a3d397",
-        "dim_foreground": "#baccb2",
-        "bright_foreground": "#a3d397"
+        "foreground": "#a5d395",
+        "dim_foreground": "#bbcbb1",
+        "bright_foreground": "#a5d395"
     },
     "button": {
-        "background": "#42493f",
-        "text": "#a3d397",
-        "background_select": "#8c9388",
-        "border": "#c2c8bc",
-        "border_select": "#c2c8bc"
+        "background": "#43483f",
+        "text": "#a5d395",
+        "background_select": "#8d9387",
+        "border": "#c3c8bc",
+        "border_select": "#c3c8bc"
     },
     "cursor": {
         "cursor": "#cad3f5",
