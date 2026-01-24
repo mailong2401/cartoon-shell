@@ -91,10 +91,6 @@ Rectangle {
                     panelConfig: sharedPanelConfig
                 }
 
-                // Wallpapers Settings
-                Com.Wallpapers {
-                    panelConfig: sharedPanelConfig
-                }
 
                 // Lockscreen Settings
                 Com.Dashboard {

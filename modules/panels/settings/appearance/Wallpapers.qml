@@ -492,7 +492,7 @@ Item {
         wallpaperPath = filePath.toString().replace("file://", "")
 
         wallpaperProcess.command = [
-            Qt.resolvedUrl("../../../scripts/select_wall"), wallpaperPath
+            Qt.resolvedUrl("../../../../scripts/select_wall"), wallpaperPath
         ]
         wallpaperProcess.running = true
         reloadTimer.restart()

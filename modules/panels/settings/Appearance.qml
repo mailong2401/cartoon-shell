@@ -236,39 +236,8 @@ Item {
       }
 
       // Tab Wallpaper
-      ScrollView {
-        clip: true
-        ScrollBar.vertical.policy: ScrollBar.AsNeeded
-        
-        ColumnLayout {
-          width: parent.width
-          spacing: 20
-
-          Text {
-            text: lang.appearance?.wallpaper || "Wallpaper"
-            color: theme.primary.foreground
-            font {
-              family: "ComicShannsMono Nerd Font"
-              pixelSize: 24
-              bold: true
-            }
-            Layout.alignment: Qt.AlignLeft
-          }
-
-          Rectangle {
-            Layout.fillWidth: true
-            height: 1
-            color: theme.primary.foreground
-            opacity: 0.3
-          }
-
-          // Nội dung Wallpaper ở đây
-          Text {
-            text: "Wallpaper settings content"
-            color: theme.primary.foreground
-            Layout.alignment: Qt.AlignLeft
-          }
-        }
+      Com.Wallpapers{
+        panelConfig: sharedPanelConfig
       }
 
       // Tab Advanced
