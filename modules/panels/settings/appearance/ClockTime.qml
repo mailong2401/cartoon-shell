@@ -13,6 +13,7 @@ Item {
   ScrollView {
     id: scrollView
     anchors.fill: parent
+        anchors.margins: 20
     clip: true
     
     ScrollBar.vertical.policy: ScrollBar.AsNeeded

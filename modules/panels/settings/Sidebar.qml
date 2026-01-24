@@ -46,7 +46,7 @@ Rectangle {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: isExpanded ? 12 : 6
+        anchors.margins: isExpanded ? 6 : 12
         spacing: 10
 
         // Tiêu đề - chỉ hiển thị khi expanded

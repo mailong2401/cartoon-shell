@@ -175,13 +175,10 @@ Item {
         }
         
         // Phần mô tả vị trí được chọn
-        Rectangle {
+        Item {
             id: positionDescription
             Layout.fillWidth: true
             Layout.preferredHeight: 40
-            color: theme.primary.background
-            radius: 8
-            visible: currentConfig.clockPanelPosition
             
             Text {
                 anchors.centerIn: parent
@@ -203,7 +200,7 @@ Item {
                 color: theme.primary.foreground
                 font {
                     family: "ComicShannsMono Nerd Font"
-                    pixelSize: 14
+                    pixelSize: 18
                 }
             }
         }
