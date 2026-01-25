@@ -27,6 +27,7 @@ Item {
         text: "-"
         font.pixelSize: 16
         anchors.centerIn: parent
+        color: theme.primary.foreground
     }
             
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
@@ -55,6 +56,7 @@ Item {
         text: "x"
         font.pixelSize: 16
         anchors.centerIn: parent
+        color: theme.primary.foreground
     }
             
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
