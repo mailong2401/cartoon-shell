@@ -28,10 +28,6 @@ Rectangle {
     property var theme: currentTheme
 
     // SystemTray singleton - bắt đầu theo dõi system tray
-    Repeater {
-        id: systemTray
-        model: SystemTray.items
-    }
 
     NetworkService {
         id: networkService
@@ -160,8 +156,6 @@ Rectangle {
                     width: 25
                     height: 25
                     source: trayItemContainer.trayItem?.icon || ""
-                    sourceSize: Qt.size(25, 25)
-                    opacity: trayItemContainer.trayItem?.enabled === false ? 0.5 : 1.0
                     
                     // Hiển thị tooltip nếu có
                     ToolTip {
