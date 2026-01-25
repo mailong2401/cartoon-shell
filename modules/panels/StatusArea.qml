@@ -3,8 +3,9 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Pipewire
+import QtQuick.Controls
+import Quickshell.Services.SystemTray
 import qs.services
-
 
 Rectangle {
     id: root
@@ -12,7 +13,6 @@ Rectangle {
     border.width: 3
     radius: 10
     color: theme.primary.background
-
 
     property string bluetooth_icon: "../../assets/settings/bluetooth.png"
     property string status_battery: "Unknown"
@@ -25,47 +25,40 @@ Rectangle {
     property bool bluetoothVisible: true
     property real currentVolume: Pipewire.defaultAudioSink?.audio.volume ?? 0
     property bool isMuted: Pipewire.defaultAudioSink?.audio.mute ?? false
-    property var theme : currentTheme
+    property var theme: currentTheme
 
-
-    NetworkService{
-      id: networkService
+    // SystemTray singleton - bắt đầu theo dõi system tray
+    Repeater {
+        id: systemTray
+        model: SystemTray.items
     }
 
-
+    NetworkService {
+        id: networkService
+    }
 
     PwObjectTracker {
-        objects: [ Pipewire.defaultAudioSink ]
+        objects: [Pipewire.defaultAudioSink]
     }
 
     Connections {
         target: Pipewire.defaultAudioSink?.audio ?? null
-
         function onVolumeChanged() {
-            root.shouldShowOsd = true;
-            hideTimer.restart();
+            root.shouldShowOsd = true
+            hideTimer.restart()
         }
-      }
-          Timer {
+    }
+
+    Timer {
         id: hideTimer
         interval: 1000
         onTriggered: root.shouldShowOsd = false
     }
-    
-    
-    // WifiManager component - chứa tất cả logic WiFi
-    // WiFi Panel - chỉ hiện khi được toggle
-    //
-
-
-
 
     // =============================
     //   PROCESSES
     // =============================
     
-
-
     Process {
         id: batteryCapacityProcess
         command: ["cat", "/sys/class/power_supply/BAT*/capacity"]
@@ -103,7 +96,6 @@ Rectangle {
             if (!running && stdout.text) {
                 var result = stdout.text.trim()
                 root.volumeCurrent = result
-                updateVolumeIcon()
             }
         }
     }
@@ -117,12 +109,6 @@ Rectangle {
             batteryCapacityProcess.running = true
         }
     }
-
-
-
-
-
-
 
     function updateBatteryIcon() {
         var capacity = parseInt(root.capacity_battery) || 0
@@ -141,9 +127,6 @@ Rectangle {
         }
     }
 
-
-
-
     // =============================
     //   UI LAYOUT
     // =============================
@@ -152,9 +135,95 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: 5
         spacing: 5
+        
+        // System Tray Icons - VỊ TRÍ ĐẦU
+        Repeater {
+            id: trayRepeater
+            model: SystemTray.items
+            
+            Rectangle {
+                id: trayItemContainer
+                Layout.preferredWidth: 35
+                Layout.fillHeight: true
+                color: "transparent"
+                radius: 6
+                transformOrigin: Item.Center
+                
+                // Chỉ hiển thị icon nếu có
+                visible: modelData.icon !== ""
+                
+                property var trayItem: modelData
+                
+                Image {
+                    id: trayIcon
+                    anchors.centerIn: parent
+                    width: 25
+                    height: 25
+                    source: trayItemContainer.trayItem?.icon || ""
+                    sourceSize: Qt.size(25, 25)
+                    opacity: trayItemContainer.trayItem?.enabled === false ? 0.5 : 1.0
+                    
+                    // Hiển thị tooltip nếu có
+                    ToolTip {
+                        id: trayTooltip
+                        visible: trayTooltipArea.containsMouse && trayItemContainer.trayItem?.tooltipTitle
+                        text: trayItemContainer.trayItem?.tooltipTitle || ""
+                        delay: 1000
+                    }
+                }
+                
+                MouseArea {
+                    id: trayTooltipArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+                    
+                    onEntered: trayItemContainer.scale = 1.1
+                    onExited: trayItemContainer.scale = 1.0
+                    onPressed: trayItemContainer.scale = 0.95
+                    onReleased: trayItemContainer.scale = containsMouse ? 1.1 : 1.0
+                    
+                    onClicked: function(mouse) {
+                        if (!trayItemContainer.trayItem) return
+                        
+                        if (mouse.button === Qt.LeftButton) {
+                            // Left click: primary activation
+                            trayItemContainer.trayItem.activate()
+                        } else if (mouse.button === Qt.RightButton) {
+                            // Right click: show menu if available
+                            if (trayItemContainer.trayItem.hasMenu && trayItemContainer.trayItem.menu) {
+                                trayItemContainer.trayItem.display(root, mouse.x, mouse.y)
+                            }
+                        } else if (mouse.button === Qt.MiddleButton) {
+                            // Middle click: secondary activation
+                            trayItemContainer.trayItem.secondaryActivate()
+                        }
+                    }
+                    
+                    onWheel: function(wheel) {
+                        if (!trayItemContainer.trayItem) return
+                        
+                        // Scroll action for tray items (e.g., volume control)
+                        trayItemContainer.trayItem.scroll(wheel.angleDelta.y, wheel.angleDelta.x !== 0)
+                    }
+                }
+                
+                Behavior on scale {
+                    NumberAnimation {
+                        duration: 100
+                        easing.type: Easing.OutCubic
+                    }
+                }
+            }
+        }
+        
+        Item { Layout.preferredWidth: trayRepeater.count > 0 ? 5 : 0 }
+
+        // Bluetooth
         Rectangle {
             id: bluetoothContainer
-            Layout.preferredWidth:  bluetoothContent.width
+            Layout.preferredWidth: bluetoothContent.width
             Layout.fillHeight: true
             color: "transparent"
             radius: 6
@@ -195,6 +264,7 @@ Rectangle {
                 }
             }
         }
+
         Item { Layout.fillWidth: true }
 
         // Network Status
@@ -220,7 +290,7 @@ Rectangle {
                 }
                 
                 Text {
-                  Layout.maximumWidth: 120 
+                    Layout.maximumWidth: 120 
                     text: networkService.connectedWifi
                     color: networkService.connectedWifi === "Disconnected" ? theme.normal.red : theme.primary.foreground
                     font {
@@ -260,7 +330,7 @@ Rectangle {
         // Volume
         Rectangle {
             id: volumeContainer
-            Layout.preferredWidth:  volumeContent.width
+            Layout.preferredWidth: volumeContent.width
             Layout.fillHeight: true
             color: "transparent"
             radius: 6
@@ -279,7 +349,6 @@ Rectangle {
                 }
                 Text {
                     text: isMuted ? "Muted" : Math.round(currentVolume * 100) + "%"
-
                     color: theme.primary.foreground
                     font { 
                         pixelSize: 16
@@ -300,8 +369,7 @@ Rectangle {
                 onPressed: volumeContainer.scale = 0.95
                 onReleased: volumeContainer.scale = containsMouse ? 1.1 : 1.0
                 onClicked: {
-                  panelManager.togglePanel("mixer")
-
+                    panelManager.togglePanel("mixer")
                 }
                 onWheel: {
                     var delta = wheel.angleDelta.y / 120
@@ -310,7 +378,6 @@ Rectangle {
                     } else {
                         Qt.createQmlObject('import Quickshell; Process { command: ["pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%"]; running: true }', root)
                     }
-                    updateVolumeCurrentProcess()
                 }
             }
 
@@ -365,7 +432,7 @@ Rectangle {
                 onPressed: batteryContainer.scale = 0.95
                 onReleased: batteryContainer.scale = 1.1
                 onClicked: {
-                  panelManager.togglePanel("battery")
+                    panelManager.togglePanel("battery")
                 }
             }
             Behavior on scale { NumberAnimation { duration: 100 } }
@@ -402,7 +469,7 @@ Rectangle {
                 onReleased: powerContainer.scale = 1.2
                 
                 onClicked: {
-                  panelManager.togglePanel("dashboard")
+                    panelManager.togglePanel("dashboard")
                 }
             }
             
@@ -421,6 +488,9 @@ Rectangle {
         if (!batteryStatusProcess.running) {
             batteryStatusProcess.running = true
         }
+        
+        // Log system tray status
+        console.log("SystemTray initialized, tracking:", systemTray.items.count, "items")
     }
 
     Timer {
@@ -440,6 +510,4 @@ Rectangle {
             }
         }
     }
-
-
 }
