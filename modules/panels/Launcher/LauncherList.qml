@@ -37,13 +37,6 @@ Rectangle {
         }
     }
 
-    Connections {
-        target: DesktopEntries
-        function onApplicationsChanged() {
-            container.allApps = []
-            // Repeater sẽ tự động reload
-        }
-    }
 
     Component.onCompleted: {
         Qt.callLater(function() {
