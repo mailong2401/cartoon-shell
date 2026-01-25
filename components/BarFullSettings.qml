@@ -16,11 +16,20 @@ Item {
         Rectangle {
             width: 25
             height: 25
-            radius: width / 2  // Tạo hình tròn
-            color: theme.normal.blue
+            radius: 5
+            color: theme.primary.dim_background
+            border{
+              color: theme.button.border
+              width: 2
+            }
+
+            Text {
+        text: "-"
+        font.pixelSize: 16
+        anchors.centerIn: parent
+    }
             
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            Layout.leftMargin: 5  // Khoảng cách giữa 2 hình tròn
 
             MouseArea {
                 anchors.fill: parent
@@ -35,11 +44,20 @@ Item {
         Rectangle {
             width: 25
             height: 25
-            radius: width / 2  // Tạo hình tròn
-            color: theme.normal.red
+            radius: 5
+            color: theme.primary.dim_background
+            border{
+              color: theme.button.border
+              width: 2
+            }
+
+            Text {
+        text: "x"
+        font.pixelSize: 16
+        anchors.centerIn: parent
+    }
             
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            Layout.leftMargin: 10  // Khoảng cách từ lề trái
             MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
