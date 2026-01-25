@@ -67,32 +67,6 @@ ShellRoot {
         }
     }
 
-    // Function để set wallpaper từ bất kỳ đâu
-    function setGlobalWallpaper(filePath) {
-
-        var configPath = Quickshell.env("HOME") + "/.config/quickshell/cartoon-bar"
-        var scriptPath = configPath + "/scripts/set-wallpaper.sh"
-
-
-        // Stop old process if running
-        if (globalWallpaperProcess.running) {
-            globalWallpaperProcess.running = false
-        }
-
-        // Set new command
-        globalWallpaperProcess.command = [
-            "bash",
-            scriptPath,
-            filePath
-        ]
-
-        // Start process
-        globalWallpaperProcess.running = true
-    }
-
-
-
-
 
 PanelWindow {
     visible: panelManager.hasPanel
