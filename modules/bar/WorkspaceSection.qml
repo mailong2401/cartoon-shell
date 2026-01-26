@@ -1,7 +1,9 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Io
+import qs.services
 
 Rectangle {
     id: root
@@ -10,92 +12,337 @@ Rectangle {
     border.width: 3
 
     property var theme: currentTheme
-    property string hyprInstance: Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") || ""
-    property var workspaces: []
-    property string activeWorkspace: "1"
     color: theme.primary.background
 
-    // ✅ Socket Hyprland - realtime event
-    Socket {
-        id: hyprEvents
-        path: `${Quickshell.env("XDG_RUNTIME_DIR")}/hypr/${root.hyprInstance}/.socket2.sock`
-        connected: !!root.hyprInstance
+    // Hyprland service facade
+    property ListModel workspaces: ListModel {}
+    property var windows: []
+    property int focusedWindowIndex: -1
+    property string activeWorkspace: "1"
+    property bool initialized: false
+    
+    // Workspace UI data - lưu 10 workspace đầu (1-10)
+    property var uiWorkspaces: []
+    
+    // Debounce timer for updates
+    Timer {
+        id: updateTimer
+        interval: 50
+        repeat: false
+        onTriggered: updateUIWorkspaces()
+    }
 
-        onConnectedChanged: if (connected) { initWorkspaces(); updateStatus() }
-
-        parser: SplitParser {
-            onRead: msg => {
-                const data = msg.split(">>")[1]?.split(",") || []
-                if (msg.startsWith("workspace>>") || msg.startsWith("focusedmon>>"))
-                    root.activeWorkspace = data[0] || data[1]
-                else if (msg.startsWith("createworkspace>>"))
-                    markExists(data[0])
-                else if (msg.startsWith("destroyworkspace>>"))
-                    markExists(data[0], false)
-                else if (msg.startsWith("openwindow>>") || msg.startsWith("closewindow>>"))
-                    updateStatus()
-            }
+    // Khởi tạo Hyprland service
+    function initialize() {
+        if (initialized) return;
+        
+        try {
+            Hyprland.refreshWorkspaces();
+            Hyprland.refreshToplevels();
+            Qt.callLater(() => {
+                safeUpdateWorkspaces();
+                safeUpdateWindows();
+                initUIWorkspaces();
+            });
+            initialized = true;
+        } catch (e) {
+            console.log("Failed to initialize Hyprland service:", e);
         }
     }
 
-    // ✅ Lấy trạng thái workspace từ hyprctl
-    Process {
-        id: hyprctl
-        command: ["hyprctl", "workspaces", "-j"]
-        stdout: StdioCollector {
-            onStreamFinished: {
-                try {
-                    const list = JSON.parse(text)
-                    const ids = list.map(ws => ws.id.toString())
-                    root.workspaces.forEach(ws => ws.exists = ids.includes(ws.id))
-                    root.workspaces = root.workspaces.slice()
-                } catch(e) { }
-            }
+    // Khởi tạo UI workspaces với 10 workspace đầu
+    function initUIWorkspaces() {
+        var uiWorkspacesArray = [];
+        for (var i = 1; i <= 10; i++) {
+            uiWorkspacesArray.push({
+                "id": i.toString(),
+                "exists": false,
+                "isActive": false
+            });
         }
+        root.uiWorkspaces = uiWorkspacesArray;
+        updateUIWorkspaces();
     }
 
-    // ✅ Chuyển workspace
+    // Cập nhật UI workspaces từ dữ liệu Hyprland
+    function updateUIWorkspaces() {
+        if (!initialized || workspaces.count === 0) return;
+
+        // Tạo map để tra cứu nhanh workspace
+        var workspaceMap = {};
+        for (var i = 0; i < workspaces.count; i++) {
+            var ws = workspaces.get(i);
+            workspaceMap[ws.id.toString()] = ws;
+        }
+
+        // Cập nhật UI workspaces
+        for (var j = 0; j < uiWorkspaces.length; j++) {
+            var uiWs = uiWorkspaces[j];
+            var wsId = uiWs.id;
+            var wsData = workspaceMap[wsId];
+            
+            if (wsData) {
+                uiWs.exists = wsData.isOccupied || false;
+                uiWs.isActive = (wsData.id.toString() === activeWorkspace);
+            } else {
+                uiWs.exists = false;
+                uiWs.isActive = false;
+            }
+        }
+        
+        // Force UI update
+        root.uiWorkspaces = uiWorkspaces.slice();
+    }
+
+    // Chuyển workspace
     function switchWs(id) {
-        Qt.createQmlObject(`
-            import Quickshell.Io
-            Process { command: ["hyprctl", "dispatch", "workspace", "${id}"]; running: true }
-        `, root)
-        root.activeWorkspace = id
-        markExists(id)
+        try {
+            Hyprland.dispatch(`workspace ${id}`);
+            activeWorkspace = id;
+            markWorkspaceExists(id);
+        } catch (e) {
+            console.log("Failed to switch workspace:", e);
+        }
     }
 
-    // ✅ Khởi tạo workspace 1–10
-    function initWorkspaces() {
-        root.workspaces = Array.from({length: 10}, (_, i) => ({
-            id: (i + 1).toString(),
-            exists: false
-        }))
+    // Đánh dấu workspace có tồn tại
+    function markWorkspaceExists(id, state = true) {
+        for (var i = 0; i < uiWorkspaces.length; i++) {
+            if (uiWorkspaces[i].id === id) {
+                uiWorkspaces[i].exists = state;
+                break;
+            }
+        }
+        root.uiWorkspaces = uiWorkspaces.slice();
     }
 
-    // ✅ Đánh dấu workspace có/không tồn tại
-    function markExists(id, state = true) {
-        const ws = root.workspaces.find(w => w.id === id)
-        if (ws) ws.exists = state
-        else root.workspaces.push({ id, exists: state })
-        root.workspaces.sort((a,b) => a.id - b.id)
-        root.workspaces = root.workspaces.slice()
+    // Safe workspace update
+    function safeUpdateWorkspaces() {
+        try {
+            workspaces.clear();
+            
+            if (!Hyprland.workspaces || !Hyprland.workspaces.values) {
+                return;
+            }
+
+            const hlWorkspaces = Hyprland.workspaces.values;
+            const occupiedIds = getOccupiedWorkspaceIds();
+
+            for (var i = 0; i < hlWorkspaces.length; i++) {
+                const ws = hlWorkspaces[i];
+                if (!ws || ws.id < 1) continue;
+                
+                const wsData = {
+                    "id": ws.id,
+                    "idx": ws.id,
+                    "name": ws.name || "",
+                    "output": (ws.monitor && ws.monitor.name) ? ws.monitor.name : "",
+                    "isActive": ws.active === true,
+                    "isFocused": ws.focused === true,
+                    "isUrgent": ws.urgent === true,
+                    "isOccupied": occupiedIds[ws.id] === true
+                };
+
+                workspaces.append(wsData);
+
+                if (wsData.isFocused) {
+                    root.activeWorkspace = wsData.id.toString();
+                }
+            }
+            
+            updateTimer.restart();
+        } catch (e) {
+            console.log("Error updating workspaces:", e);
+        }
     }
 
-    // ✅ Refresh hyprctl
-    function updateStatus() {
-        if (hyprctl.running) hyprctl.kill()
-        hyprctl.running = true
+    // Get occupied workspace IDs safely
+    function getOccupiedWorkspaceIds() {
+        const occupiedIds = {};
+
+        try {
+            if (!Hyprland.toplevels || !Hyprland.toplevels.values) {
+                return occupiedIds;
+            }
+
+            const hlToplevels = Hyprland.toplevels.values;
+            for (var i = 0; i < hlToplevels.length; i++) {
+                const toplevel = hlToplevels[i];
+                if (!toplevel) continue;
+                
+                try {
+                    const wsId = toplevel.workspace ? toplevel.workspace.id : null;
+                    if (wsId !== null && wsId !== undefined) {
+                        occupiedIds[wsId] = true;
+                    }
+                } catch (e) {
+                    // Ignore individual toplevel errors
+                }
+            }
+        } catch (e) {
+            // Return empty if we can't determine occupancy
+        }
+
+        return occupiedIds;
     }
 
+    // Safe window update
+    function safeUpdateWindows() {
+        try {
+            const windowsList = [];
 
-    // 🧱 Dòng workspace
+            if (!Hyprland.toplevels || !Hyprland.toplevels.values) {
+                windows = [];
+                focusedWindowIndex = -1;
+                return;
+            }
+
+            const hlToplevels = Hyprland.toplevels.values;
+            let newFocusedIndex = -1;
+
+            for (var i = 0; i < hlToplevels.length; i++) {
+                const toplevel = hlToplevels[i];
+                if (!toplevel) continue;
+                
+                const windowData = extractWindowData(toplevel);
+                if (windowData) {
+                    windowsList.push(windowData);
+
+                    if (windowData.isFocused) {
+                        newFocusedIndex = windowsList.length - 1;
+                    }
+                }
+            }
+
+            windows = windowsList;
+
+            if (newFocusedIndex !== focusedWindowIndex) {
+                focusedWindowIndex = newFocusedIndex;
+            }
+        } catch (e) {
+            console.log("Error updating windows:", e);
+        }
+    }
+
+    // Extract window data safely from a toplevel
+    function extractWindowData(toplevel) {
+        if (!toplevel) return null;
+
+        try {
+            const windowId = safeGetProperty(toplevel, "address", "");
+            if (!windowId) return null;
+
+            const appId = getAppId(toplevel);
+            const title = getAppTitle(toplevel);
+            const wsId = toplevel.workspace ? toplevel.workspace.id : null;
+            const focused = toplevel.activated === true;
+            const output = toplevel.monitor?.name || "";
+
+            return {
+                "id": windowId,
+                "title": title,
+                "appId": appId,
+                "workspaceId": wsId || -1,
+                "isFocused": focused,
+                "output": output
+            };
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function getAppTitle(toplevel) {
+        try {
+            var title = toplevel.wayland.title;
+            if (title) return title;
+        } catch (e) {}
+
+        return safeGetProperty(toplevel, "title", "");
+    }
+
+    function getAppId(toplevel) {
+        if (!toplevel) return "";
+
+        var appId = "";
+
+        try {
+            appId = toplevel.wayland.appId;
+            if (appId) return appId;
+        } catch (e) {}
+
+        appId = safeGetProperty(toplevel, "class", "");
+        if (appId) return appId;
+
+        appId = safeGetProperty(toplevel, "initialClass", "");
+        if (appId) return appId;
+
+        appId = safeGetProperty(toplevel, "appId", "");
+        if (appId) return appId;
+
+        try {
+            const ipcData = toplevel.lastIpcObject;
+            if (ipcData) {
+                return String(ipcData.class || ipcData.initialClass || ipcData.appId || ipcData.wm_class || "");
+            }
+        } catch (e) {}
+
+        return "";
+    }
+
+    // Safe property getter
+    function safeGetProperty(obj, prop, defaultValue) {
+        try {
+            const value = obj[prop];
+            if (value !== undefined && value !== null) {
+                return String(value);
+            }
+        } catch (e) {
+            // Property access failed
+        }
+        return defaultValue;
+    }
+
+    // Connections to Hyprland
+    Connections {
+        target: Hyprland.workspaces
+        enabled: root.initialized
+        function onValuesChanged() {
+            root.safeUpdateWorkspaces();
+        }
+    }
+
+    Connections {
+        target: Hyprland.toplevels
+        enabled: root.initialized
+        function onValuesChanged() {
+            root.safeUpdateWindows();
+            root.safeUpdateWorkspaces();
+            updateTimer.restart();
+        }
+    }
+
+    Connections {
+        target: Hyprland
+        enabled: root.initialized
+        function onRawEvent(event) {
+            Hyprland.refreshWorkspaces();
+            root.safeUpdateWorkspaces();
+            
+            const workspaceEvents = ["workspace", "createworkspace", "destroyworkspace", "focusedmon"];
+            if (workspaceEvents.includes(event.name)) {
+                updateTimer.restart();
+            }
+        }
+    }
+
+    // UI Layout
     RowLayout {
         id: workspaceRow
         anchors.centerIn: parent
         spacing: 4
 
         Repeater {
-            model: root.workspaces
+            model: root.uiWorkspaces
             Rectangle {
                 property string wsId: modelData.id
                 Layout.preferredWidth: 32
@@ -108,7 +355,7 @@ Rectangle {
                     width: 32
                     height: 32
                     fillMode: Image.PreserveAspectFit
-                    source: modelData.id === root.activeWorkspace
+                    source: modelData.isActive
                         ? "../../assets/workspace/pacman.png"
                         : modelData.exists
                             ? "../../assets/workspace/ghost.png"
@@ -130,8 +377,6 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        initWorkspaces()
-        updateStatus()
+        initialize();
     }
 }
-
