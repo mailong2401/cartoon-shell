@@ -119,8 +119,9 @@ Rectangle {
                     onClicked: {
                         if (modelData && modelData.entry) {
                             modelData.entry.execute()
-                            container.appLaunched()
+                            panelManager.closeAllPanels()
                         }
+
                     }
                     onEntered: {
                         if (ListView.view) {
