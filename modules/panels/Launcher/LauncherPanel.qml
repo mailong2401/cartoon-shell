@@ -134,14 +134,15 @@ PanelWindow {
                     }
                 }
 
-                Settings.SettingsPanel {
-                    id: settingsPanel
+                Loader {
+                    id: settingsPanelLoader
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    visible: panelManager.setting
-                    launcherPanel: launcherPanel
-                    Behavior on Layout.preferredWidth {
-                        NumberAnimation { duration: 250; easing.type: Easing.InOutQuad }
+                    active: panelManager.setting
+                    source: "../settings/SettingsPanel.qml"
+                    onLoaded: {
+                        item.launcherPanel = launcherPanel
+                        item.visible = Qt.binding(function() { return panelManager.setting })
                     }
                 }
 

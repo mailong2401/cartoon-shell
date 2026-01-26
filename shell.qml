@@ -82,14 +82,7 @@ PanelWindow {
         onClicked: panelManager.closeAllPanels()
     }
 }
-
-
-
-
-
       Bar{
         id: bar
       }
-
-
 }
