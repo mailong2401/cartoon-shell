@@ -41,7 +41,7 @@ QtObject {
         matugenProcess.command = ["bash", "-c", command]
         matugenProcess.running = true
         
-    }
+      }
 
     // Debug to see if triggered working or not;v
     function triggerMatugenOnThemeChange(themeMode) {
@@ -56,5 +56,12 @@ QtObject {
         } else {
             console.log("No wallpaper set, skipping matugen")
         }
-    }
+      }
+      function triggerMatugenOnWallpaperChange(currentWallpaper) {
+        var command = "matugen image '" + currentWallpaper + "' --mode " + root.theme.type
+        console.log("Running matugen command:", command)
+        matugenProcess.command = ["bash", "-c", command]
+        matugenProcess.running = true
+        reloadTimer.restart()
+      }
 }

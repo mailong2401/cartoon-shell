@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Qt.labs.folderlistmodel
+import qs.services
 
 Item {
     id: systemSettings
@@ -16,11 +17,10 @@ Item {
     property string wallpaperPath: ""
     property string currentWallpaper: ""
 
-    property Timer reloadTimer: Timer {
-        interval: 600
-        repeat: false
-        onTriggered: themeLoader.loadTheme()
+    Matugen {
+        id: matugenHandler
     }
+
 
     // Process để lấy home directory
     Process {
@@ -546,7 +546,7 @@ Item {
             Qt.resolvedUrl("../../../../scripts/select_wall"), wallpaperPath
         ]
         wallpaperProcess.running = true
-        reloadTimer.restart()
+        Qt.callLater(matugenHandler.triggerMatugenOnWallpaperChange(wallpaperPath))
         panelConfig.set("pictureWallpaper", wallpaperPath)
     }
 
