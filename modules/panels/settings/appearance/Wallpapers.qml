@@ -542,7 +542,6 @@ Item {
 
     function setWallpaper(filePath) {
     wallpaperPath = filePath.toString().replace("file://", "")
-    panelConfig.set("pictureWallpaper", wallpaperPath)
 
     wallpaperProcess.command = [
         Qt.resolvedUrl("../../../../scripts/select_wall"),
@@ -552,9 +551,11 @@ Item {
 
     if (!isVideoFile(wallpaperPath)) {
         matugenHandler.triggerMatugenOnWallpaperChange(wallpaperPath)
+        panelConfig.set("pictureWallpaper", wallpaperPath)
     } else {
         pendingMatugenPath = getThumbnailPath(filePath).replace("file://", "")
         generateThumbnail(filePath)
+        panelConfig.set("pictureWallpaper", pendingMatugenPath)
     }
 }
 
