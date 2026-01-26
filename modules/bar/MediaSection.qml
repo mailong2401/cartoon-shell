@@ -7,16 +7,16 @@ import Quickshell.Services.Mpris
 
 
 Rectangle {
-    id: musicPlayer
+    id: root
     color: theme.primary.background
     border.color: theme.button.border
     border.width: 3
     radius: 10
 
-    property string currentSong: musicPlayer.mprisPlayer ? (musicPlayer.mprisPlayer.trackTitle || "No song playing") : "No song playing"
-    property string currentArtist: musicPlayer.mprisPlayer ? (musicPlayer.mprisPlayer.trackArtist || "Unknown Artist") : "Unknown Artist"
-    property var mprisPlayer: Mpris.players.values.length > 0 ? Mpris.players.values[0] : null
-    property bool isPlaying: mprisPlayer ? mprisPlayer.isPlaying : false
+    property string currentSong: root.player ? (root.player.trackTitle || "No song playing") : "No song playing"
+    property string currentArtist: root.player ? (root.player.trackArtist || "Unknown Artist") : "Unknown Artist"
+    property var player: Mpris.players.values.length > 0 ? Mpris.players.values[0] : null
+    property bool isPlaying: player ? player.isPlaying : false
     property var theme: currentTheme
 
 
@@ -127,7 +127,7 @@ Rectangle {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
                     
-                    onClicked: musicPlayer.mprisPlayer?.next()
+                    onClicked: root.player?.next()
                     onEntered: parent.scale = 1.2
                     onExited: parent.scale = 1.0
                 }
@@ -150,7 +150,7 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: musicPlayer.mprisPlayer?.togglePlaying()
+                    onClicked: root.player?.togglePlaying()
                     onEntered: parent.scale = 1.2
                     onExited: parent.scale = 1.0
                 }
@@ -170,7 +170,7 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: musicPlayer.mprisPlayer?.next()
+                    onClicked: root.player?.next()
                     onEntered: parent.scale = 1.2
                     onExited: parent.scale = 1.0
                 }

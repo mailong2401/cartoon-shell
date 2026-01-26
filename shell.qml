@@ -10,6 +10,7 @@ import qs.config
 import qs.components
 import qs.modules.dialogs
 import qs.modules.panels
+import qs.modules.bar
 
 ShellRoot {
     id: root
@@ -86,65 +87,9 @@ PanelWindow {
 
 
 
-    PanelWindow {
-        id: panel
-        implicitHeight: 50
-        color: "transparent"
-
-        anchors {
-            left: true
-            right: true
-            top: currentConfig.mainPanelPos === "top"
-            bottom: currentConfig.mainPanelPos === "bottom"
-        }
-
-        margins {
-            top: currentConfig.mainPanelPos === "top" ? 10 : 0
-            left: 10
-            right: 10
-            bottom: currentConfig.mainPanelPos === "bottom" ? 10 : 0
-        }
-
-        RowLayout {
-            anchors.fill: parent
-
-            AppIcons {
-                id: appIcons
-                Layout.preferredWidth: 60
-                Layout.fillHeight: true
-            }
-            Item{Layout.fillWidth: true}
-
-            WorkspacePanel {
-                visible: true
-                Layout.preferredWidth: 380
-                Layout.fillHeight: true
-                hyprInstance: root.hyprInstance
-            }
-            Item{Layout.fillWidth: true}
-
-            MusicPlayer {
-                Layout.preferredWidth: 340
-                Layout.fillHeight: true
-            }
-            Item{Layout.fillWidth: true}
-
-            Timespace {
-                Layout.preferredWidth: 400
-                Layout.fillHeight: true
-            }
-            Item{Layout.fillWidth: true}
-
-            CpuPanel {
-                Layout.preferredWidth: 200
-                Layout.fillHeight: true
-            }
-            Item{Layout.fillWidth: true}
-
-            StatusArea {
-                Layout.preferredWidth: 430
-                Layout.fillHeight: true
-            }
-        }
+      Bar{
+        id: bar
       }
+
+
 }

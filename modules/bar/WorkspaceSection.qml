@@ -10,7 +10,7 @@ Rectangle {
     border.width: 3
 
     property var theme: currentTheme
-    property string hyprInstance: ""
+    property string hyprInstance: Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") || ""
     property var workspaces: []
     property string activeWorkspace: "1"
     color: theme.primary.background

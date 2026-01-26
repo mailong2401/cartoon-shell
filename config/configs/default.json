@@ -3,7 +3,7 @@
   "clockPanelPosition": "top",
   "clockPanelVisible": true,
   "spacingPanel": 12,
-  "lang": "en",
+  "lang": "vi",
   "theme": "macchiato",
   "countryFlag": "vietnam",
   "weatherApiKey": "21e0f911c7de4308916165005251210",
@@ -59,6 +59,6 @@
       }
     ]
   },
-  "pictureWallpaper": "/home/long/Pictures/Wallpapers/wall_1.jpg",
+  "pictureWallpaper": "/home/long/Pictures/Wallpapers/hatsune-miku-s-room-moewalls-com.mp4",
   "videoWallpaper": ""
 }
