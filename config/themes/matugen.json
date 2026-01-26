@@ -1,18 +1,18 @@
 {
     "type": "dark",
     "primary": {
-        "background": "#1a1110",
-        "dim_background": "#1a1110",
-        "foreground": "#ffb4a9",
-        "dim_foreground": "#e7bdb7",
-        "bright_foreground": "#ffb4a9"
+        "background": "#111318",
+        "dim_background": "#111318",
+        "foreground": "#adc6ff",
+        "dim_foreground": "#bfc6dc",
+        "bright_foreground": "#adc6ff"
     },
     "button": {
-        "background": "#534341",
-        "text": "#ffb4a9",
-        "background_select": "#a08c89",
-        "border": "#d8c2be",
-        "border_select": "#d8c2be"
+        "background": "#44474f",
+        "text": "#adc6ff",
+        "background_select": "#8e9099",
+        "border": "#c4c6d0",
+        "border_select": "#c4c6d0"
     },
     "cursor": {
         "cursor": "#cad3f5",
