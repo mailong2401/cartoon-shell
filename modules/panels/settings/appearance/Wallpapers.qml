@@ -16,6 +16,8 @@ Item {
     property string wallpapersPath: ""
     property string wallpaperPath: ""
     property string currentWallpaper: ""
+    property string pendingMatugenPath: ""
+
 
     Matugen {
         id: matugenHandler
@@ -42,7 +44,6 @@ Item {
     // Process để set wallpaper
     Process {
         id: wallpaperProcess
-        command: ["swww", "img", "", "--transition-type", "grow", "--transition-duration", "1"]
 
         stdout: StdioCollector {
             onTextChanged: { }
@@ -75,17 +76,17 @@ Item {
 
     // Process để tạo thumbnail cho video
     Process {
-        id: thumbnailProcess
-        command: ["bash", ""]
+    id: thumbnailProcess
 
-        stdout: StdioCollector {
-            onTextChanged: { }
-        }
-
-        stderr: StdioCollector {
-            onTextChanged: { }
+    onRunningChanged: {
+        if (!running && pendingMatugenPath !== "") {
+            console.log("Thumbnail ready:", pendingMatugenPath)
+            matugenHandler.triggerMatugenOnWallpaperChange(pendingMatugenPath)
+            pendingMatugenPath = ""
         }
     }
+}
+
 
     ScrollView {
         id: scrollView
@@ -540,15 +541,23 @@ Item {
     }
 
     function setWallpaper(filePath) {
-        wallpaperPath = filePath.toString().replace("file://", "")
+    wallpaperPath = filePath.toString().replace("file://", "")
+    panelConfig.set("pictureWallpaper", wallpaperPath)
 
-        wallpaperProcess.command = [
-            Qt.resolvedUrl("../../../../scripts/select_wall"), wallpaperPath
-        ]
-        wallpaperProcess.running = true
-        Qt.callLater(matugenHandler.triggerMatugenOnWallpaperChange(wallpaperPath))
-        panelConfig.set("pictureWallpaper", wallpaperPath)
+    wallpaperProcess.command = [
+        Qt.resolvedUrl("../../../../scripts/select_wall"),
+        wallpaperPath
+    ]
+    wallpaperProcess.running = true
+
+    if (!isVideoFile(wallpaperPath)) {
+        matugenHandler.triggerMatugenOnWallpaperChange(wallpaperPath)
+    } else {
+        pendingMatugenPath = getThumbnailPath(filePath).replace("file://", "")
+        generateThumbnail(filePath)
     }
+}
+
 
     function generateThumbnail(filePath) {
         if (!homePath) return

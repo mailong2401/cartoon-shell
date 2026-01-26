@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+PATH_TO_CARTOON_SHELL_JSON="$HOME/.config/quickshell/cartoon-shell/config/themes/matugen.json"
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
@@ -203,6 +204,7 @@ main() {
   # Adding line path wallpaper into default.json
 
   # Cheking mode theme for gen color with matugen
+
 }
 
 main "$@"
