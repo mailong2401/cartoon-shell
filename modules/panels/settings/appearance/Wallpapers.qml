@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Io
 import Qt.labs.folderlistmodel
 import qs.services
+import qs.common
 
 Item {
     id: systemSettings
@@ -17,6 +18,8 @@ Item {
     property string wallpaperPath: ""
     property string currentWallpaper: ""
     property string pendingMatugenPath: ""
+    property int currentScreenIndex: 0
+    property var currentScreen: Quickshell.screens[currentScreenIndex] || null
 
 
     Matugen {
@@ -148,6 +151,38 @@ Item {
                 Layout.fillWidth: true
                 height: 1
                 color: theme.primary.foreground
+              }
+              RowLayout {
+                Layout.fillWidth: true
+                spacing: 5
+
+                Repeater {
+                    model: Quickshell.screens
+                    
+                    delegate: Rectangle {
+                        Layout.preferredWidth: 100
+                        Layout.preferredHeight: 30
+                        radius: 6
+                        color: selectorRoot.currentScreenIndex === index ? 
+                               theme.normal.blue : theme.button.background
+                        border.color: theme.button.border
+                        border.width: 1
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: modelData.name || `Screen ${index + 1}`
+                            color: selectorRoot.currentScreenIndex === index ? 
+                                   theme.primary.background : theme.primary.foreground
+                            font.pixelSize: 12
+                            font.family: "ComicShannsMono Nerd Font"
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: systemSettings.currentScreenIndex = index
+                        }
+                    }
+                }
             }
             
             // Statistics
@@ -538,26 +573,28 @@ Item {
             interval: 3000;
             onTriggered: successNotification.visible = false
         }
-    }
+      }
 
     function setWallpaper(filePath) {
-    wallpaperPath = filePath.toString().replace("file://", "")
-
-    wallpaperProcess.command = [
-        Qt.resolvedUrl("../../../../scripts/select_wall"),
-        wallpaperPath
-    ]
-    wallpaperProcess.running = true
-
-    if (!isVideoFile(wallpaperPath)) {
-        matugenHandler.triggerMatugenOnWallpaperChange(wallpaperPath)
-        panelConfig.set("pictureWallpaper", wallpaperPath)
-    } else {
-        pendingMatugenPath = getThumbnailPath(filePath).replace("file://", "")
-        generateThumbnail(filePath)
-        panelConfig.set("pictureWallpaper", pendingMatugenPath)
+        var cleanPath = filePath.toString().replace("file://", "")
+        
+        // Set cho tất cả màn hình
+        if (Settings.wallpaper.setWallpaperOnAllMonitors) {
+            for (var i = 0; i < Quickshell.screens.length; i++) {
+                WallpaperService.changeWallpaper(cleanPath, Quickshell.screens[i].name)
+            }
+        } else {
+            // Set cho màn hình hiện tại trong selector
+            var screen = wallpaperSelector.currentScreen
+            if (screen) {
+                WallpaperService.changeWallpaper(cleanPath, screen.name)
+            } else if (Quickshell.screens.length > 0) {
+                WallpaperService.changeWallpaper(cleanPath, Quickshell.screens[0].name)
+            }
+        }
+        
+        showNotification(lang?.wallpapers?.success_set || "Đã đặt hình nền thành công!")
     }
-}
 
 
     function generateThumbnail(filePath) {

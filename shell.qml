@@ -11,6 +11,9 @@ import qs.components
 import qs.modules.dialogs
 import qs.modules.panels
 import qs.modules.bar
+import qs.modules.background
+import qs.services
+import qs.common
 
 ShellRoot {
     id: root
@@ -36,6 +39,8 @@ ShellRoot {
     property var currentLanguage: languageLoader.translations
     property var currentConfig: configLoader.config
     property string currentConfigProfile: configLoader.currentConfigProfile
+    property bool settingsLoaded: false
+
 
     property string hyprInstance: Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") || ""
 
@@ -85,4 +90,20 @@ PanelWindow {
       Bar{
         id: bar
       }
+      Connections {
+    target: Settings ? Settings : null
+    function onSettingsLoaded() {
+      root.settingsLoaded = true;
+    }
+  }
+        Loader {
+    active: root.settingsLoaded && Directories.ready
+    sourceComponent: Item {
+      Component.onCompleted: {
+        WallpaperService.init();
+      }
+
+      Background {}
+    }
+  }
 }

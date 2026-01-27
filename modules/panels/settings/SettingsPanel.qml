@@ -6,7 +6,7 @@ import "." as Com
 import qs.services
 
 Rectangle {
-    id: settingsPanel
+    id: rootSettings
     property var theme : currentTheme
     property var lang: currentLanguage
     property var launcherPanel: null  // Reference to LauncherPanel
@@ -38,30 +38,17 @@ Rectangle {
 
         // Sidebar - chỉ hiển thị khi không ở chế độ fullsetting
         Com.Sidebar {
-            theme: settingsPanel.theme
+            theme: rootSettings.theme
             onCategoryChanged: function(index) {
-                settingsPanel.currentTab = 0
+                rootSettings.currentTab = 0
                 settingsStack.currentIndex = index
             }
             onBackRequested: function() {
-                settingsPanel.backRequested()
+                rootSettings.backRequested()
             }
             Layout.fillHeight: true
         }
 
-        // BarListSettings - chỉ hiển thị khi ở chế độ fullsetting
-        Com.BarListSettings {
-            currentIndex: settingsPanel.currentTab
-            onCategoryChanged: function(index) {
-                settingsPanel.currentTab = index
-            }
-            title: listSettingService.listCategories[settingsStack.currentIndex].categoryName
-            listModal: listSettingService.listCategories[settingsStack.currentIndex].items
-            visible: panelManager.fullsetting
-            Layout.preferredWidth: 260
-            Layout.fillHeight: true
-        }
-        
         // Content Area
         Rectangle {
             Layout.fillWidth: true
@@ -78,24 +65,36 @@ Rectangle {
                 anchors.fill: parent
                 anchors.margins: 8
                 currentIndex: 0
-                
-                // General Settings
-                Com.General {
-                    currentTab: settingsPanel.currentTab
-                    panelConfig: sharedPanelConfig
-                }
-
-                // Appearance Settings
-                Com.Appearance {
-                    currentTab: settingsPanel.currentTab
-                    panelConfig: sharedPanelConfig
+                Loader {
+                    id: settingsGeneral
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    active: settingsStack.currentIndex === 0
+                    source: "./General.qml"
+                    onLoaded: {
+                        item.visible = Qt.binding(function() { return settingsStack.currentIndex === 0 })
+                        item.currentTab = rootSettings.currentTab
+                        item.panelConfig = sharedPanelConfig
+                    }
+                  }
+                  Loader {
+                    id: settingsAppearance
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    active: settingsStack.currentIndex === 1
+                    source: "./Appearance.qml"
+                    onLoaded: {
+                        item.visible = Qt.binding(function() { return settingsStack.currentIndex === 1 })
+                        item.currentTab = rootSettings.currentTab
+                        item.panelConfig = sharedPanelConfig
+                    }
                 }
 
 
                 // Lockscreen Settings
                 Com.Dashboard {
                     panelConfig: sharedPanelConfig
-                    launcherPanel: settingsPanel.launcherPanel
+                    launcherPanel: rootSettings.launcherPanel
                 }
 
                 // Network Settings
