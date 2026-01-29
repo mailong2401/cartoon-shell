@@ -18,8 +18,8 @@ Rectangle {
         spacing: 15
         Image {
             source: "../../assets/launcher/dashboard.png"
-            Layout.preferredWidth:  40
-            Layout.preferredHeight:  40
+            Layout.preferredWidth:  32
+            Layout.preferredHeight:  32
             fillMode: Image.PreserveAspectFit
             smooth: true
 
