@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Io
+import qs.commons
 
 ColumnLayout {
     id: presetThemesContainer
@@ -69,7 +70,7 @@ ColumnLayout {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
         onClicked: {
-            panelConfig.set("theme", modal.type)
+            Settings.appearance.theme = modal.type
             reloadTimer.restart()
             
         }
@@ -77,7 +78,7 @@ ColumnLayout {
 
     // ✔ checkmark theme đang active
     Rectangle {
-        visible: configLoader.config.theme === modal.type
+        visible: Settings.appearance.theme === modal.type
         width: 20
         height: 20
         radius: 10

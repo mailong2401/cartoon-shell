@@ -1,11 +1,12 @@
 // components/LanguageLoader.qml
 import QtQuick 2.15
+import qs.commons
 
 QtObject {
     id: languageLoader
 
     // --- Thuộc tính ---
-    property string currentLanguage: currentConfig.lang
+    property string currentLanguage: Settings.general.lang
     property var translations: ({})  // Dữ liệu ngôn ngữ hiện tại
 
     // --- Tín hiệu ---

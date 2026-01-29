@@ -2,12 +2,12 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import qs.commons
 
 Item {
   id: root
     property var theme: currentTheme
     property var lang: currentLanguage
-    property var panelConfig
     
     property Timer reloadTimer: Timer {
         interval: 30
@@ -16,7 +16,7 @@ Item {
     }
     
     function setLanguageEditor(name) {
-        panelConfig.set("lang", name)
+        Settings.general.lang = name
         reloadTimer.restart()
     }
     
@@ -137,8 +137,8 @@ Item {
                           width: !panelManager.fullsetting ? root.width/6 : root.width/12
                             height: !panelManager.fullsetting ? root.width/6 : root.width/12
                             radius: 10
-                            color: currentConfig.lang === modelData.code ? theme.normal.blue : (langMouseArea.containsMouse ? theme.button.background_select : theme.button.background)
-                            border.color: currentConfig.lang === modelData.code ? theme.normal.blue : (langMouseArea.containsPress ? theme.button.border_select : theme.button.border)
+                            color: Settings.general.lang === modelData.code ? theme.normal.blue : (langMouseArea.containsMouse ? theme.button.background_select : theme.button.background)
+                            border.color: Settings.general.lang === modelData.code ? theme.normal.blue : (langMouseArea.containsPress ? theme.button.border_select : theme.button.border)
                             border.width: 2
                             
                             Column {
@@ -156,11 +156,11 @@ Item {
                                 
                                 Text {
                                     text: modelData.name
-                                    color: currentConfig.lang === modelData.code ? theme.primary.background : theme.primary.foreground
+                                    color: Settings.general.lang === modelData.code ? theme.primary.background : theme.primary.foreground
                                     font {
                                         family: "ComicShannsMono Nerd Font"
                                         pixelSize: 12
-                                        bold: currentConfig.lang === modelData.code
+                                        bold: Settings.general.lang === modelData.code
                                     }
                                     anchors.horizontalCenter: parent.horizontalCenter
                                 }
@@ -178,7 +178,7 @@ Item {
                             
                             // Checkmark for selected language
                             Rectangle {
-                                visible: currentConfig.lang === modelData.code
+                                visible: Settings.general.lang === modelData.code
                                 width: 18
                                 height: 18
                                 radius: 9

@@ -11,7 +11,9 @@ Singleton {
   property bool ready: false
 
 
+  readonly property alias appearance: adapter.appearance
   readonly property alias wallpaper: adapter.wallpaper
+  readonly property alias general: adapter.general
 
 
   signal settingsLoaded
@@ -65,6 +67,19 @@ Singleton {
     id: adapter
 
     property Wallpaper wallpaper: Wallpaper {}
+    property Appearance appearance: Appearance {}
+    property General general: General {}
+  }
+
+  component Appearance: JsonObject {
+    property string theme: "matugen"
+    property string mode: "dark"
+    property string fonts: ""
+    property int radius: 16
+  }
+
+  component General: JsonObject {
+    property string lang: "vi"
   }
 
   component Wallpaper: JsonObject {

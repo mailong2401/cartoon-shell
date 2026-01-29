@@ -1,10 +1,11 @@
 // components/ThemeLoader.qml
 import QtQuick 2.15
+import qs.commons
 
 QtObject {
     id: themeLoader
 
-    property string currentTheme: configLoader.config.theme
+    property string currentTheme: Settings.appearance.theme
     property var theme: ({})  // theme hiện tại
 
     signal themeReloaded()     // signal thông báo theme đã thay đổi

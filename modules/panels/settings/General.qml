@@ -10,7 +10,6 @@ import "./general/" as Com
 Item {
     property var theme: currentTheme
     property var lang: currentLanguage
-    property var panelConfig  // Received from parent SettingsPanel
     id: root
     
     property int currentTab: 0
@@ -20,11 +19,6 @@ Item {
         interval: 30
         repeat: false
         onTriggered: languageLoader.loadLanguage()
-    }
-    
-    function setLanguageEditor(name) {
-        panelConfig.set("lang", name)
-        reloadTimer.restart()
     }
     
     ColumnLayout {
@@ -38,8 +32,6 @@ Item {
             
             // Tab 0: Language & Region
             Com.LanguageRegion{
-              panelConfig: root.panelConfig
-
             }
             
             // Tab 1: Date & Time
