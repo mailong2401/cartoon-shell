@@ -3,7 +3,7 @@ pragma Singleton
 import QtQuick
 import Qt.labs.folderlistmodel
 import Quickshell
-import qs.common
+import qs.commons
 import qs.utils
 
 Singleton {

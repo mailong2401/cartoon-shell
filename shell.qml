@@ -13,7 +13,7 @@ import qs.modules.panels
 import qs.modules.bar
 import qs.modules.background
 import qs.services
-import qs.common
+import qs.commons
 
 ShellRoot {
     id: root

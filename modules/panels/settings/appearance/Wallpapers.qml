@@ -5,7 +5,7 @@ import Quickshell
 import Quickshell.Io
 import Qt.labs.folderlistmodel
 import qs.services
-import qs.common
+import qs.commons
 
 Item {
     id: systemSettings
