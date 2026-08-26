@@ -9,6 +9,25 @@ Item {
     id: root
 
     Loader {
+        source: "../modules/widgets/WidgetLeft.qml"
+        active: true
+        onLoaded: {
+            item.visible = Qt.binding(function () {
+                true;
+            });
+        }
+    }
+    Loader {
+        source: "../modules/widgets/WidgetRight.qml"
+        active: true
+        onLoaded: {
+            item.visible = Qt.binding(function () {
+                true;
+            });
+        }
+    }
+
+    Loader {
         source: "../modules/panels/package/PackagePanel.qml"
         active: VisibleService.packagePanel
         onLoaded: {

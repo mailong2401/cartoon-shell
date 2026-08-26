@@ -1,39 +1,42 @@
+pragma Singleton
+pragma ComponentBehavior: Bound
+
 import QtQuick
-import Quickshell.Io
 import Quickshell
+import Quickshell.Io
 
-Item{
-  id: root
-  property int diskPercents: 0
+Singleton {
+    id: root
 
-  Process {
-    id: diskProccess
-    running: false
-    command: ["df", "/", "--output=pcent"]
+    property int diskPercents: 0
 
-    stdout: StdioCollector {
-      onStreamFinished: {
-        const lines = text.trim().split("\n")
+    Process {
+        id: diskProccess
+        running: false
+        command: ["df", "/", "--output=pcent"]
 
-        if (lines.length > 1) {
-          const value = lines[1].replace("%", "").trim()
-          root.diskPercents = parseInt(value)
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const lines = text.trim().split("\n");
+
+                if (lines.length > 1) {
+                    const value = lines[1].replace("%", "").trim();
+                    root.diskPercents = parseInt(value);
+                }
+            }
         }
-
-      }
     }
-  }
 
-  Timer {
-    id: diskTimer
-    interval: 2000
-    repeat: true
-    running: true
-    triggeredOnStart: true
-    onTriggered: {
-      if (!diskProccess.running) {
-        diskProccess.running = true;
-      }
+    Timer {
+        id: diskTimer
+        interval: 2000
+        repeat: true
+        running: true
+        triggeredOnStart: true
+        onTriggered: {
+            if (!diskProccess.running) {
+                diskProccess.running = true;
+            }
+        }
     }
-  }
 }

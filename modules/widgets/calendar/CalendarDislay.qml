@@ -24,8 +24,8 @@ Rectangle {
         }
     }
 
-    width: ScalerService.s(400)
-    height: ScalerService.s(400)
+    width: ScalerService.s(350)
+    height: ScalerService.s(350)
     color: "transparent"
     radius: ScalerService.s(10)
 
@@ -49,10 +49,12 @@ Rectangle {
         // Header
         RowLayout {
             Layout.fillWidth: true
+            spacing: ScalerService.s(12)
 
             ButtonIconText {
                 name: "arrow_circle_left"
                 opacity: calendar.animationProgress > 0.1 ? 1 : 0
+                textColor: theme.normal.red
                 Behavior on opacity {
                     NumberAnimation {
                         duration: 200
@@ -60,11 +62,37 @@ Rectangle {
                 }
                 onClicked: previousMonth()
             }
+            ButtonIconText {
+                name: "arrow_circle_right"
+                opacity: calendar.animationProgress > 0.3 ? 1 : 0
+                textColor: theme.normal.blue
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: 200
+                    }
+                }
+                onClicked: nextMonth()
+            }
+            ButtonIconText {
+                name: "explore_nearby"
+                opacity: calendar.animationProgress > 0.3 ? 1 : 0
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: 200
+                    }
+                }
+                onClicked: goToToday()
+            }
+            Item {
+                Layout.fillWidth: true
+            }
 
             CustomText {
                 name: monthLabels[currentMonth] + " " + currentYear
 
                 opacity: calendar.animationProgress > 0.2 ? 1 : 0
+                textColor: theme.normal.magenta
+
                 Behavior on opacity {
                     NumberAnimation {
                         duration: 200
@@ -74,16 +102,6 @@ Rectangle {
                 size: "normal"
                 horizontalAlignment: Text.AlignHCenter
                 Layout.fillWidth: true
-            }
-            ButtonIconText {
-                name: "arrow_circle_right"
-                opacity: calendar.animationProgress > 0.3 ? 1 : 0
-                Behavior on opacity {
-                    NumberAnimation {
-                        duration: 200
-                    }
-                }
-                onClicked: nextMonth()
             }
         }
 
