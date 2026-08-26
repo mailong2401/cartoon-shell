@@ -11,7 +11,7 @@ import "." as Com
 Item {
     id: root
     implicitWidth: ScalerService.s(480)
-    implicitHeight: ScalerService.s(250)
+    implicitHeight: ScalerService.s(270)
     property real animationProgress: 0
     SequentialAnimation on animationProgress {
         running: true

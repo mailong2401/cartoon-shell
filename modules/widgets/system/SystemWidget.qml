@@ -12,7 +12,7 @@ import qs.services.cpu
 Item {
     id: root
     implicitWidth: ScalerService.s(480)
-    implicitHeight: ScalerService.s(220)
+    implicitHeight: ScalerService.s(200)
     property real animationProgress: 0
     SequentialAnimation on animationProgress {
         running: true
